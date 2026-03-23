@@ -260,6 +260,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
     <div class="slicer-group"><label>📅 To Date</label><select id="toDateSlicer"><option value="all">Latest</option></select></div>
     <div class="slicer-group"><label>🚉 Filter by Station</label><select id="stationSlicer"><option value="all">All Stations</option></select></div>
     <div class="slicer-group"><label>🚂 Filter by Issue Type</label><select id="issueTypeSlicer"><option value="all">All Types</option></select></div>
+    <div class="slicer-group"><label>🏷️ Issue Sub Category</label><select id="subCatSlicer"><option value="all">All Sub Categories</option></select></div>
     <div class="slicer-group"><label>🔀 Filter by Direction</label><select id="directionSlicer"><option value="all">All Directions</option></select></div>
     <button class="reset-btn" onclick="resetFilters()">↻ Reset All</button>
   </div>
@@ -347,26 +348,29 @@ function populateSlicers(){
   const stations=[...new Set(RAW_DATA.map(r=>r.Station))].sort();
   const types=[...new Set(RAW_DATA.map(r=>r.IssueType).filter(Boolean))].sort();
   const dirs=[...new Set(RAW_DATA.map(r=>r.Direction).filter(Boolean))].sort();
+  const subCats=[...new Set(RAW_DATA.map(r=>r.SubCategory).filter(Boolean))].sort();
   const add=(id,arr,fmt)=>{const s=document.getElementById(id);arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=fmt?fmt(v):v;s.appendChild(o)})};
   add('fromDateSlicer',dates);add('toDateSlicer',dates);
-  add('stationSlicer',stations);add('issueTypeSlicer',types);add('directionSlicer',dirs);
+  add('stationSlicer',stations);add('issueTypeSlicer',types);add('subCatSlicer',subCats);add('directionSlicer',dirs);
 }
 function applyFilters(){
   const fromVal=document.getElementById('fromDateSlicer').value,
         toVal=document.getElementById('toDateSlicer').value,
         sv=document.getElementById('stationSlicer').value,
         tv=document.getElementById('issueTypeSlicer').value,
+        scv=document.getElementById('subCatSlicer').value,
         drv=document.getElementById('directionSlicer').value;
   filteredData=RAW_DATA.filter(r=>{
     if(fromVal!=='all'){const rd=parseDate(r.Date),fd=parseDate(fromVal);if(rd<fd)return false}
     if(toVal!=='all'){const rd=parseDate(r.Date),td=parseDate(toVal);if(rd>td)return false}
     if(sv!=='all'&&r.Station!==sv)return false;
     if(tv!=='all'&&r.IssueType!==tv)return false;
+    if(scv!=='all'&&r.SubCategory!==scv)return false;
     if(drv!=='all'&&r.Direction!==drv)return false;return true});
   renderAll();
 }
 function resetFilters(){
-  ['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','directionSlicer'].forEach(id=>document.getElementById(id).value='all');
+  ['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'].forEach(id=>document.getElementById(id).value='all');
   applyFilters();
 }
 
@@ -535,209 +539,208 @@ function renderTable(){
 
 function generatePDFReport(){
   const d=filteredData.filter(r=>r.Date);
+  if(!d.length){alert('No data to export. Adjust your filters.');return}
   const total=d.length,ls=d.filter(r=>r.IssueType==='LS mode').length,
         sr=d.filter(r=>r.IssueType==='SR mode').length,tag=d.filter(r=>r.IssueType==='Tag Missing').length,
         stCount=new Set(d.map(r=>r.Station)).size,loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size,
-        radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length,
-        som=d.filter(r=>r.SubCategory==='SOM').length,
-        kavExit=d.filter(r=>r.SubCategory.includes('KAVACH')).length;
+        radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
 
   const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
-  const dateRange=dates.length?`${dates[0]} to ${dates[dates.length-1]}`:'N/A';
+  const dateRange=dates.length?dates[0]+' to '+dates[dates.length-1]:'N/A';
 
-  // Active filters
   const fromV=document.getElementById('fromDateSlicer').value;
   const toV=document.getElementById('toDateSlicer').value;
   const stV=document.getElementById('stationSlicer').value;
   const tyV=document.getElementById('issueTypeSlicer').value;
+  const scV=document.getElementById('subCatSlicer').value;
   const drV=document.getElementById('directionSlicer').value;
-  const activeFilters=[];
-  if(fromV!=='all') activeFilters.push('From: '+fromV);
-  if(toV!=='all') activeFilters.push('To: '+toV);
-  if(stV!=='all') activeFilters.push('Station: '+stationCode(stV));
-  if(tyV!=='all') activeFilters.push('Type: '+tyV);
-  if(drV!=='all') activeFilters.push('Direction: '+drV);
-  const filterText=activeFilters.length?activeFilters.join(' · '):'No filters applied (all data)';
+  const af=[];
+  if(fromV!=='all') af.push('From: '+fromV);
+  if(toV!=='all') af.push('To: '+toV);
+  if(stV!=='all') af.push('Station: '+stationCode(stV));
+  if(tyV!=='all') af.push('Type: '+tyV);
+  if(scV!=='all') af.push('Sub-Category: '+scV);
+  if(drV!=='all') af.push('Direction: '+drV);
+  const filterText=af.length?af.join(' | '):'No filters applied (all data)';
 
-  // Group by station
-  const byStation={};
-  d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
-  const stationsSorted=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length);
+  const byStation={};d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
+  const stSorted=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length);
+  const byLoco={};d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
+  const loSorted=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length);
+  const byDate={};d.forEach(r=>{if(!byDate[r.Date])byDate[r.Date]={LS:0,SR:0,Tag:0,total:0};
+    if(r.IssueType==='LS mode')byDate[r.Date].LS++;else if(r.IssueType==='SR mode')byDate[r.Date].SR++;
+    else if(r.IssueType==='Tag Missing')byDate[r.Date].Tag++;byDate[r.Date].total++});
+  const avgPD=dates.length?(total/dates.length).toFixed(1):'0';
+  let peakDay='-',peakC=0;dates.forEach(dt=>{if(byDate[dt].total>peakC){peakC=byDate[dt].total;peakDay=dt}});
+  const subCatC={};d.forEach(r=>{const sc=r.SubCategory||'(Not specified)';subCatC[sc]=(subCatC[sc]||0)+1});
+  const scSorted=Object.entries(subCatC).sort((a,b)=>b[1]-a[1]);
 
-  // Group by loco
-  const byLoco={};
-  d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
-  const locosSorted=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length);
-
-  // Group by date for daily summary
-  const byDate={};
-  d.forEach(r=>{if(!byDate[r.Date])byDate[r.Date]={LS:0,SR:0,Tag:0,total:0};
-    if(r.IssueType==='LS mode')byDate[r.Date].LS++;
-    else if(r.IssueType==='SR mode')byDate[r.Date].SR++;
-    else if(r.IssueType==='Tag Missing')byDate[r.Date].Tag++;
-    byDate[r.Date].total++});
-
-  // Avg issues per day
-  const avgPerDay=dates.length?(total/dates.length).toFixed(1):'0';
-  // Peak day
-  let peakDay='—',peakCount=0;
-  dates.forEach(dt=>{if(byDate[dt].total>peakCount){peakCount=byDate[dt].total;peakDay=dt}});
-
-  // Sub-category distribution
-  const subCatCounts={};
-  d.forEach(r=>{const sc=r.SubCategory||'(Not specified)';subCatCounts[sc]=(subCatCounts[sc]||0)+1});
-  const subCatSorted=Object.entries(subCatCounts).sort((a,b)=>b[1]-a[1]);
-
-  let html=`
-  <div class="pdf-report-header">
-    <h2>KAVACH ER Issues Report</h2>
-    <p>Eastern Railway · LS / SR Mode & Tag Missing Issues</p>
-    <p style="font-size:7pt;margin-top:4pt">Report Period: ${dateRange} · Generated on ${new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})} at ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</p>
-    <p style="font-size:6.5pt;margin-top:3pt;padding:3pt 10pt;background:rgba(255,255,255,.15);border-radius:4pt;display:inline-block">Filters: ${filterText}</p>
-  </div>
-
-  <!-- EXECUTIVE SUMMARY -->
-  <div class="pdf-summary">
-    <h3>Executive Summary</h3>
-    <div class="pdf-summary-grid">
-      <div class="pdf-summary-item"><div class="label">Total Issues</div><div class="value">${total}</div></div>
-      <div class="pdf-summary-item"><div class="label">Date Range</div><div class="value" style="font-size:8pt">${dateRange}</div></div>
-      <div class="pdf-summary-item"><div class="label">LS Mode Issues</div><div class="value" style="color:#1A6B8A">${ls} <span style="font-size:7pt;font-weight:400">(${total?(ls/total*100).toFixed(1):'0'}%)</span></div></div>
-      <div class="pdf-summary-item"><div class="label">SR Mode Issues</div><div class="value" style="color:#E8724A">${sr} <span style="font-size:7pt;font-weight:400">(${total?(sr/total*100).toFixed(1):'0'}%)</span></div></div>
-      <div class="pdf-summary-item"><div class="label">Tag Missing</div><div class="value" style="color:#D4A843">${tag} <span style="font-size:7pt;font-weight:400">(${total?(tag/total*100).toFixed(1):'0'}%)</span></div></div>
-      <div class="pdf-summary-item"><div class="label">Radio Comm Failures</div><div class="value">${radioFail}</div></div>
-      <div class="pdf-summary-item"><div class="label">Stations Affected</div><div class="value">${stCount}</div></div>
-      <div class="pdf-summary-item"><div class="label">Locomotives</div><div class="value">${loCount}</div></div>
-      <div class="pdf-summary-item"><div class="label">Avg Issues / Day</div><div class="value">${avgPerDay}</div></div>
-      <div class="pdf-summary-item"><div class="label">Peak Day</div><div class="value" style="font-size:8pt">${peakDay} <span style="font-size:7pt;font-weight:400">(${peakCount})</span></div></div>
-    </div>
-  </div>
-
-  <!-- KEY FINDINGS -->
-  <div style="margin:10pt 12pt">
-    <div style="font-family:'Playfair Display',serif;font-size:10pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block;margin-bottom:8pt">Key Findings</div>
-    <div style="font-size:7pt;line-height:1.6;color:#4A6070">
-      <div style="margin-bottom:4pt">▸ <strong>LS Mode</strong> accounts for the majority of issues at <strong>${total?(ls/total*100).toFixed(1):'0'}%</strong> (${ls} of ${total}), indicating persistent communication challenges between locos and stations.</div>
-      <div style="margin-bottom:4pt">▸ <strong>Radio Communication Failure</strong> is the leading root cause with <strong>${radioFail}</strong> confirmed cases — where loco regular packets were sent but not received by stations.</div>
-      <div style="margin-bottom:4pt">▸ The most affected station is <strong>${stationsSorted.length?stationsSorted[0][0]:'—'}</strong> with ${stationsSorted.length?stationsSorted[0][1].length:0} issues, followed by ${stationsSorted.length>1?stationsSorted[1][0]:'—'} (${stationsSorted.length>1?stationsSorted[1][1].length:0}).</div>
-      <div style="margin-bottom:4pt">▸ Loco <strong>${locosSorted.length?locosSorted[0][0]:'—'}</strong> has the highest issue frequency (${locosSorted.length?locosSorted[0][1].length:0} issues), suggesting it may need targeted inspection.</div>
-      <div>▸ Peak issue day was <strong>${peakDay}</strong> with <strong>${peakCount} issues</strong> recorded across the network.</div>
-    </div>
-  </div>
-
-  <!-- SUB-CATEGORY TABLE -->
-  <div style="margin:10pt 12pt">
-    <table class="pdf-detail-table">
-      <caption>Issue Sub-Category Distribution</caption>
-      <thead><tr><th>Sub-Category</th><th>Count</th><th>% of Total</th><th>Severity Indicator</th></tr></thead>
-      <tbody>${subCatSorted.map(([sc,cnt])=>{
-        const pct=total?(cnt/total*100).toFixed(1):'0';
-        const bar='█'.repeat(Math.max(1,Math.round(cnt/total*30)));
-        return `<tr><td style="font-weight:600">${sc}</td><td>${cnt}</td><td>${pct}%</td><td style="color:#1A6B8A;font-size:5.5pt;letter-spacing:-0.5pt">${bar}</td></tr>`}).join('')}
-      </tbody>
-    </table>
-  </div>
-
-  <!-- DAILY SUMMARY -->
-  <div style="margin:12pt">
-    <table class="pdf-detail-table">
-      <caption>Daily Issue Summary</caption>
-      <thead><tr><th>Date</th><th>LS Mode</th><th>SR Mode</th><th>Tag Missing</th><th>Day Total</th><th>Trend</th></tr></thead>
-      <tbody>${dates.map(dt=>{const v=byDate[dt];
-        const bar='▓'.repeat(Math.max(1,Math.round(v.total/Math.max(1,peakCount)*20)));
-        return `<tr><td style="font-weight:600">${dt}</td><td>${v.LS}</td><td>${v.SR}</td><td>${v.Tag}</td><td style="font-weight:700">${v.total}</td><td style="color:#1A6B8A;font-size:5.5pt">${bar}</td></tr>`}).join('')}
-      <tr style="font-weight:700;background:#D4F1F9!important"><td>TOTAL</td><td>${ls}</td><td>${sr}</td><td>${tag}</td><td>${total}</td><td></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- STATION-WISE DETAILS -->
-  <div class="pdf-section-break"></div>
-  <div style="margin:0 12pt 8pt"><div style="font-family:'Playfair Display',serif;font-size:11pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block">Section A: Station-wise Issue Details</div>
-  <div style="font-size:6.5pt;color:#7A9AAA;margin-top:3pt">${stCount} stations · Sorted by issue count (highest first)</div></div>`;
-
-  stationsSorted.forEach(([station,issues],idx)=>{
+  // Build station detail cards (top 15)
+  let stHtml='';
+  stSorted.slice(0,15).forEach(function(entry,idx){
+    const station=entry[0],issues=entry[1];
     const sLS=issues.filter(r=>r.IssueType==='LS mode').length;
     const sSR=issues.filter(r=>r.IssueType==='SR mode').length;
     const sTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
     const sRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
     const locos=[...new Set(issues.map(r=>r.LocoId).filter(Boolean))];
-    html+=`<div class="pdf-station-section">
-      <div class="pdf-station-title">${idx+1}. ${station} — ${issues.length} issue${issues.length>1?'s':''} (LS: ${sLS} · SR: ${sSR} · Tag: ${sTag}${sRadio?' · Radio Fail: '+sRadio:''})
-        <span style="font-size:5.5pt;font-weight:400;margin-left:8pt">Locos: ${locos.join(', ')||'—'}</span>
-      </div>`;
-    issues.sort((a,b)=>parseDate(a.Date)-parseDate(b.Date)).forEach(r=>{
-      const bc=r.IssueType==='LS mode'?'pdf-badge-ls':r.IssueType==='SR mode'?'pdf-badge-sr':'pdf-badge-tag';
-      html+=`<div class="pdf-issue-card">
-        <div class="meta">
-          <span class="pdf-badge ${bc}">${r.IssueType||'—'}</span>
-          ${r.SubCategory?` · <strong>${r.SubCategory}</strong>`:''}
-          ${r.Date?` · ${r.Date}`:''}${r.Time?` @ ${r.Time}`:''}
-          ${r.LocoId?` · Loco <strong>${r.LocoId}</strong>`:''}
-          ${r.Direction?` · Dir: ${r.Direction}`:''}
-          ${r.IssueCount?` · Count: ${r.IssueCount}`:''}
-        </div>
-        ${r.TrialNote?`<div class="analysis-text" style="color:#0B3D5B"><strong>Observation:</strong> ${r.TrialNote}</div>`:''}
-        ${r.Analysis?`<div class="analysis-text"><strong>Analysis:</strong> ${r.Analysis}</div>`:''}
-        ${r.RootCause?`<div class="analysis-text"><strong>Root Cause / Radio Data:</strong> ${r.RootCause}</div>`:''}
-        ${r.CorrectiveAction?`<div class="analysis-text" style="color:#1A6B8A"><strong>Corrective Action:</strong> ${r.CorrectiveAction}</div>`:''}
-        ${r.ActionTaken?`<div class="analysis-text" style="color:#3ABBB0"><strong>Action Taken:</strong> ${r.ActionTaken}</div>`:''}
-      </div>`;
+    stHtml+='<div style="margin:6pt 0;page-break-inside:avoid">';
+    stHtml+='<div style="font-family:Playfair Display,serif;font-size:8.5pt;color:#0B3D5B;padding:4pt 8pt;background:#D4F1F9;border-left:3px solid #1A6B8A;margin-bottom:4pt">';
+    stHtml+=(idx+1)+'. '+station+' - '+issues.length+' issue'+(issues.length>1?'s':'')+' (LS:'+sLS+' | SR:'+sSR+' | Tag:'+sTag+(sRadio?' | Radio:'+sRadio:'')+')';
+    stHtml+='<span style="font-size:5pt;font-weight:400;margin-left:6pt">Locos: '+(locos.join(', ')||'-')+'</span></div>';
+    issues.sort(function(a,b){return parseDate(a.Date)-parseDate(b.Date)}).forEach(function(r){
+      var bgStyle=r.IssueType==='LS mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':r.IssueType==='SR mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
+      stHtml+='<div style="padding:4pt 8pt;margin-bottom:3pt;border:1px solid #e8dcc8;border-radius:3pt;font-size:6.5pt;background:#fff">';
+      stHtml+='<div style="color:#7A9AAA;font-size:6pt;margin-bottom:2pt">';
+      stHtml+='<span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:5.5pt;font-weight:700;'+bgStyle+'">'+( r.IssueType||'-')+'</span>';
+      if(r.SubCategory) stHtml+=' | <b>'+r.SubCategory+'</b>';
+      if(r.Date) stHtml+=' | '+r.Date;
+      if(r.Time) stHtml+=' @ '+r.Time;
+      if(r.LocoId) stHtml+=' | Loco <b>'+r.LocoId+'</b>';
+      if(r.Direction) stHtml+=' | Dir: '+r.Direction;
+      stHtml+='</div>';
+      if(r.Analysis) stHtml+='<div style="color:#4A6070;font-size:6.5pt;line-height:1.4"><b>Analysis:</b> '+r.Analysis+'</div>';
+      if(r.RootCause) stHtml+='<div style="color:#4A6070;font-size:6.5pt;line-height:1.4"><b>Root Cause:</b> '+r.RootCause+'</div>';
+      if(r.ActionTaken) stHtml+='<div style="color:#3ABBB0;font-size:6.5pt;line-height:1.4"><b>Action:</b> '+r.ActionTaken+'</div>';
+      stHtml+='</div>';
     });
-    html+=`</div>`;
+    stHtml+='</div>';
+  });
+  if(stSorted.length>15) stHtml+='<div style="font-size:7pt;color:#7A9AAA;padding:6pt;text-align:center">+ '+(stSorted.length-15)+' more stations in appendix</div>';
+
+  // Loco table rows
+  var locoRows='';
+  loSorted.forEach(function(entry){
+    var loco=entry[0],issues=entry[1];
+    var lLS=issues.filter(r=>r.IssueType==='LS mode').length;
+    var lSR=issues.filter(r=>r.IssueType==='SR mode').length;
+    var lTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
+    var lRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+    var lSt=[...new Set(issues.map(r=>stationCode(r.Station)))].join(', ');
+    locoRows+='<tr><td style="font-weight:700">'+loco+'</td><td style="font-weight:700">'+issues.length+'</td><td>'+lLS+'</td><td>'+lSR+'</td><td>'+lTag+'</td><td>'+lRadio+'</td><td style="font-size:5pt">'+lSt+'</td></tr>';
   });
 
-  // LOCO-WISE SUMMARY
-  html+=`<div class="pdf-section-break"></div>
-  <div style="margin:0 12pt 8pt"><div style="font-family:'Playfair Display',serif;font-size:11pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block">Section B: Locomotive-wise Summary</div>
-  <div style="font-size:6.5pt;color:#7A9AAA;margin-top:3pt">${loCount} locomotives · Top issues per loco</div></div>
-  <div style="margin:0 12pt">
-    <table class="pdf-detail-table">
-      <thead><tr><th>Loco ID</th><th>Total Issues</th><th>LS Mode</th><th>SR Mode</th><th>Tag Missing</th><th>Radio Failures</th><th>Stations Affected</th></tr></thead>
-      <tbody>${locosSorted.map(([loco,issues])=>{
-        const lLS=issues.filter(r=>r.IssueType==='LS mode').length;
-        const lSR=issues.filter(r=>r.IssueType==='SR mode').length;
-        const lTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
-        const lRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
-        const lStations=[...new Set(issues.map(r=>stationCode(r.Station)))].join(', ');
-        return `<tr><td style="font-weight:700">${loco}</td><td style="font-weight:700">${issues.length}</td><td>${lLS}</td><td>${lSR}</td><td>${lTag}</td><td>${lRadio}</td><td style="font-size:5.5pt">${lStations}</td></tr>`}).join('')}
-      </tbody>
-    </table>
-  </div>`;
+  // Appendix rows
+  var appRows='';
+  d.forEach(function(r,i){
+    var bgStyle=r.IssueType==='LS mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':r.IssueType==='SR mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
+    var an=(r.Analysis||'-').slice(0,120);if(r.Analysis&&r.Analysis.length>120)an+='...';
+    appRows+='<tr><td style="color:#7A9AAA">'+(i+1)+'</td><td>'+r.Date+'</td><td>'+stationCode(r.Station)+'</td><td>'+(r.LocoId||'-')+'</td><td>'+(r.Direction||'-')+'</td>';
+    appRows+='<td><span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:5pt;font-weight:700;'+bgStyle+'">'+(r.IssueType||'-')+'</span></td>';
+    appRows+='<td>'+(r.SubCategory||'-')+'</td><td>'+(r.Time||'-')+'</td><td style="max-width:160pt;white-space:normal;font-size:5.5pt">'+an+'</td></tr>';
+  });
 
-  // Full table at the end
-  html+=`<div class="pdf-section-break"></div>
-  <div style="margin:0 12pt">
-    <table class="pdf-detail-table">
-      <caption>Appendix: Complete Issue Log (${d.length} Records)</caption>
-      <thead><tr><th>#</th><th>Date</th><th>Station</th><th>Loco</th><th>Dir</th><th>Type</th><th>Sub-Category</th><th>Time</th><th>Analysis</th></tr></thead>
-      <tbody>${d.map((r,i)=>{
-        const bc=r.IssueType==='LS mode'?'pdf-badge-ls':r.IssueType==='SR mode'?'pdf-badge-sr':'pdf-badge-tag';
-        return `<tr>
-          <td style="color:#7A9AAA">${i+1}</td>
-          <td>${r.Date}</td>
-          <td title="${r.Station}">${stationCode(r.Station)}</td>
-          <td>${r.LocoId||'—'}</td>
-          <td>${r.Direction||'—'}</td>
-          <td><span class="pdf-badge ${bc}">${r.IssueType||'—'}</span></td>
-          <td>${r.SubCategory||'—'}</td>
-          <td>${r.Time||'—'}</td>
-          <td style="max-width:180pt;white-space:normal">${(r.Analysis||'—').slice(0,150)}${r.Analysis&&r.Analysis.length>150?'…':''}</td>
-        </tr>`}).join('')}
-      </tbody>
-    </table>
-  </div>
-  <div class="pdf-page-footer">KAVACH Eastern Railway · Internal Issue Report · Confidential<br>Generated ${new Date().toLocaleString('en-IN')} · Total ${total} records · ${stCount} stations · ${loCount} locos</div>`;
+  // Daily summary rows
+  var dailyRows='';
+  dates.forEach(function(dt){var v=byDate[dt];
+    dailyRows+='<tr><td style="font-weight:600">'+dt+'</td><td>'+v.LS+'</td><td>'+v.SR+'</td><td>'+v.Tag+'</td><td style="font-weight:700">'+v.total+'</td></tr>';
+  });
 
-  document.getElementById('pdfReport').innerHTML=html;
-  setTimeout(()=>window.print(),300);
+  // Sub-cat rows
+  var scRows='';
+  scSorted.forEach(function(entry){
+    scRows+='<tr><td style="font-weight:600">'+entry[0]+'</td><td>'+entry[1]+'</td><td>'+(total?(entry[1]/total*100).toFixed(1):'0')+'%</td></tr>';
+  });
+
+  var genDate=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+
+  // Open new window
+  var w=window.open('','_blank','width=900,height=700');
+  if(!w){alert('Pop-up blocked! Please allow pop-ups for this site and try again.');return}
+
+  var doc='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>KAVACH ER Issues Report</title>';
+  doc+='<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">';
+  doc+='<style>';
+  doc+='*{margin:0;padding:0;box-sizing:border-box}';
+  doc+='body{font-family:DM Sans,sans-serif;color:#1A2A35;font-size:8pt;padding:20pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}';
+  doc+='@media print{body{padding:0}@page{margin:12mm 10mm;size:A4}.no-print{display:none!important}}';
+  doc+='.hdr{background:linear-gradient(135deg,#0B3D5B,#1A6B8A,#2D9CBA);color:#fff;padding:20pt;text-align:center;border-radius:4pt;margin-bottom:14pt}';
+  doc+='.hdr h2{font-family:Playfair Display,serif;font-size:16pt;margin-bottom:3pt}';
+  doc+='.hdr p{font-size:7.5pt;opacity:.85}';
+  doc+='.hdr .flt{font-size:6.5pt;margin-top:4pt;padding:3pt 10pt;background:rgba(255,255,255,.15);border-radius:3pt;display:inline-block}';
+  doc+='.summary{margin-bottom:12pt;padding:12pt;background:#f8f6f0;border:1px solid #ddd;border-radius:4pt}';
+  doc+='.summary h3{font-family:Playfair Display,serif;font-size:10pt;color:#0B3D5B;margin-bottom:8pt;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block}';
+  doc+='.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:6pt}';
+  doc+='.si{padding:6pt;background:#fff;border:1px solid #e8dcc8;border-radius:3pt;text-align:center}';
+  doc+='.si .lb{font-size:5.5pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:600}';
+  doc+='.si .vl{font-family:Playfair Display,serif;font-size:11pt;color:#0B3D5B;font-weight:700}';
+  doc+='.st{font-family:Playfair Display,serif;font-size:10pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:3pt;display:inline-block;margin:10pt 0 6pt}';
+  doc+='.fd{font-size:7pt;line-height:1.6;color:#4A6070;margin-bottom:10pt}';
+  doc+='.fd div{margin-bottom:3pt}';
+  doc+='table{width:100%;border-collapse:collapse;font-size:6.5pt;margin-bottom:10pt}';
+  doc+='table caption{font-family:Playfair Display,serif;font-size:9pt;color:#0B3D5B;text-align:left;margin-bottom:4pt;padding-bottom:3pt;border-bottom:2px solid #2D9CBA;caption-side:top}';
+  doc+='th{background:#0B3D5B;color:#fff;padding:4pt 5pt;text-align:left;font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:5.5pt}';
+  doc+='td{padding:3pt 5pt;border-bottom:1px solid #e8dcc8;vertical-align:top}';
+  doc+='tr:nth-child(even){background:#faf6ee}';
+  doc+='tr{page-break-inside:avoid}';
+  doc+='.tr{font-weight:700;background:#D4F1F9!important}';
+  doc+='.pb{page-break-before:always}';
+  doc+='.ft{text-align:center;font-size:6pt;color:#7A9AAA;margin-top:12pt;padding-top:6pt;border-top:1px solid #e8dcc8}';
+  doc+='.pn-btn{display:block;margin:0 auto 16pt;padding:10px 28px;background:linear-gradient(135deg,#1A6B8A,#2D9CBA);color:#fff;border:none;border-radius:8px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer}';
+  doc+='.pn-btn:hover{opacity:.9}';
+  doc+='</style></head><body>';
+
+  // Print button at top
+  doc+='<button class="pn-btn no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>';
+
+  doc+='<div class="hdr"><h2>KAVACH ER Issues Report</h2>';
+  doc+='<p>Eastern Railway | LS / SR Mode &amp; Tag Missing Issues</p>';
+  doc+='<p>Report Period: '+dateRange+' | Generated: '+genDate+'</p>';
+  doc+='<div class="flt">Filters: '+filterText+'</div></div>';
+
+  doc+='<div class="summary"><h3>Executive Summary</h3><div class="sg">';
+  doc+='<div class="si"><div class="lb">Total Issues</div><div class="vl">'+total+'</div></div>';
+  doc+='<div class="si"><div class="lb">LS Mode</div><div class="vl" style="color:#1A6B8A">'+ls+' <span style="font-size:6pt;font-weight:400">('+( total?(ls/total*100).toFixed(1):'0')+'%)</span></div></div>';
+  doc+='<div class="si"><div class="lb">SR Mode</div><div class="vl" style="color:#E8724A">'+sr+' <span style="font-size:6pt;font-weight:400">('+( total?(sr/total*100).toFixed(1):'0')+'%)</span></div></div>';
+  doc+='<div class="si"><div class="lb">Tag Missing</div><div class="vl" style="color:#D4A843">'+tag+'</div></div>';
+  doc+='<div class="si"><div class="lb">Radio Failures</div><div class="vl">'+radioFail+'</div></div>';
+  doc+='<div class="si"><div class="lb">Stations</div><div class="vl">'+stCount+'</div></div>';
+  doc+='<div class="si"><div class="lb">Locomotives</div><div class="vl">'+loCount+'</div></div>';
+  doc+='<div class="si"><div class="lb">Avg / Day</div><div class="vl">'+avgPD+'</div></div>';
+  doc+='<div class="si"><div class="lb">Peak Day</div><div class="vl" style="font-size:8pt">'+peakDay+' ('+peakC+')</div></div>';
+  doc+='<div class="si"><div class="lb">Days Covered</div><div class="vl">'+dates.length+'</div></div>';
+  doc+='</div></div>';
+
+  doc+='<div class="st">Key Findings</div>';
+  doc+='<div class="fd">';
+  doc+='<div>&#9654; <b>LS Mode</b> accounts for '+(total?(ls/total*100).toFixed(1):'0')+'% ('+ls+' of '+total+') of all issues.</div>';
+  doc+='<div>&#9654; <b>Radio Communication Failure</b> is the leading root cause with '+radioFail+' confirmed cases.</div>';
+  doc+='<div>&#9654; Most affected station: <b>'+(stSorted.length?stSorted[0][0]:'-')+'</b> ('+(stSorted.length?stSorted[0][1].length:0)+' issues).</div>';
+  doc+='<div>&#9654; Most affected loco: <b>'+(loSorted.length?loSorted[0][0]:'-')+'</b> ('+(loSorted.length?loSorted[0][1].length:0)+' issues).</div>';
+  doc+='<div>&#9654; Peak day: <b>'+peakDay+'</b> with '+peakC+' issues.</div>';
+  doc+='</div>';
+
+  doc+='<table><caption>Sub-Category Distribution</caption><thead><tr><th>Sub-Category</th><th>Count</th><th>%</th></tr></thead><tbody>'+scRows+'</tbody></table>';
+
+  doc+='<table><caption>Daily Issue Summary</caption><thead><tr><th>Date</th><th>LS</th><th>SR</th><th>Tag</th><th>Total</th></tr></thead><tbody>'+dailyRows;
+  doc+='<tr class="tr"><td>TOTAL</td><td>'+ls+'</td><td>'+sr+'</td><td>'+tag+'</td><td>'+total+'</td></tr></tbody></table>';
+
+  doc+='<div class="pb"></div>';
+  doc+='<div class="st">Section A: Station-wise Issue Details</div>';
+  doc+='<div style="font-size:6pt;color:#7A9AAA;margin-bottom:6pt">'+stCount+' stations | Top 15 with full details</div>';
+  doc+=stHtml;
+
+  doc+='<div class="pb"></div>';
+  doc+='<div class="st">Section B: Locomotive-wise Summary</div>';
+  doc+='<table><thead><tr><th>Loco ID</th><th>Total</th><th>LS</th><th>SR</th><th>Tag</th><th>Radio</th><th>Stations</th></tr></thead><tbody>'+locoRows+'</tbody></table>';
+
+  doc+='<div class="pb"></div>';
+  doc+='<table><caption>Appendix: Complete Issue Log ('+d.length+' Records)</caption>';
+  doc+='<thead><tr><th>#</th><th>Date</th><th>Station</th><th>Loco</th><th>Dir</th><th>Type</th><th>Sub-Cat</th><th>Time</th><th>Analysis</th></tr></thead>';
+  doc+='<tbody>'+appRows+'</tbody></table>';
+
+  doc+='<div class="ft">KAVACH Eastern Railway | Internal Issue Report | Confidential | '+genDate+' | '+total+' records</div>';
+  doc+='</body></html>';
+
+  w.document.write(doc);
+  w.document.close();
 }
 
 function renderAll(){renderKPIs();renderTrend();renderDonut();renderSubCat();renderDirection();
   renderStationBar();renderLocoBar();renderStacked();renderRadar();renderHeatmap();renderCumulative();renderBubble();renderTable()}
 
 populateSlicers();
-['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','directionSlicer'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 renderAll();
 </script>
 </body>
