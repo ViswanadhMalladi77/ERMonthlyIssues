@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>KAVACH AI Insights</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --void:#080808;--deep:#0C0C0C;--surf:#121212;--raised:#181818;--hover:#1E1E1E;
+  --bdim:#1A1A1A;--bmid:#2A2A2A;--bglow:#3A3A3A;
+  --gold:#C9A84C;--gold-l:#E8D48B;--gold-d:#8A7535;
+  --coral:#E85D3A;--coral-d:#A03E24;
+  --bh:#F0E2C8;--bm:#D4C4A8;--bc:#B8A088;--bd:#8A7A68;
+  --tb:#F5F0E8;--tm:#C8BBA8;--td:#6A6050;--tg:#3A352C;
+  --grn:#34D399;--red:#EF4444;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--void);
+  color:var(--bm);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* ========== AMBIENT BACKGROUND ========== */
+.ambient{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  pointer-events:none;z-index:0;overflow:hidden;
+}
+.ambient .orb{
+  position:absolute;border-radius:50%;
+  filter:blur(140px);opacity:.05;
+  animation:orbDrift 24s ease-in-out infinite;
+}
+.ambient .orb:nth-child(1){
+  width:700px;height:700px;
+  background:var(--coral);
+  top:-250px;right:-150px;
+}
+.ambient .orb:nth-child(2){
+  width:600px;height:600px;
+  background:var(--gold);
+  bottom:-250px;left:-150px;
+  animation-delay:-9s;
+}
+.ambient .orb:nth-child(3){
+  width:450px;height:450px;
+  background:var(--bc);
+  top:35%;left:45%;
+  animation-delay:-16s;
+}
+@keyframes orbDrift{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(40px,-50px) scale(1.15)}
+  66%{transform:translate(-30px,40px) scale(.9)}
+}
+
+/* Film grain */
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.02;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat:repeat;background-size:128px;
+}
+
+/* Subtle scan line */
+.scanline{
+  position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.015) 2px,rgba(0,0,0,.015) 4px);
+}
+
+/* ========== HEADER ========== */
+.hd{
+  position:relative;z-index:10;
+  padding:14px 32px;
+  background:rgba(12,12,12,.82);
+  backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);
+  border-bottom:1px solid var(--bdim);
+  display:flex;align-items:center;justify-content:space-between;
+  animation:hdIn .6s ease both;
+}
+@keyframes hdIn{from{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+
+.hd .brand{display:flex;align-items:center;gap:14px}
+.hd .logo{
+  width:44px;height:44px;border-radius:12px;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  box-shadow:0 4px 24px rgba(232,93,58,.25),inset 0 1px 0 rgba(255,255,255,.15);
+}
+.hd .logo img{border-radius:6px;filter:invert(1);position:relative;z-index:1}
+.hd h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:1.55rem;letter-spacing:3.5px;
+  color:var(--tb);line-height:1;
+}
+.hd .sub{
+  font-size:.57rem;color:var(--td);
+  letter-spacing:2.5px;text-transform:uppercase;
+  margin-top:3px;font-weight:500;
+}
+.hd .mid{display:flex;align-items:center;gap:8px}
+.hd .dot{
+  width:8px;height:8px;border-radius:50%;
+  transition:all .5s;
+}
+.hd .dot.off{background:var(--tg)}
+.hd .dot.on{background:var(--grn);box-shadow:0 0 14px rgba(52,211,153,.4)}
+.hd .stxt{font-size:.7rem;font-weight:500;letter-spacing:.5px;transition:color .4s}
+.hd .acts{display:flex;gap:8px}
+.hd .btn{
+  padding:9px 20px;border-radius:8px;
+  border:1px solid var(--bmid);background:transparent;
+  color:var(--bc);font-family:'Inter',sans-serif;
+  font-size:.7rem;font-weight:600;cursor:pointer;
+  transition:all .25s;text-decoration:none;
+  display:flex;align-items:center;gap:7px;letter-spacing:.4px;
+}
+.hd .btn:hover{
+  background:var(--hover);color:var(--tb);
+  border-color:var(--bglow);transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(0,0,0,.3);
+}
+
+/* ========== AUTH SCREEN ========== */
+.auth{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:40px;position:relative;z-index:10;
+  animation:authIn .8s cubic-bezier(.16,1,.3,1) both;
+  animation-delay:.2s;opacity:0;
+}
+@keyframes authIn{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(30px)}}
+
+.auth-card{
+  background:linear-gradient(180deg,var(--surf) 0%,var(--deep) 100%);
+  border:1px solid var(--bmid);border-radius:28px;
+  padding:56px 52px;max-width:460px;width:100%;text-align:center;
+  box-shadow:0 60px 120px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.03);
+  position:relative;overflow:hidden;
+}
+.auth-card::before{
+  content:'';position:absolute;top:-60%;right:-30%;
+  width:350px;height:350px;border-radius:50%;
+  background:radial-gradient(circle,rgba(232,93,58,.06),transparent 70%);
+  pointer-events:none;
+}
+.auth-card .icon-wrap{
+  width:80px;height:80px;border-radius:22px;
+  margin:0 auto 28px;position:relative;
+  background:linear-gradient(135deg,var(--raised),var(--hover));
+  border:1px solid var(--bmid);
+  display:flex;align-items:center;justify-content:center;
+  animation:iconPulse 3s ease-in-out infinite;
+}
+@keyframes iconPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(232,93,58,.15)}
+  50%{box-shadow:0 0 0 16px rgba(232,93,58,0)}
+}
+.auth-card .icon-wrap::after{
+  content:'';position:absolute;inset:-3px;border-radius:24px;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  opacity:.12;z-index:0;
+}
+.auth-card .icon-wrap img{filter:invert(1);position:relative;z-index:1}
+.auth-card h2{
+  font-family:'Bebas Neue',sans-serif;font-size:2.1rem;
+  letter-spacing:5px;color:var(--tb);margin-bottom:8px;
+}
+.auth-card .desc{
+  font-size:.8rem;color:var(--td);margin-bottom:32px;
+  line-height:1.7;font-weight:400;
+}
+.auth-card .field{position:relative;margin-bottom:20px}
+.auth-card input{
+  width:100%;padding:16px 50px 16px 20px;border-radius:14px;
+  border:1.5px solid var(--bmid);background:var(--void);
+  color:var(--tb);font-family:'Inter',sans-serif;
+  font-size:.88rem;font-weight:500;outline:none;
+  transition:all .3s;letter-spacing:.5px;
+}
+.auth-card input::placeholder{color:var(--tg);font-weight:400}
+.auth-card input:focus{
+  border-color:var(--gold-d);
+  box-shadow:0 0 0 4px rgba(201,168,76,.07),0 0 30px rgba(201,168,76,.03);
+}
+.auth-card .eye{
+  position:absolute;right:18px;top:50%;transform:translateY(-50%);
+  background:none;border:none;color:var(--tg);
+  cursor:pointer;font-size:.95rem;transition:color .2s;
+}
+.auth-card .eye:hover{color:var(--bc)}
+.auth-card .go-btn{
+  width:100%;padding:17px;border-radius:14px;border:none;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--coral),var(--coral-d) 50%,var(--gold));
+  background-size:200% 200%;
+  color:#fff;font-family:'Bebas Neue',sans-serif;
+  font-size:1.15rem;letter-spacing:4px;cursor:pointer;
+  transition:all .3s;
+  animation:shimmer 5s ease infinite;
+}
+@keyframes shimmer{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+.auth-card .go-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(232,93,58,.25);
+}
+.auth-card .go-btn:disabled{opacity:.35;cursor:not-allowed;transform:none;animation:none}
+.auth-card .err{color:var(--red);font-size:.72rem;margin-top:14px;min-height:18px;font-weight:500}
+.auth-card .sec{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-top:22px;font-size:.58rem;color:var(--tg);
+  letter-spacing:.8px;text-transform:uppercase;
+}
+.auth-card .sec .lk{color:var(--grn);font-size:.65rem}
+
+/* ========== CHAT SCREEN ========== */
+.chat{
+  flex:1;display:none;flex-direction:column;
+  max-width:960px;width:100%;margin:0 auto;
+  position:relative;z-index:10;
+}
+.chat.on{display:flex;animation:chatIn .5s ease both}
+@keyframes chatIn{from{opacity:0}to{opacity:1}}
+
+/* Quick action bar */
+.qbar{
+  padding:14px 28px;display:flex;gap:8px;flex-wrap:wrap;
+  border-bottom:1px solid var(--bdim);
+  animation:qbarIn .6s ease both;animation-delay:.2s;opacity:0;
+}
+@keyframes qbarIn{to{opacity:1;transform:translateY(0)}from{opacity:0;transform:translateY(-10px)}}
+.qb{
+  padding:10px 20px;border-radius:28px;
+  border:1px solid var(--bdim);background:transparent;
+  color:var(--bd);font-size:.72rem;font-weight:600;
+  cursor:pointer;transition:all .3s;
+  font-family:'Inter',sans-serif;letter-spacing:.4px;
+  position:relative;overflow:hidden;
+}
+.qb::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  opacity:0;transition:opacity .3s;border-radius:28px;
+}
+.qb:hover{
+  border-color:var(--gold-d);color:var(--tb);
+  transform:translateY(-1px);
+  box-shadow:0 4px 16px rgba(201,168,76,.1);
+}
+.qb:hover::before{opacity:.1}
+.qb span{position:relative;z-index:1}
+
+/* ===== MESSAGES AREA - SCROLLABLE ===== */
+.msgs{
+  flex:1 1 0;
+  min-height:0;
+  overflow-y:auto !important;
+  padding:28px 28px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  scroll-behavior:smooth;
+}
+.msgs::-webkit-scrollbar{width:5px}
+.msgs::-webkit-scrollbar-track{background:transparent}
+.msgs::-webkit-scrollbar-thumb{background:var(--bmid);border-radius:3px}
+.msgs::-webkit-scrollbar-thumb:hover{background:var(--bglow)}
+
+/* Messages */
+.m{
+  max-width:82%;padding:18px 22px;border-radius:20px;
+  font-size:.84rem;line-height:1.75;font-weight:400;letter-spacing:.15px;
+  animation:msgIn .5s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes msgIn{
+  from{opacity:0;transform:translateY(16px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+.m.u{
+  align-self:flex-end;
+  background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));
+  color:var(--bh);border:1px solid rgba(201,168,76,.1);
+  border-bottom-right-radius:5px;
+}
+
+.m.b{
+  align-self:flex-start;
+  background:var(--surf);color:var(--bm);
+  border:1px solid var(--bdim);border-bottom-left-radius:5px;
+  box-shadow:0 8px 30px rgba(0,0,0,.2);
+}
+.m.b strong{color:var(--bh);font-weight:700}
+.m.b .mh{
+  display:flex;align-items:center;gap:9px;margin-bottom:12px;
+}
+.m.b .mh .pulse{
+  width:8px;height:8px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  box-shadow:0 0 12px rgba(232,93,58,.35);
+  animation:pulseGlow 2s ease-in-out infinite;
+}
+@keyframes pulseGlow{
+  0%,100%{box-shadow:0 0 8px rgba(232,93,58,.3)}
+  50%{box-shadow:0 0 20px rgba(232,93,58,.5)}
+}
+.m.b .mh span{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:.78rem;letter-spacing:2.5px;color:var(--td);
+}
+
+.m.i{
+  align-self:center;color:var(--tg);font-size:.68rem;
+  text-align:center;padding:12px 24px;max-width:100%;
+  letter-spacing:.4px;border:1px solid var(--bdim);
+  border-radius:28px;background:var(--deep);
+}
+
+/* Typing indicator */
+.tp{
+  align-self:flex-start;padding:18px 22px;
+  display:flex;gap:7px;align-items:center;
+}
+.tp span{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--bmid);
+  animation:typeBounce .7s ease-in-out infinite;
+}
+.tp span:nth-child(2){animation-delay:.15s}
+.tp span:nth-child(3){animation-delay:.3s}
+@keyframes typeBounce{
+  0%,100%{transform:translateY(0);background:var(--bmid)}
+  50%{transform:translateY(-8px);background:var(--gold)}
+}
+
+/* ========== INPUT BAR ========== */
+.ibar{
+  padding:20px 28px;
+  border-top:1px solid var(--bdim);
+  background:rgba(8,8,8,.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+}
+.irow{display:flex;gap:12px;align-items:flex-end}
+.irow textarea{
+  flex:1;padding:16px 20px;border-radius:16px;
+  border:1.5px solid var(--bmid);background:var(--surf);
+  color:var(--tb);font-family:'Inter',sans-serif;
+  font-size:.88rem;font-weight:400;resize:none;outline:none;
+  min-height:52px;max-height:130px;
+  transition:all .3s;letter-spacing:.2px;line-height:1.5;
+  overflow-y:auto;
+}
+.irow textarea::placeholder{color:var(--tg)}
+.irow textarea:focus{
+  border-color:var(--gold-d);
+  box-shadow:0 0 0 4px rgba(201,168,76,.05),0 0 20px rgba(201,168,76,.02);
+}
+.sbtn{
+  width:52px;height:52px;border-radius:14px;border:none;flex-shrink:0;
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--coral),var(--gold));
+  color:#fff;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .3s;
+  box-shadow:0 4px 20px rgba(232,93,58,.25);
+}
+.sbtn::after{
+  content:'';position:absolute;inset:0;border-radius:14px;
+  background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.15));
+}
+.sbtn:hover{
+  transform:scale(1.06);
+  box-shadow:0 8px 32px rgba(232,93,58,.35);
+}
+.sbtn:disabled{opacity:.2;cursor:not-allowed;transform:none}
+.sbtn svg{position:relative;z-index:1}
+
+.meta{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
+.meta .note{
+  display:flex;align-items:center;gap:5px;
+  font-size:.56rem;color:var(--tg);
+  letter-spacing:.8px;text-transform:uppercase;
+}
+.meta .note .lk{color:var(--grn)}
+.meta .cnt{font-size:.56rem;color:var(--tg);letter-spacing:.8px;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- Ambient -->
+<div class="ambient">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
+<div class="grain"></div>
+<div class="scanline"></div>
+
+<!-- Header -->
+<div class="hd">
+  <div class="brand">
+    <div class="logo">
+      <img id="logoImg" width="26" height="26" alt="">
+    </div>
+    <div>
+      <h1>KAVACH AI INSIGHTS</h1>
+      <p class="sub">Powered by Claude · Anonymised Analysis</p>
+    </div>
+  </div>
+  <div class="mid">
+    <div class="dot off" id="statusDot"></div>
+    <span class="stxt" id="statusText">Not connected</span>
+  </div>
+  <div class="acts">
+    <button class="btn" id="pdfBtn" onclick="exportChatPDF()" style="display:none">📄 Export Chat PDF</button>
+    <a class="btn" href="javascript:void(0)" onclick="handleClose()">← Dashboard</a>
+  </div>
+</div>
+
+<!-- Auth Screen -->
+<div class="auth" id="authScreen">
+  <div class="auth-card">
+    <div class="icon-wrap">
+      <img id="authImg" width="40" height="40" alt="" style="filter:invert(1);position:relative;z-index:1">
+    </div>
+    <h2>AUTHENTICATE</h2>
+    <p class="desc">Enter your Anthropic API key to unlock<br>AI-powered KAVACH issue analysis.</p>
+    <div class="field">
+      <input type="password" id="apiKeyInput" placeholder="sk-ant-api03-..." autocomplete="off" spellcheck="false">
+      <button class="eye" onclick="var i=document.getElementById('apiKeyInput');i.type=i.type==='password'?'text':'password'">👁</button>
+    </div>
+    <button class="go-btn" id="connectBtn" onclick="validateAndConnect()">CONNECT & ANALYSE</button>
+    <div class="err" id="authError"></div>
+    <div class="sec"><span class="lk">🔒</span> Key in memory only · Zero persistence · Anonymised data</div>
+  </div>
+</div>
+
+<!-- Chat Screen -->
+<div class="chat" id="chatScreen">
+  <div class="qbar">
+    <button class="qb" onclick="quickAction('daily_briefing')"><span>📋 Daily Briefing</span></button>
+    <button class="qb" onclick="quickAction('root_cause')"><span>🔍 Root Cause</span></button>
+    <button class="qb" onclick="quickAction('anomalies')"><span>⚠️ Anomalies</span></button>
+    <button class="qb" onclick="quickAction('station_report')"><span>🚉 Station Report</span></button>
+    <button class="qb" onclick="quickAction('loco_health')"><span>🚂 Loco Health</span></button>
+    <button class="qb" onclick="quickAction('recommendations')"><span>💡 Recommend</span></button>
+  </div>
+  <div class="msgs" id="msgs">
+    <div class="m i">🔒 Station & Loco identifiers anonymised in-browser before any data is sent</div>
+    <div class="m b">
+      <div class="mh"><span class="pulse"></span><span>KAVACH AI ANALYST</span></div>
+      Ready to analyse. Ask anything or tap a quick action above.
+    </div>
+  </div>
+  <div class="ibar">
+    <div class="irow">
+      <textarea id="chatInput" placeholder="Ask about KAVACH issues..." rows="1"></textarea>
+      <button class="sbtn" id="sendBtn" onclick="sendMsg()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+          <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="meta">
+      <div class="note"><span class="lk">🔒</span> Anonymised · Key in memory only</div>
+      <div class="cnt" id="dataBadge">Loading...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// === DATA INJECTED BY PARENT ===
+var INJECTED = JSON.parse(sessionStorage.getItem('kavach_ai_inject') || '{}');
+var systemPrompt = INJECTED.ctx || '';
+var anonReverse = INJECTED.reverseMap || {reverse_stations:{},reverse_locos:{}};
+var anonStations = INJECTED.stationsMap || {};
+var anonLocos = INJECTED.locosMap || {};
+var stats = INJECTED.stats || {total:0,days:0,stations:0,locos:0};
+var robotIcon = INJECTED.robotIcon || '';
+
+// Set icons
+if(robotIcon){
+  document.getElementById('logoImg').src = robotIcon;
+  document.getElementById('authImg').src = robotIcon;
+}
+document.getElementById('dataBadge').textContent = stats.total + ' records';
+
+var API_KEY = '';
+var conversation = [];
+var chatLog = [];
+
+// === ANON/DEANON ===
+function deAnon(t){
+  if(!t) return t;
+  var keys = Object.keys(anonReverse.reverse_stations).sort(function(a,b){return b.length-a.length});
+  keys.forEach(function(c){t = t.split(c).join(anonReverse.reverse_stations[c])});
+  var lkeys = Object.keys(anonReverse.reverse_locos).sort(function(a,b){return b.length-a.length});
+  lkeys.forEach(function(c){t = t.split(c).join(anonReverse.reverse_locos[c])});
+  return t;
+}
+function anonText(t){
+  if(!t) return t;
+  var keys = Object.keys(anonStations).sort(function(a,b){return b.length-a.length});
+  keys.forEach(function(s){t = t.split(s).join(anonStations[s])});
+  var lkeys = Object.keys(anonLocos).sort(function(a,b){return b.length-a.length});
+  lkeys.forEach(function(l){t = t.split(l).join(anonLocos[l])});
+  return t;
+}
+
+// === SESSION CACHE ===
+function saveSession(){
+  try{
+    sessionStorage.setItem('kv_key', API_KEY);
+    sessionStorage.setItem('kv_conv', JSON.stringify(conversation));
+    sessionStorage.setItem('kv_log', JSON.stringify(chatLog));
+  }catch(e){}
+}
+function loadSession(){
+  try{
+    var k=sessionStorage.getItem('kv_key');
+    var c=sessionStorage.getItem('kv_conv');
+    var l=sessionStorage.getItem('kv_log');
+    if(k && c && l){API_KEY=k;conversation=JSON.parse(c);chatLog=JSON.parse(l);return true}
+  }catch(e){}
+  return false;
+}
+function restoreChat(){
+  document.getElementById('authScreen').style.display='none';
+  document.getElementById('chatScreen').classList.add('on');
+  document.getElementById('statusDot').className='dot on';
+  document.getElementById('statusText').textContent='Connected (restored)';
+  document.getElementById('statusText').style.color='#34D399';
+  document.getElementById('pdfBtn').style.display = chatLog.length > 0 ? 'flex' : 'none';
+  var mc = document.getElementById('msgs');
+  chatLog.forEach(function(entry){
+    var d = document.createElement('div');
+    d.className = entry.role === 'user' ? 'm u' : 'm b';
+    if(entry.role === 'bot'){
+      var f = entry.content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+      d.innerHTML = '<div class="mh"><span class="pulse"></span><span>KAVACH AI ANALYST</span></div>' + f;
+    } else {
+      d.textContent = entry.content;
+    }
+    mc.appendChild(d);
+  });
+  mc.scrollTop = mc.scrollHeight;
+}
+
+// === AUTH ===
+async function validateAndConnect(){
+  var key = document.getElementById('apiKeyInput').value.trim();
+  var err = document.getElementById('authError');
+  var btn = document.getElementById('connectBtn');
+  if(!key){err.textContent='Please enter an API key.';return}
+  if(!key.startsWith('sk-')){err.textContent='Invalid format. Should start with sk-';return}
+  btn.disabled=true; btn.textContent='VERIFYING...'; err.textContent='';
+  try{
+    var res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:50,messages:[{role:'user',content:'Reply OK'}]})
+    });
+    if(!res.ok){var d=await res.json().catch(function(){return{}});throw new Error((d.error&&d.error.message)||'Auth failed ('+res.status+')')}
+    API_KEY = key;
+    document.getElementById('authScreen').style.display='none';
+    document.getElementById('chatScreen').classList.add('on');
+    document.getElementById('statusDot').className='dot on';
+    document.getElementById('statusText').textContent='Connected';
+    document.getElementById('statusText').style.color='#34D399';
+    saveSession();
+  }catch(e){err.textContent=e.message}
+  btn.disabled=false; btn.textContent='CONNECT & ANALYSE';
+}
+
+// === QUICK ACTIONS ===
+var QP = {
+  daily_briefing:'Generate a concise daily briefing: top issues by type, worst stations and locos, radio failure hotspots, notable patterns.',
+  root_cause:'Root cause analysis: group issues by likely root causes. Identify top 3 systemic issues with targeted fixes.',
+  anomalies:'Find anomalies: stations with unusually high counts, locos at multiple problem stations, date spikes.',
+  station_report:'Station health report for top 10 stations. Each: total issues, type breakdown, affected locos, risk rating.',
+  loco_health:'Loco health: most problematic locos, which appear at most stations, priority inspection recommendations.',
+  recommendations:'5-7 actionable recommendations to reduce LS/SR switches. Prioritise by impact.'
+};
+function quickAction(k){document.getElementById('chatInput').value=QP[k]||k;sendMsg()}
+
+// === SEND ===
+async function sendMsg(){
+  var input = document.getElementById('chatInput');
+  var msg = input.value.trim();
+  if(!msg || !API_KEY) return;
+  input.value=''; input.style.height='52px';
+  document.getElementById('sendBtn').disabled=true;
+  addMsg('user', msg);
+  chatLog.push({role:'user',content:msg});
+  var am = anonText(msg);
+  conversation.push({role:'user',content:am});
+  var tp = addTyping();
+  try{
+    var res = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','x-api-key':API_KEY,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,system:systemPrompt,messages:conversation})
+    });
+    if(!res.ok){var d=await res.json().catch(function(){return{}});throw new Error((d.error&&d.error.message)||'API error '+res.status)}
+    var data = await res.json();
+    var reply = data.content.map(function(c){return c.text||''}).join('\n');
+    conversation.push({role:'assistant',content:reply});
+    var dr = deAnon(reply);
+    rmTyping(tp);
+    addMsg('bot', dr);
+    chatLog.push({role:'bot',content:dr});
+    document.getElementById('pdfBtn').style.display='flex';
+    saveSession();
+  }catch(e){
+    rmTyping(tp);
+    conversation.pop();
+    addMsg('bot','Error: '+e.message);
+  }
+  document.getElementById('sendBtn').disabled=false;
+  input.focus();
+}
+
+// === UI ===
+function addMsg(role, content){
+  var c = document.getElementById('msgs');
+  var d = document.createElement('div');
+  d.className = role === 'user' ? 'm u' : 'm b';
+  if(role === 'bot'){
+    var f = content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    d.innerHTML = '<div class="mh"><span class="pulse"></span><span>KAVACH AI ANALYST</span></div>' + f;
+  } else {
+    d.textContent = content;
+  }
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+function addTyping(){
+  var c = document.getElementById('msgs');
+  var d = document.createElement('div');
+  d.className = 'tp';
+  d.innerHTML = '<span></span><span></span><span></span>';
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+  return d;
+}
+function rmTyping(el){if(el && el.parentNode) el.parentNode.removeChild(el)}
+
+// === PDF EXPORT ===
+function exportChatPDF(){
+  var pw = window.open('','_blank','width=900,height=700');
+  if(!pw) return;
+  var ms = '';
+  chatLog.forEach(function(e){
+    if(e.role === 'user'){
+      ms += '<div style="margin:12pt 0;padding:14pt 18pt;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.1);border-radius:14pt;margin-left:80pt"><div style="font-family:Bebas Neue,sans-serif;font-size:7.5pt;color:#C9A84C;letter-spacing:2.5px;margin-bottom:6pt">YOU</div><div style="color:#F0E2C8;font-size:8.5pt;line-height:1.7;font-family:Inter,sans-serif">' + e.content.replace(/\n/g,'<br>') + '</div></div>';
+    } else {
+      var f = e.content.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+      ms += '<div style="margin:12pt 0;padding:14pt 18pt;background:#121212;border:1px solid #1A1A1A;border-radius:14pt;margin-right:40pt"><div style="font-family:Bebas Neue,sans-serif;font-size:7.5pt;color:#6A6050;letter-spacing:2.5px;margin-bottom:6pt">KAVACH AI ANALYST</div><div style="color:#D4C4A8;font-size:8.5pt;line-height:1.8;font-family:Inter,sans-serif">' + f + '</div></div>';
+    }
+  });
+  var gd = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+  pw.document.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,sans-serif;background:#080808;color:#D4C4A8;padding:28pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}@media print{body{padding:14pt}@page{margin:10mm;size:A4}.np{display:none!important}}.hdr{background:#0C0C0C;border:1px solid #1A1A1A;border-radius:14pt;padding:26pt;text-align:center;margin-bottom:22pt}.hdr h2{font-family:Bebas Neue,sans-serif;font-size:24pt;color:#F5F0E8;letter-spacing:5px}.hdr p{font-size:7pt;color:#6A6050;letter-spacing:1.5px;margin-top:4pt}strong{color:#F0E2C8}.ft{text-align:center;font-size:5.5pt;color:#3A352C;margin-top:22pt;padding-top:8pt;border-top:1px solid #1A1A1A;letter-spacing:1px;text-transform:uppercase}.pb{display:block;margin:0 auto 20pt;padding:12px 36px;background:linear-gradient(135deg,#E85D3A,#C9A84C);color:#fff;border:none;border-radius:10px;font-family:Bebas Neue,sans-serif;font-size:15px;letter-spacing:3px;cursor:pointer}</style></head><body><button class="pb np" onclick="window.print()">PRINT / SAVE AS PDF</button><div class="hdr"><h2>KAVACH AI ANALYSIS</h2><p>Eastern Railway · '+gd+'</p></div>' + ms + '<div class="ft">KAVACH · AI ANALYSIS · CONFIDENTIAL</div></body></html>');
+  pw.document.close();
+}
+
+// === CLOSE HANDLER ===
+var closingHandled = false;
+function handleClose(){
+  if(chatLog.length > 0 && !closingHandled){
+    closingHandled = true;
+    if(confirm('Export AI analysis as PDF before closing?')){
+      exportChatPDF();
+      setTimeout(function(){window.close()},1000);
+    } else {
+      window.close();
+    }
+  } else { window.close() }
+}
+window.addEventListener('beforeunload', function(e){
+  if(chatLog.length > 0){
+    e.preventDefault();
+    e.returnValue = 'You have unsaved AI analysis.';
+    return e.returnValue;
+  }
+});
+
+// === INIT ===
+document.getElementById('chatInput').addEventListener('input', function(){
+  this.style.height = '52px';
+  this.style.height = Math.min(this.scrollHeight, 130) + 'px';
+});
+document.getElementById('chatInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter' && !e.shiftKey){e.preventDefault();sendMsg()}
+});
+document.getElementById('apiKeyInput').addEventListener('keydown', function(e){
+  if(e.key === 'Enter') validateAndConnect();
+});
+
+if(loadSession()){ restoreChat() }
+</script>
+</body>
+</html>

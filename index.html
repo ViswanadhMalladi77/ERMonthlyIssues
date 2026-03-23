@@ -231,6 +231,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 .kpi-card:nth-child(5){animation-delay:.55s}.kpi-card:nth-child(6){animation-delay:.65s}
 
 .footer{text-align:center;padding:24px;color:var(--text-light);font-size:.75rem;opacity:.7}
+
+/* === AI INSIGHTS BUTTON === */
+.ai-insights-btn{background:linear-gradient(135deg,#1A1A1A,#2A2A2A);border:1px solid rgba(255,255,255,.25);
+  color:#E8DCC8;padding:8px 16px;border-radius:8px;font-size:.8rem;text-decoration:none;font-weight:600;
+  display:flex;align-items:center;gap:6px;transition:all .3s ease;backdrop-filter:blur(8px);cursor:pointer;font-family:'DM Sans',sans-serif}
+.ai-insights-btn:hover{background:linear-gradient(135deg,#2A2A2A,#3A3A3A);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3);border-color:#E8DCC8}
 </style>
 </head>
 <body>
@@ -240,6 +246,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   <!-- HEADER -->
   <div class="header">
     <div class="header-actions">
+      <button class="ai-insights-btn" onclick="openAIInsights()">
+        <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIAAgADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" width="18" height="18" style="border-radius:4px;background:#E85D3A;padding:1px">
+        AI Insights
+      </button>
       <button class="print-btn" onclick="generatePDFReport()">
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h8v3H4zM2 5h12v6H2zM4 11h8v3H4z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/><circle cx="11" cy="8" r="1" fill="white"/></svg>
         Export PDF
@@ -250,7 +260,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
       </a>
     </div>
     <h1>KAVACH ER Issues Dashboard</h1>
-    <div class="subtitle"><span class="live-dot"></span>March 2026 · LS / SR Mode & Tag Missing Issues · Eastern Railway · Developed by Viswanadh Malladi</div>
+    <div class="subtitle"><span class="live-dot"></span>March 2026 · LS / SR Mode & Tag Missing Issues · Eastern Railway</div>
     <div class="header-stats" id="headerStats"></div>
   </div>
 
@@ -312,6 +322,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   <!-- PDF REPORT (hidden, shown only in print) -->
   <div class="pdf-report" id="pdfReport"></div>
 </div>
+
+<!-- AI Insights page opened via openAIInsights() -->
 
 <script>
 // Particles
@@ -740,8 +752,118 @@ function renderAll(){renderKPIs();renderTrend();renderDonut();renderSubCat();ren
   renderStationBar();renderLocoBar();renderStacked();renderRadar();renderHeatmap();renderCumulative();renderBubble();renderTable()}
 
 populateSlicers();
-['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'].forEach(id=>document.getElementById(id).addEventListener('change',function(){applyFilters();updateAIRecordCount()}));
 renderAll();
+
+// =============================================
+// AI INSIGHTS — FULL PAGE WITH API KEY AUTH
+// =============================================
+
+let anonMap={stations:{},locos:{},reverse_stations:{},reverse_locos:{}};
+
+function buildAnonymisationMap(){
+  anonMap={stations:{},locos:{},reverse_stations:{},reverse_locos:{}};
+  const stations=[...new Set(RAW_DATA.map(r=>r.Station))].sort();
+  const locos=[...new Set(RAW_DATA.map(r=>r.LocoId).filter(Boolean))].sort();
+  stations.forEach((s,i)=>{
+    const code='STATION_'+String(i+1).padStart(2,'0');
+    anonMap.stations[s]=code;anonMap.reverse_stations[code]=s;
+  });
+  locos.forEach((l,i)=>{
+    const code='LOCO_'+String(i+1).padStart(2,'0');
+    anonMap.locos[l]=code;anonMap.reverse_locos[code]=l;
+  });
+}
+buildAnonymisationMap();
+
+function anonymiseText(text){
+  if(!text) return text;
+  let t=text;
+  Object.keys(anonMap.stations).sort((a,b)=>b.length-a.length).forEach(s=>{t=t.split(s).join(anonMap.stations[s])});
+  Object.keys(anonMap.stations).forEach(s=>{
+    const cm=s.match(/\(([A-Z]+)\)/);if(cm) t=t.split(cm[1]).join(anonMap.stations[s]);
+    const im=s.match(/\((\d+)\)/);if(im) t=t.split(im[1]).join(anonMap.stations[s]);
+  });
+  Object.keys(anonMap.locos).sort((a,b)=>b.length-a.length).forEach(l=>{t=t.split(l).join(anonMap.locos[l])});
+  return t;
+}
+
+function anonymiseRecord(r){
+  return {Date:r.Date,Station:anonMap.stations[r.Station]||r.Station,LocoId:anonMap.locos[r.LocoId]||r.LocoId,
+    Direction:r.Direction,IssueType:r.IssueType,SubCategory:r.SubCategory,IssueCount:r.IssueCount,Time:r.Time,
+    Analysis:anonymiseText(r.Analysis),RootCause:anonymiseText(r.RootCause),ActionTaken:anonymiseText(r.ActionTaken)};
+}
+
+function deAnonymiseText(text){
+  if(!text) return text;let t=text;
+  Object.keys(anonMap.reverse_stations).sort((a,b)=>b.length-a.length).forEach(code=>{t=t.split(code).join(anonMap.reverse_stations[code])});
+  Object.keys(anonMap.reverse_locos).sort((a,b)=>b.length-a.length).forEach(code=>{t=t.split(code).join(anonMap.reverse_locos[code])});
+  return t;
+}
+
+function buildAnonymisedContext(){
+  const d=filteredData;const anonData=d.map(anonymiseRecord);const total=d.length;
+  const ls=d.filter(r=>r.IssueType==='LS mode').length;const sr=d.filter(r=>r.IssueType==='SR mode').length;
+  const tag=d.filter(r=>r.IssueType==='Tag Missing').length;
+  const stCount=new Set(d.map(r=>r.Station)).size;const loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size;
+  const radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+  const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
+  const byStation={};d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
+  const stSum=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length).slice(0,15).map(([s,iss])=>{
+    return (anonMap.stations[s]||s)+': '+iss.length+' (LS:'+iss.filter(r=>r.IssueType==='LS mode').length+', SR:'+iss.filter(r=>r.IssueType==='SR mode').length+', Radio:'+iss.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length+')';
+  }).join('\n');
+  const byLoco={};d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
+  const loSum=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length).slice(0,10).map(([l,iss])=>{
+    return (anonMap.locos[l]||l)+': '+iss.length+' (LS:'+iss.filter(r=>r.IssueType==='LS mode').length+', SR:'+iss.filter(r=>r.IssueType==='SR mode').length+')';
+  }).join('\n');
+  const dailySum=dates.map(dt=>{const dd=d.filter(r=>r.Date===dt);
+    return dt+': '+dd.length+' (LS:'+dd.filter(r=>r.IssueType==='LS mode').length+', SR:'+dd.filter(r=>r.IssueType==='SR mode').length+', Tag:'+dd.filter(r=>r.IssueType==='Tag Missing').length+')';
+  }).join('\n');
+  const sampleRec=anonData.slice(0,30).map((r,i)=>(i+1)+'. '+r.Date+' | '+r.Station+' | '+r.LocoId+' | '+r.IssueType+' | '+(r.SubCategory||'-')+' | '+(r.Time||'-')+' | '+(r.Analysis||'-').slice(0,100)).join('\n');
+  return `You are an expert railway signalling analyst for the KAVACH system (Indian Railways).
+You are analysing ANONYMISED data. Station names replaced with STATION_XX, loco IDs with LOCO_XX. Always use these codes.
+
+DATASET: ${total} records, ${dates[0]||'N/A'} to ${dates[dates.length-1]||'N/A'} (${dates.length} days)
+LS Mode: ${ls} (${total?(ls/total*100).toFixed(1):'0'}%), SR Mode: ${sr} (${total?(sr/total*100).toFixed(1):'0'}%), Tag Missing: ${tag}
+Radio Failures: ${radioFail}, Stations: ${stCount}, Locos: ${loCount}, Avg/day: ${dates.length?(total/dates.length).toFixed(1):'0'}
+
+TOP STATIONS:\n${stSum}
+
+TOP LOCOS:\n${loSum}
+
+DAILY:\n${dailySum}
+
+SAMPLE RECORDS:\n${sampleRec}
+
+CONTEXT: LS=Limited Supervision (lost comms), SR=Staff Responsible (further degradation), Radio Comm Failure=packets not received, SOM=Start of Mission, KAVACH territory exit=leaving equipped zone.
+
+STRICT RULES:
+1. ONLY answer questions about KAVACH railway signalling issues, this dataset, or railway operations. NOTHING ELSE.
+2. If asked anything off-topic (coding, general knowledge, jokes, personal questions, weather, politics, etc.), respond ONLY with: "I can only analyse KAVACH railway signalling data. Please ask about the issues dataset."
+3. Keep responses under 200 words. Use bullet points for lists. Be direct and data-driven.
+4. Never generate creative writing, stories, or lengthy explanations. Stick to analysis.
+5. Always cite specific data: exact counts, percentages, station/loco codes.
+6. Bold key findings with **text**. No filler language.`;
+}
+
+function openAIInsights(){
+  var ctx = buildAnonymisedContext();
+  var inject = {
+    ctx: ctx,
+    reverseMap: {reverse_stations: anonMap.reverse_stations, reverse_locos: anonMap.reverse_locos},
+    stationsMap: anonMap.stations,
+    locosMap: anonMap.locos,
+    stats: {
+      total: filteredData.length,
+      days: new Set(filteredData.map(function(r){return r.Date})).size,
+      stations: new Set(filteredData.map(function(r){return r.Station})).size,
+      locos: new Set(filteredData.map(function(r){return r.LocoId}).filter(Boolean)).size
+    },
+    robotIcon: "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIAAgADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k="
+  };
+  sessionStorage.setItem('kavach_ai_inject', JSON.stringify(inject));
+  window.open('ai.html', '_blank');
+}
 </script>
 </body>
 </html>
