@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>KAVACH ER Issues Dashboard — March 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -60,7 +60,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 .header-stat:nth-child(3){animation-delay:.6s}.header-stat:nth-child(4){animation-delay:.75s}
 .header-stat:nth-child(5){animation-delay:.9s}
 @keyframes statPop{to{opacity:1;transform:scale(1)}}
-.header-stat .num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#fff}
+.header-stat .num{font-family:'Outfit',sans-serif;font-size:1.7rem;font-weight:700;color:#fff}
 .header-stat .label{font-size:.7rem;color:var(--sea-foam);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
 .header-actions{position:absolute;top:24px;right:32px;display:flex;gap:10px}
 .gsheet-link,.print-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
@@ -110,7 +110,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   .pdf-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
   .pdf-summary-item{padding:6pt;background:#fff;border:1px solid #e8dcc8;border-radius:4pt}
   .pdf-summary-item .label{font-size:6pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:600}
-  .pdf-summary-item .value{font-family:'Playfair Display',serif;font-size:11pt;color:#0B3D5B;font-weight:700}
+  .pdf-summary-item .value{font-family:'Outfit',sans-serif;font-size:11pt;color:#0B3D5B;font-weight:700}
   .pdf-detail-table{width:100%;border-collapse:collapse;font-size:6.5pt;margin:0 12pt;page-break-inside:auto}
   .pdf-detail-table caption{font-family:'Playfair Display',serif;font-size:10pt;color:#0B3D5B;text-align:left;
     margin-bottom:6pt;padding:0 0 4pt;border-bottom:2px solid #2D9CBA;caption-side:top}
@@ -195,20 +195,21 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 .kpi-card:nth-child(5)::after{background:var(--accent-teal)}
 .kpi-card:nth-child(6)::after{background:var(--accent-rose)}
 .kpi-card .kpi-icon{font-size:1.3rem;margin-bottom:6px}
-.kpi-card .kpi-value{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:800;color:var(--sea-deep)}
+.kpi-card .kpi-value{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--sea-deep)}
 .kpi-card .kpi-label{font-size:.65rem;color:var(--text-light);text-transform:uppercase;letter-spacing:1.2px;font-weight:600;margin-top:2px}
 @keyframes kpiPop{to{opacity:1;transform:scale(1) translateY(0)}}
 
 /* === TABLE === */
-.table-wrapper{max-height:380px;overflow-y:auto;border-radius:10px;border:1px solid var(--beige-light)}
-.table-wrapper::-webkit-scrollbar{width:6px}
+.table-wrapper{max-height:420px;overflow:auto;border-radius:10px;border:1px solid var(--beige-light)}
+.table-wrapper::-webkit-scrollbar{width:6px;height:6px}
 .table-wrapper::-webkit-scrollbar-track{background:var(--beige-pale)}
 .table-wrapper::-webkit-scrollbar-thumb{background:var(--sea-pale);border-radius:3px}
-.data-table{width:100%;border-collapse:collapse;font-size:.75rem}
+.data-table{width:max-content;min-width:100%;border-collapse:collapse;font-size:.75rem}
 .data-table thead{position:sticky;top:0;z-index:2}
 .data-table th{background:linear-gradient(135deg,var(--sea-deep),var(--sea-mid));color:#fff;padding:10px 12px;
   text-align:left;font-weight:600;text-transform:uppercase;letter-spacing:.8px;font-size:.65rem;white-space:nowrap}
-.data-table td{padding:8px 12px;border-bottom:1px solid var(--beige-light);white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+.data-table td{padding:8px 12px;border-bottom:1px solid var(--beige-light);white-space:nowrap}
+.data-table td.wrap{white-space:normal;min-width:250px;max-width:450px;line-height:1.5}
 .data-table tbody tr{transition:all .2s ease;animation:rowSlide .4s ease forwards;opacity:0}
 .data-table tbody tr:hover{background:var(--sea-glow)}
 @keyframes rowSlide{to{opacity:1}}
@@ -261,7 +262,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
     </div>
     <h1>KAVACH ER Issues Dashboard</h1>
     <div class="subtitle"><span class="live-dot"></span>March 2026 · LS / SR Mode & Tag Missing Issues · Eastern Railway</div>
-    <div class="header-stats" id="headerStats"></div>
   </div>
 
   <!-- SLICERS -->
@@ -394,9 +394,6 @@ function renderKPIs(){
     {i:'🟡',v:tag,l:'Tag Missing'},{i:'🚉',v:st,l:'Stations'},{i:'🚂',v:lo,l:'Locomotives'}];
   document.getElementById('kpiRow').innerHTML=kpis.map((k,idx)=>`<div class="kpi-card" style="animation-delay:${.15+idx*.1}s">
     <div class="kpi-icon">${k.i}</div><div class="kpi-value">${k.v}</div><div class="kpi-label">${k.l}</div></div>`).join('');
-  document.getElementById('headerStats').innerHTML=[
-    {n:t,l:'Total Records'},{n:ls,l:'LS Mode'},{n:sr,l:'SR Mode'},{n:tag,l:'Tag Missing'},{n:st,l:'Stations'}
-  ].map((s,i)=>`<div class="header-stat" style="animation-delay:${.3+i*.15}s"><div class="num">${s.n}</div><div class="label">${s.l}</div></div>`).join('');
 }
 
 function dc(id){if(charts[id]){charts[id].destroy();delete charts[id]}}
@@ -540,10 +537,10 @@ function renderTable(){
   const data=filteredData.slice(0,100);
   let h=`<table class="data-table"><thead><tr><th>Date</th><th>Station</th><th>Loco</th><th>Dir</th><th>Type</th><th>Sub Category</th><th>Count</th><th>Time</th><th>Analysis</th></tr></thead><tbody>`;
   data.forEach((r,i)=>{const bc=r.IssueType==='LS mode'?'badge-ls':r.IssueType==='SR mode'?'badge-sr':'badge-tag';
-    h+=`<tr style="animation-delay:${i*20}ms"><td>${r.Date}</td><td title="${r.Station}">${stationCode(r.Station)}</td>
+    h+=`<tr style="animation-delay:${i*20}ms"><td>${r.Date}</td><td>${stationCode(r.Station)}</td>
     <td>${r.LocoId}</td><td>${r.Direction||'-'}</td><td><span class="badge ${bc}">${r.IssueType||'-'}</span></td>
-    <td title="${r.SubCategory}">${(r.SubCategory||'-').slice(0,25)}</td><td>${r.IssueCount||'-'}</td>
-    <td>${r.Time||'-'}</td><td title="${r.Analysis}">${(r.Analysis||'-').slice(0,40)}${r.Analysis&&r.Analysis.length>40?'…':''}</td></tr>`});
+    <td class="wrap">${r.SubCategory||'-'}</td><td>${r.IssueCount||'-'}</td>
+    <td>${r.Time||'-'}</td><td class="wrap">${r.Analysis||'-'}</td></tr>`});
   h+='</tbody></table>';
   if(filteredData.length>100)h+=`<div style="padding:10px;text-align:center;font-size:.75rem;color:var(--text-light)">Showing 100 of ${filteredData.length} records</div>`;
   document.getElementById('tableWrapper').innerHTML=h;
