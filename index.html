@@ -62,10 +62,76 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 @keyframes statPop{to{opacity:1;transform:scale(1)}}
 .header-stat .num{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;color:#fff}
 .header-stat .label{font-size:.7rem;color:var(--sea-foam);text-transform:uppercase;letter-spacing:1.5px;font-weight:600}
-.gsheet-link{position:absolute;top:24px;right:32px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
+.header-actions{position:absolute;top:24px;right:32px;display:flex;gap:10px}
+.gsheet-link,.print-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);
   color:#fff;padding:8px 16px;border-radius:8px;font-size:.8rem;text-decoration:none;font-weight:600;
-  display:flex;align-items:center;gap:6px;transition:all .3s ease;backdrop-filter:blur(8px)}
-.gsheet-link:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+  display:flex;align-items:center;gap:6px;transition:all .3s ease;backdrop-filter:blur(8px);cursor:pointer;font-family:'DM Sans',sans-serif}
+.gsheet-link:hover,.print-btn:hover{background:rgba(255,255,255,.22);transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.print-btn{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.35)}
+
+/* === PRINT PDF REPORT === */
+.pdf-report{display:none}
+@media print{
+  *{animation:none!important;transition:none!important}
+  body{background:#fff!important;color:#1A2A35!important;font-size:9pt!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .ocean-bg,.particle,.slicer-bar,.header-actions,.reset-btn,.footer,.card:has(#heatmapContainer){display:none!important}
+  .dashboard-wrapper{max-width:100%!important;padding:0!important;margin:0!important}
+  .header{border-radius:0!important;margin-bottom:12pt!important;padding:16pt 20pt!important;box-shadow:none!important;page-break-after:avoid}
+  .header h1{font-size:16pt!important}
+  .header .subtitle{font-size:8pt!important}
+  .header-stats{gap:16pt!important;margin-top:8pt!important}
+  .header-stat .num{font-size:14pt!important}
+  .header-stat .label{font-size:6pt!important}
+  .header::before,.header::after{display:none!important}
+  .kpi-row{grid-template-columns:repeat(6,1fr)!important;gap:6pt!important;margin-bottom:10pt!important}
+  .kpi-card{padding:8pt 6pt!important;box-shadow:none!important;border:1px solid #ccc!important;border-radius:6pt!important}
+  .kpi-card::after{height:2px!important}
+  .kpi-card .kpi-value{font-size:12pt!important}
+  .kpi-card .kpi-label{font-size:5.5pt!important}
+  .grid{gap:10pt!important;margin-bottom:10pt!important}
+  .card{box-shadow:none!important;border:1px solid #ddd!important;border-radius:8pt!important;padding:12pt!important;page-break-inside:avoid}
+  .card::before{display:none!important}
+  .card-title{font-size:9pt!important}
+  .card-subtitle{font-size:6pt!important;margin-bottom:8pt!important}
+  .chart-container canvas{max-height:200px!important}
+  .table-wrapper{max-height:none!important;overflow:visible!important}
+  .data-table th{font-size:6pt!important;padding:4pt 6pt!important}
+  .data-table td{font-size:6.5pt!important;padding:3pt 6pt!important}
+  .heatmap-cell{font-size:5pt!important;padding:2pt!important}
+  .heatmap-header{font-size:5pt!important}
+  .pdf-report{display:block!important;page-break-before:always}
+  .pdf-report-header{background:linear-gradient(135deg,#0B3D5B,#1A6B8A)!important;color:#fff!important;
+    padding:20pt;text-align:center;margin-bottom:16pt}
+  .pdf-report-header h2{font-family:'Playfair Display',serif;font-size:14pt;margin-bottom:4pt}
+  .pdf-report-header p{font-size:8pt;opacity:.8}
+  .pdf-summary{margin:0 12pt 12pt;padding:12pt;background:#f8f6f0!important;border:1px solid #ddd;border-radius:6pt}
+  .pdf-summary h3{font-family:'Playfair Display',serif;font-size:10pt;color:#0B3D5B;margin-bottom:8pt;
+    border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block}
+  .pdf-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
+  .pdf-summary-item{padding:6pt;background:#fff;border:1px solid #e8dcc8;border-radius:4pt}
+  .pdf-summary-item .label{font-size:6pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:600}
+  .pdf-summary-item .value{font-family:'Playfair Display',serif;font-size:11pt;color:#0B3D5B;font-weight:700}
+  .pdf-detail-table{width:100%;border-collapse:collapse;font-size:6.5pt;margin:0 12pt;page-break-inside:auto}
+  .pdf-detail-table caption{font-family:'Playfair Display',serif;font-size:10pt;color:#0B3D5B;text-align:left;
+    margin-bottom:6pt;padding:0 0 4pt;border-bottom:2px solid #2D9CBA;caption-side:top}
+  .pdf-detail-table th{background:#0B3D5B!important;color:#fff!important;padding:5pt 6pt;text-align:left;
+    font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:5.5pt}
+  .pdf-detail-table td{padding:4pt 6pt;border-bottom:1px solid #e8dcc8;vertical-align:top;word-wrap:break-word;max-width:120pt}
+  .pdf-detail-table tr:nth-child(even){background:#faf6ee!important}
+  .pdf-detail-table tr{page-break-inside:avoid}
+  .pdf-badge{display:inline-block;padding:1pt 6pt;border-radius:10pt;font-size:5.5pt;font-weight:700}
+  .pdf-badge-ls{background:rgba(26,107,138,.15)!important;color:#1A6B8A!important}
+  .pdf-badge-sr{background:rgba(232,114,74,.15)!important;color:#E8724A!important}
+  .pdf-badge-tag{background:rgba(212,168,67,.15)!important;color:#D4A843!important}
+  .pdf-section-break{page-break-before:always;padding-top:12pt}
+  .pdf-station-section{margin:8pt 12pt;page-break-inside:avoid}
+  .pdf-station-title{font-family:'Playfair Display',serif;font-size:9pt;color:#0B3D5B;padding:4pt 8pt;
+    background:#D4F1F9!important;border-left:3px solid #1A6B8A;margin-bottom:6pt}
+  .pdf-issue-card{padding:6pt 8pt;margin-bottom:4pt;border:1px solid #e8dcc8;border-radius:4pt;font-size:7pt;background:#fff!important}
+  .pdf-issue-card .meta{color:#7A9AAA;font-size:6pt;margin-bottom:2pt}
+  .pdf-issue-card .analysis-text{color:#4A6070;font-size:6.5pt;line-height:1.4}
+  .pdf-page-footer{text-align:center;font-size:6pt;color:#7A9AAA;margin-top:12pt;padding-top:6pt;border-top:1px solid #e8dcc8}
+}
 
 /* === SLICERS === */
 .slicer-bar{display:flex;gap:16px;margin-bottom:24px;animation:slicerSlide .7s cubic-bezier(.16,1,.3,1) .3s forwards;
@@ -173,10 +239,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 <div class="dashboard-wrapper">
   <!-- HEADER -->
   <div class="header">
-    <a class="gsheet-link" href="https://docs.google.com/spreadsheets/d/1VSETtuuIgVrDn3Hk2CSXaYAphGM2vrmBCC94UARWeSk/edit?usp=sharing" target="_blank">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="2" stroke="white" stroke-width="1.5"/><path d="M5 5h6M5 8h6M5 11h4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
-      Open Google Sheet
-    </a>
+    <div class="header-actions">
+      <button class="print-btn" onclick="generatePDFReport()">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 2h8v3H4zM2 5h12v6H2zM4 11h8v3H4z" stroke="white" stroke-width="1.3" stroke-linejoin="round"/><circle cx="11" cy="8" r="1" fill="white"/></svg>
+        Export PDF
+      </button>
+      <a class="gsheet-link" href="https://docs.google.com/spreadsheets/d/1VSETtuuIgVrDn3Hk2CSXaYAphGM2vrmBCC94UARWeSk/edit?usp=sharing" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="1" width="12" height="14" rx="2" stroke="white" stroke-width="1.5"/><path d="M5 5h6M5 8h6M5 11h4" stroke="white" stroke-width="1.2" stroke-linecap="round"/></svg>
+        Open Sheet
+      </a>
+    </div>
     <h1>KAVACH ER Issues Dashboard</h1>
     <div class="subtitle"><span class="live-dot"></span>March 2026 · LS / SR Mode & Tag Missing Issues · Eastern Railway</div>
     <div class="header-stats" id="headerStats"></div>
@@ -184,7 +256,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 
   <!-- SLICERS -->
   <div class="slicer-bar">
-    <div class="slicer-group"><label>📅 Filter by Date</label><select id="dateSlicer"><option value="all">All Dates</option></select></div>
+    <div class="slicer-group"><label>📅 From Date</label><select id="fromDateSlicer"><option value="all">Earliest</option></select></div>
+    <div class="slicer-group"><label>📅 To Date</label><select id="toDateSlicer"><option value="all">Latest</option></select></div>
     <div class="slicer-group"><label>🚉 Filter by Station</label><select id="stationSlicer"><option value="all">All Stations</option></select></div>
     <div class="slicer-group"><label>🚂 Filter by Issue Type</label><select id="issueTypeSlicer"><option value="all">All Types</option></select></div>
     <div class="slicer-group"><label>🔀 Filter by Direction</label><select id="directionSlicer"><option value="all">All Directions</option></select></div>
@@ -234,6 +307,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   </div>
 
   <div class="footer">KAVACH Eastern Railway · Internal Dashboard · Data from Google Sheets (March_LS_SR_issues) · Auto-refreshable</div>
+
+  <!-- PDF REPORT (hidden, shown only in print) -->
+  <div class="pdf-report" id="pdfReport"></div>
 </div>
 
 <script>
@@ -272,18 +348,25 @@ function populateSlicers(){
   const types=[...new Set(RAW_DATA.map(r=>r.IssueType).filter(Boolean))].sort();
   const dirs=[...new Set(RAW_DATA.map(r=>r.Direction).filter(Boolean))].sort();
   const add=(id,arr,fmt)=>{const s=document.getElementById(id);arr.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=fmt?fmt(v):v;s.appendChild(o)})};
-  add('dateSlicer',dates);add('stationSlicer',stations);add('issueTypeSlicer',types);add('directionSlicer',dirs);
+  add('fromDateSlicer',dates);add('toDateSlicer',dates);
+  add('stationSlicer',stations);add('issueTypeSlicer',types);add('directionSlicer',dirs);
 }
 function applyFilters(){
-  const dv=document.getElementById('dateSlicer').value,sv=document.getElementById('stationSlicer').value,
-        tv=document.getElementById('issueTypeSlicer').value,drv=document.getElementById('directionSlicer').value;
+  const fromVal=document.getElementById('fromDateSlicer').value,
+        toVal=document.getElementById('toDateSlicer').value,
+        sv=document.getElementById('stationSlicer').value,
+        tv=document.getElementById('issueTypeSlicer').value,
+        drv=document.getElementById('directionSlicer').value;
   filteredData=RAW_DATA.filter(r=>{
-    if(dv!=='all'&&r.Date!==dv)return false;if(sv!=='all'&&r.Station!==sv)return false;
-    if(tv!=='all'&&r.IssueType!==tv)return false;if(drv!=='all'&&r.Direction!==drv)return false;return true});
+    if(fromVal!=='all'){const rd=parseDate(r.Date),fd=parseDate(fromVal);if(rd<fd)return false}
+    if(toVal!=='all'){const rd=parseDate(r.Date),td=parseDate(toVal);if(rd>td)return false}
+    if(sv!=='all'&&r.Station!==sv)return false;
+    if(tv!=='all'&&r.IssueType!==tv)return false;
+    if(drv!=='all'&&r.Direction!==drv)return false;return true});
   renderAll();
 }
 function resetFilters(){
-  ['dateSlicer','stationSlicer','issueTypeSlicer','directionSlicer'].forEach(id=>document.getElementById(id).value='all');
+  ['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','directionSlicer'].forEach(id=>document.getElementById(id).value='all');
   applyFilters();
 }
 
@@ -450,11 +533,211 @@ function renderTable(){
   document.getElementById('tableWrapper').innerHTML=h;
 }
 
+function generatePDFReport(){
+  const d=filteredData.filter(r=>r.Date);
+  const total=d.length,ls=d.filter(r=>r.IssueType==='LS mode').length,
+        sr=d.filter(r=>r.IssueType==='SR mode').length,tag=d.filter(r=>r.IssueType==='Tag Missing').length,
+        stCount=new Set(d.map(r=>r.Station)).size,loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size,
+        radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length,
+        som=d.filter(r=>r.SubCategory==='SOM').length,
+        kavExit=d.filter(r=>r.SubCategory.includes('KAVACH')).length;
+
+  const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
+  const dateRange=dates.length?`${dates[0]} to ${dates[dates.length-1]}`:'N/A';
+
+  // Active filters
+  const fromV=document.getElementById('fromDateSlicer').value;
+  const toV=document.getElementById('toDateSlicer').value;
+  const stV=document.getElementById('stationSlicer').value;
+  const tyV=document.getElementById('issueTypeSlicer').value;
+  const drV=document.getElementById('directionSlicer').value;
+  const activeFilters=[];
+  if(fromV!=='all') activeFilters.push('From: '+fromV);
+  if(toV!=='all') activeFilters.push('To: '+toV);
+  if(stV!=='all') activeFilters.push('Station: '+stationCode(stV));
+  if(tyV!=='all') activeFilters.push('Type: '+tyV);
+  if(drV!=='all') activeFilters.push('Direction: '+drV);
+  const filterText=activeFilters.length?activeFilters.join(' · '):'No filters applied (all data)';
+
+  // Group by station
+  const byStation={};
+  d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
+  const stationsSorted=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length);
+
+  // Group by loco
+  const byLoco={};
+  d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
+  const locosSorted=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length);
+
+  // Group by date for daily summary
+  const byDate={};
+  d.forEach(r=>{if(!byDate[r.Date])byDate[r.Date]={LS:0,SR:0,Tag:0,total:0};
+    if(r.IssueType==='LS mode')byDate[r.Date].LS++;
+    else if(r.IssueType==='SR mode')byDate[r.Date].SR++;
+    else if(r.IssueType==='Tag Missing')byDate[r.Date].Tag++;
+    byDate[r.Date].total++});
+
+  // Avg issues per day
+  const avgPerDay=dates.length?(total/dates.length).toFixed(1):'0';
+  // Peak day
+  let peakDay='—',peakCount=0;
+  dates.forEach(dt=>{if(byDate[dt].total>peakCount){peakCount=byDate[dt].total;peakDay=dt}});
+
+  // Sub-category distribution
+  const subCatCounts={};
+  d.forEach(r=>{const sc=r.SubCategory||'(Not specified)';subCatCounts[sc]=(subCatCounts[sc]||0)+1});
+  const subCatSorted=Object.entries(subCatCounts).sort((a,b)=>b[1]-a[1]);
+
+  let html=`
+  <div class="pdf-report-header">
+    <h2>KAVACH ER Issues Report</h2>
+    <p>Eastern Railway · LS / SR Mode & Tag Missing Issues</p>
+    <p style="font-size:7pt;margin-top:4pt">Report Period: ${dateRange} · Generated on ${new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})} at ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</p>
+    <p style="font-size:6.5pt;margin-top:3pt;padding:3pt 10pt;background:rgba(255,255,255,.15);border-radius:4pt;display:inline-block">Filters: ${filterText}</p>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="pdf-summary">
+    <h3>Executive Summary</h3>
+    <div class="pdf-summary-grid">
+      <div class="pdf-summary-item"><div class="label">Total Issues</div><div class="value">${total}</div></div>
+      <div class="pdf-summary-item"><div class="label">Date Range</div><div class="value" style="font-size:8pt">${dateRange}</div></div>
+      <div class="pdf-summary-item"><div class="label">LS Mode Issues</div><div class="value" style="color:#1A6B8A">${ls} <span style="font-size:7pt;font-weight:400">(${total?(ls/total*100).toFixed(1):'0'}%)</span></div></div>
+      <div class="pdf-summary-item"><div class="label">SR Mode Issues</div><div class="value" style="color:#E8724A">${sr} <span style="font-size:7pt;font-weight:400">(${total?(sr/total*100).toFixed(1):'0'}%)</span></div></div>
+      <div class="pdf-summary-item"><div class="label">Tag Missing</div><div class="value" style="color:#D4A843">${tag} <span style="font-size:7pt;font-weight:400">(${total?(tag/total*100).toFixed(1):'0'}%)</span></div></div>
+      <div class="pdf-summary-item"><div class="label">Radio Comm Failures</div><div class="value">${radioFail}</div></div>
+      <div class="pdf-summary-item"><div class="label">Stations Affected</div><div class="value">${stCount}</div></div>
+      <div class="pdf-summary-item"><div class="label">Locomotives</div><div class="value">${loCount}</div></div>
+      <div class="pdf-summary-item"><div class="label">Avg Issues / Day</div><div class="value">${avgPerDay}</div></div>
+      <div class="pdf-summary-item"><div class="label">Peak Day</div><div class="value" style="font-size:8pt">${peakDay} <span style="font-size:7pt;font-weight:400">(${peakCount})</span></div></div>
+    </div>
+  </div>
+
+  <!-- KEY FINDINGS -->
+  <div style="margin:10pt 12pt">
+    <div style="font-family:'Playfair Display',serif;font-size:10pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block;margin-bottom:8pt">Key Findings</div>
+    <div style="font-size:7pt;line-height:1.6;color:#4A6070">
+      <div style="margin-bottom:4pt">▸ <strong>LS Mode</strong> accounts for the majority of issues at <strong>${total?(ls/total*100).toFixed(1):'0'}%</strong> (${ls} of ${total}), indicating persistent communication challenges between locos and stations.</div>
+      <div style="margin-bottom:4pt">▸ <strong>Radio Communication Failure</strong> is the leading root cause with <strong>${radioFail}</strong> confirmed cases — where loco regular packets were sent but not received by stations.</div>
+      <div style="margin-bottom:4pt">▸ The most affected station is <strong>${stationsSorted.length?stationsSorted[0][0]:'—'}</strong> with ${stationsSorted.length?stationsSorted[0][1].length:0} issues, followed by ${stationsSorted.length>1?stationsSorted[1][0]:'—'} (${stationsSorted.length>1?stationsSorted[1][1].length:0}).</div>
+      <div style="margin-bottom:4pt">▸ Loco <strong>${locosSorted.length?locosSorted[0][0]:'—'}</strong> has the highest issue frequency (${locosSorted.length?locosSorted[0][1].length:0} issues), suggesting it may need targeted inspection.</div>
+      <div>▸ Peak issue day was <strong>${peakDay}</strong> with <strong>${peakCount} issues</strong> recorded across the network.</div>
+    </div>
+  </div>
+
+  <!-- SUB-CATEGORY TABLE -->
+  <div style="margin:10pt 12pt">
+    <table class="pdf-detail-table">
+      <caption>Issue Sub-Category Distribution</caption>
+      <thead><tr><th>Sub-Category</th><th>Count</th><th>% of Total</th><th>Severity Indicator</th></tr></thead>
+      <tbody>${subCatSorted.map(([sc,cnt])=>{
+        const pct=total?(cnt/total*100).toFixed(1):'0';
+        const bar='█'.repeat(Math.max(1,Math.round(cnt/total*30)));
+        return `<tr><td style="font-weight:600">${sc}</td><td>${cnt}</td><td>${pct}%</td><td style="color:#1A6B8A;font-size:5.5pt;letter-spacing:-0.5pt">${bar}</td></tr>`}).join('')}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DAILY SUMMARY -->
+  <div style="margin:12pt">
+    <table class="pdf-detail-table">
+      <caption>Daily Issue Summary</caption>
+      <thead><tr><th>Date</th><th>LS Mode</th><th>SR Mode</th><th>Tag Missing</th><th>Day Total</th><th>Trend</th></tr></thead>
+      <tbody>${dates.map(dt=>{const v=byDate[dt];
+        const bar='▓'.repeat(Math.max(1,Math.round(v.total/Math.max(1,peakCount)*20)));
+        return `<tr><td style="font-weight:600">${dt}</td><td>${v.LS}</td><td>${v.SR}</td><td>${v.Tag}</td><td style="font-weight:700">${v.total}</td><td style="color:#1A6B8A;font-size:5.5pt">${bar}</td></tr>`}).join('')}
+      <tr style="font-weight:700;background:#D4F1F9!important"><td>TOTAL</td><td>${ls}</td><td>${sr}</td><td>${tag}</td><td>${total}</td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- STATION-WISE DETAILS -->
+  <div class="pdf-section-break"></div>
+  <div style="margin:0 12pt 8pt"><div style="font-family:'Playfair Display',serif;font-size:11pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block">Section A: Station-wise Issue Details</div>
+  <div style="font-size:6.5pt;color:#7A9AAA;margin-top:3pt">${stCount} stations · Sorted by issue count (highest first)</div></div>`;
+
+  stationsSorted.forEach(([station,issues],idx)=>{
+    const sLS=issues.filter(r=>r.IssueType==='LS mode').length;
+    const sSR=issues.filter(r=>r.IssueType==='SR mode').length;
+    const sTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
+    const sRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+    const locos=[...new Set(issues.map(r=>r.LocoId).filter(Boolean))];
+    html+=`<div class="pdf-station-section">
+      <div class="pdf-station-title">${idx+1}. ${station} — ${issues.length} issue${issues.length>1?'s':''} (LS: ${sLS} · SR: ${sSR} · Tag: ${sTag}${sRadio?' · Radio Fail: '+sRadio:''})
+        <span style="font-size:5.5pt;font-weight:400;margin-left:8pt">Locos: ${locos.join(', ')||'—'}</span>
+      </div>`;
+    issues.sort((a,b)=>parseDate(a.Date)-parseDate(b.Date)).forEach(r=>{
+      const bc=r.IssueType==='LS mode'?'pdf-badge-ls':r.IssueType==='SR mode'?'pdf-badge-sr':'pdf-badge-tag';
+      html+=`<div class="pdf-issue-card">
+        <div class="meta">
+          <span class="pdf-badge ${bc}">${r.IssueType||'—'}</span>
+          ${r.SubCategory?` · <strong>${r.SubCategory}</strong>`:''}
+          ${r.Date?` · ${r.Date}`:''}${r.Time?` @ ${r.Time}`:''}
+          ${r.LocoId?` · Loco <strong>${r.LocoId}</strong>`:''}
+          ${r.Direction?` · Dir: ${r.Direction}`:''}
+          ${r.IssueCount?` · Count: ${r.IssueCount}`:''}
+        </div>
+        ${r.TrialNote?`<div class="analysis-text" style="color:#0B3D5B"><strong>Observation:</strong> ${r.TrialNote}</div>`:''}
+        ${r.Analysis?`<div class="analysis-text"><strong>Analysis:</strong> ${r.Analysis}</div>`:''}
+        ${r.RootCause?`<div class="analysis-text"><strong>Root Cause / Radio Data:</strong> ${r.RootCause}</div>`:''}
+        ${r.CorrectiveAction?`<div class="analysis-text" style="color:#1A6B8A"><strong>Corrective Action:</strong> ${r.CorrectiveAction}</div>`:''}
+        ${r.ActionTaken?`<div class="analysis-text" style="color:#3ABBB0"><strong>Action Taken:</strong> ${r.ActionTaken}</div>`:''}
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+
+  // LOCO-WISE SUMMARY
+  html+=`<div class="pdf-section-break"></div>
+  <div style="margin:0 12pt 8pt"><div style="font-family:'Playfair Display',serif;font-size:11pt;color:#0B3D5B;border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block">Section B: Locomotive-wise Summary</div>
+  <div style="font-size:6.5pt;color:#7A9AAA;margin-top:3pt">${loCount} locomotives · Top issues per loco</div></div>
+  <div style="margin:0 12pt">
+    <table class="pdf-detail-table">
+      <thead><tr><th>Loco ID</th><th>Total Issues</th><th>LS Mode</th><th>SR Mode</th><th>Tag Missing</th><th>Radio Failures</th><th>Stations Affected</th></tr></thead>
+      <tbody>${locosSorted.map(([loco,issues])=>{
+        const lLS=issues.filter(r=>r.IssueType==='LS mode').length;
+        const lSR=issues.filter(r=>r.IssueType==='SR mode').length;
+        const lTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
+        const lRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+        const lStations=[...new Set(issues.map(r=>stationCode(r.Station)))].join(', ');
+        return `<tr><td style="font-weight:700">${loco}</td><td style="font-weight:700">${issues.length}</td><td>${lLS}</td><td>${lSR}</td><td>${lTag}</td><td>${lRadio}</td><td style="font-size:5.5pt">${lStations}</td></tr>`}).join('')}
+      </tbody>
+    </table>
+  </div>`;
+
+  // Full table at the end
+  html+=`<div class="pdf-section-break"></div>
+  <div style="margin:0 12pt">
+    <table class="pdf-detail-table">
+      <caption>Appendix: Complete Issue Log (${d.length} Records)</caption>
+      <thead><tr><th>#</th><th>Date</th><th>Station</th><th>Loco</th><th>Dir</th><th>Type</th><th>Sub-Category</th><th>Time</th><th>Analysis</th></tr></thead>
+      <tbody>${d.map((r,i)=>{
+        const bc=r.IssueType==='LS mode'?'pdf-badge-ls':r.IssueType==='SR mode'?'pdf-badge-sr':'pdf-badge-tag';
+        return `<tr>
+          <td style="color:#7A9AAA">${i+1}</td>
+          <td>${r.Date}</td>
+          <td title="${r.Station}">${stationCode(r.Station)}</td>
+          <td>${r.LocoId||'—'}</td>
+          <td>${r.Direction||'—'}</td>
+          <td><span class="pdf-badge ${bc}">${r.IssueType||'—'}</span></td>
+          <td>${r.SubCategory||'—'}</td>
+          <td>${r.Time||'—'}</td>
+          <td style="max-width:180pt;white-space:normal">${(r.Analysis||'—').slice(0,150)}${r.Analysis&&r.Analysis.length>150?'…':''}</td>
+        </tr>`}).join('')}
+      </tbody>
+    </table>
+  </div>
+  <div class="pdf-page-footer">KAVACH Eastern Railway · Internal Issue Report · Confidential<br>Generated ${new Date().toLocaleString('en-IN')} · Total ${total} records · ${stCount} stations · ${loCount} locos</div>`;
+
+  document.getElementById('pdfReport').innerHTML=html;
+  setTimeout(()=>window.print(),300);
+}
+
 function renderAll(){renderKPIs();renderTrend();renderDonut();renderSubCat();renderDirection();
   renderStationBar();renderLocoBar();renderStacked();renderRadar();renderHeatmap();renderCumulative();renderBubble();renderTable()}
 
 populateSlicers();
-['dateSlicer','stationSlicer','issueTypeSlicer','directionSlicer'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','directionSlicer'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 renderAll();
 </script>
 </body>
