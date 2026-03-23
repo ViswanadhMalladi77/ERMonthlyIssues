@@ -1,0 +1,600 @@
+Date,Station name & ID,Loco Id,Direction,Issue Type,Issue Sub category,Issue Count,Issues noted During Trial,Time,Analysis,Root Cause/Why2,Corrective Action,Issue Category,Action Taken
+01-03-2026,Barddhaman Jn (BWN) (12028),30082,,SR mode,SOM,1,Loco switched to SR mode,19:52:14,"When the loco configuration was done, SOM SR authority was sent by station. After reading a known route Tag - 624, OS MA was sent by the station","Radio 1 RX: 27.03 MB
+Radio 2 RX: 25.53 MB",,,
+01-03-2026,Barddhaman Jn (BWN) (12028),30191,,LS mode,,,Loco switched to LS mode,,No issue observed ,"Radio 1 RX: 27.03 MB
+Radio 2 RX: 25.53 MB",,,
+01-03-2026,Saktigarh (SKG) (12026),30191,,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,,"Loco failed to register with the station on time, as the locoregular packets sent by loco were not received by the station, causing the loco to switch to LS Mode.","Radio 1 RX: 16.46 MB
+Radio 2 RX: 7.63 MB",,,
+01-03-2026,Jaugram (JRAE) (12022),30191,,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,10:17:44,As per station Log. Loco regular packets were not received to station. Hence with frame offset 5 Loco switched to LS mode. Loco has sent the loco regular packets but the station failed to receive the loco regular packets. ,"Radio 1 RX: 14.58 MB
+Radio 2 RX: 330.25 KB",,,
+01-03-2026,Chandanpur (CDAE) (12015),30191,,SR mode,,,Loco switched to SR mode,,No issue observed ,"Radio 1 RX: 7.48 MB
+Radio 2 RX: 8.31 MB",,,
+01-03-2026,Howrah (HWH) (12000),30191,,SR mode,SOM,,Loco switched to SR mode,17:21:32,"When the loco configuration was done, SOM SR authority was sent by station. After reading a known route Tag - 241 OS MA was sent by the station","Radio 1 RX: 2.80 MB
+Radio 2 RX: 3.95 MB",,,
+01-03-2026,Gurap (GRAE) (12020),30330,,LS mode,,,Loco switched to LS mode,0:04:18,"Data is not populated in the station log, likely suspect is the Radio Interference ","Radio 1 RX: 6.28 MB
+Radio 2 RX: 3.77 MB",,,
+01-03-2026,Jaugram (JRAE) (12022),30330,,Tag Missing,Tag missing,1,Tag Missing,,(TAG ID - 733),"Radio 1 RX: 14.58 MB
+Radio 2 RX: 330.25 KB",,,
+01-03-2026,Barddhaman Jn (BWN) (12028),30371,R,LS mode,,1,Loco switched to LS mode,,Need proper station log. The current log is not properly populated with many timestamps missing in LocoRegular and LocoReq is almost empty.,"Radio 1 RX: 27.03 MB
+Radio 2 RX: 25.53 MB",,,
+01-03-2026,Cheragram (CRAE) (12018),30371,DN (R),LS mode,,,Loco switched to LS mode,4:41:16,The station log is not properly populated as the mentioned incident time is not available in neither the LocoReq  or Station Regular. Need properly populated data in the station log to analyse the incident. ,"Radio 1 RX: 10.76 MB
+Radio 2 RX: 12.52 MB",,,
+01-03-2026,Kamarkundu (KQU) (12013),30371,DN (R),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,4:50:58,As per station Log. Loco regular packets were not received to station. Hence with frame offset 5 Loco switched to LS mode. Loco has sent the loco regular packets but the station failed to receive the loco regular packets. ,"Radio 1 RX: 10.71 MB
+Radio 2 RX: 9.09 MB",,,
+01-03-2026,Janai Road (JOX) (12009),30371,DN (R),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,4:59:36,As per station Log. Loco regular packets were not received to station. Hence with frame offset 5 Loco switched to LS mode. Loco has sent the loco regular packets but the station failed to receive the loco regular packets. ,"Radio 1 RX: 2.62 MB
+Radio 2 RX: 5.20 MB",,,
+01-03-2026,Chandanpur (CDAE) (12015),30371,DN (R),SR mode,Radio Communicaiton failure,1,Loco switched to SR mode,4:46:20,"Loco was already travelling in LS and due to non establishment of communication, the loco further degraded to SR mode.","Radio 1 RX: 7.48 MB
+Radio 2 RX: 8.31 MB",,,
+01-03-2026,Dankuni (DKAE) (12007),30371,DN (R),SR mode,,,Loco switched to SR mode,5:05:44,,"Radio 1 RX: 22.67 MB
+Radio 2 RX: 970.00 B",,,
+01-03-2026,Chandanpur (CDAE) (12015),37452,R,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,4:54:00,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 7.48 MB
+Radio 2 RX: 8.31 MB",,,
+01-03-2026,Kamarkundu (KQU) (12013),37452,R,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,4:57:34,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 10.71 MB
+Radio 2 RX: 9.09 MB",,,
+01-03-2026,Baruipara (BRPA) (12011),37452,R,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,5:03:52,Station sent station regular packets. but are not received to the Loco. Hence Loco switched to LS mode.,"Radio 1 RX: 4.60 MB
+Radio 2 RX: 5.37 MB",,,
+01-03-2026,Belanagar (BZL) (12006),37452,R,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,5:14:50,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 15.53 MB
+Radio 2 RX: 7.75 MB",,,
+01-03-2026,Howrah (HWH) (12000),37452,R,SR mode,KAVACH territory exit,1,Loco switched to SR mode,5:41:30,"Loco After reading Tag-249,Loco switched to SR Mode as it is Kavach territory Exit.","Radio 1 RX: 2.80 MB
+Radio 2 RX: 3.95 MB",,,
+01-03-2026,Barddhaman Jn (BWN) (12028),39132,,LS mode,,,Loco switched to LS mode,,No issue observed according to the station log,"Radio 1 RX: 27.03 MB
+Radio 2 RX: 25.53 MB",,,
+01-03-2026,Chandanpur (CDAE) (12015),39132,R,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,5:17:30,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 7.48 MB
+Radio 2 RX: 8.31 MB",,,
+01-03-2026,Chandanpur (CDAE) (12015),39132,R,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,5:17:30,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 7.48 MB
+Radio 2 RX: 8.31 MB",,,
+01-03-2026,Gurap (GRAE) (12020),39132,,SR mode,,,Loco switched to SR mode,,NO issue observed,"Radio 1 RX: 6.28 MB
+Radio 2 RX: 3.77 MB",,,
+01-03-2026,Chandanpur (CDAE) (12015),39132,R,SR mode,Radio Communicaiton failure,1,Loco switched to LS & SR mode,"
+LS - 05:16:36
+SR - 5:17:04 AM","1) Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.
+2) Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 2sec","Radio 1 RX: 7.48 MB
+Radio 2 RX: 8.31 MB",,,
+01-03-2026,Dankuni (DKAE) (12007),39132,,SR mode,,,Loco switched to SR mode,5:40:40,,"Radio 1 RX: 22.67 MB
+Radio 2 RX: 970.00 B",,,
+01-03-2026,Belur (BEQ) (12003),39133,N,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,10:15:24,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 1.81 MB
+Radio 2 RX: 4.45 MB",,,
+01-03-2026,Jaugram (JRAE) (12022),39133,N,LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,10:55:24,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 14.58 MB
+Radio 2 RX: 330.25 KB",,,
+01-03-2026,Masagram (MSAE) (12024),39133,,LS mode,,,Loco switched to LS mode,,NO issue observed,"Radio 1 RX: 27.73 MB
+Radio 2 RX: 10.56 MB",,,
+01-03-2026,Gangpur (GRP) (12027),39133,,SR mode,,,Loco switched to SR mode,,NO issue observed,"Radio 1 RX: 14.23 MB
+Radio 2 RX: 10.14 MB",,,
+02-03-2026,LC-31 (KQU-CDAE) (12014),30191,DN (R),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,9:45:14,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 22.09 MB
+Radio 2 RX: 23.89 MB",,,
+02-03-2026,Baruipara (BRPA) (12011),30191,DN (R),SR mode,,,Loco switched to SR mode,0:37:26,,"Radio 1 RX: 6.01 MB
+Radio 2 RX: 8.01 MB",,,
+02-03-2026,LC-41 (CRAE-GRAE) (12019),30328,DN (R),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,3:34:38,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 13.58 MB
+Radio 2 RX: 13.68 MB",,,
+02-03-2026,Cheragram (CRAE) (12018),30328,DN (R),LS mode,,,Loco switched to LS mode,,"According to station log, there is no LS issue logged for this loco.  Loco log also doesn't show any LS mode degradation for this loco at the mentioned station. ","Radio 1 RX: 9.04 MB
+Radio 2 RX: 10.90 MB",,,
+02-03-2026,Chandanpur (CDAE) (12015),30328,DN (R),SR mode,,,Loco switched to SR mode,,"Station log doesn't show any FS to SR degradation for this loco at the mentioned station. Same is the case for Loco log, doesn't show any degradation to SR mode. ","Radio 1 RX: 4.53 MB
+Radio 2 RX: 8.74 MB",,,
+02-03-2026,Dankuni (DKAE) (12007),30328,DN (R),SR mode,KAVACH territory exit,,Loco switched to SR mode,4:05:20,Loco read Kavach territory exit tag and switched to SR Mode,"Radio 1 RX: 4.50 MB
+Radio 2 RX: 1.52 KB",,,This is normal behaviour of kavach.
+02-03-2026,Barddhaman Jn (BWN) (12028),30567,DN (R),LS mode,,,Loco switched to LS mode,3:27:14,"Need to check Loco Antennas, as LS modes were occurred mostly in every station.          
+
+
+
+
+
+
+
+","Radio 1 RX: 21.76 MB
+Radio 2 RX: 20.31 MB",,,
+02-03-2026,Saktigarh (SKG) (12026),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 15.96 MB
+Radio 2 RX: 8.25 MB",,,
+02-03-2026,Masagram (MSAE) (12024),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 17.84 MB
+Radio 2 RX: 869.00 KB",,,
+02-03-2026,Baruipara (BRPA) (12011),30567,DN (R),LS mode,,,Loco switched to LS mode,4:26:00,,"Radio 1 RX: 6.01 MB
+Radio 2 RX: 8.01 MB",,,
+02-03-2026,Barddhaman Jn (BWN) (12028),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 21.76 MB
+Radio 2 RX: 20.31 MB",,,
+02-03-2026,Howrah (HWH) (12000),30567,UP (N),SR mode,SOM,,Loco switched to SR mode,10:02:52,"When the loco configuration was done, SOM SR authority was sent by station. After reading a known route Tag - 241 OS MA was sent by the station","Radio 1 RX: 1.77 MB
+Radio 2 RX: 1.82 MB",,,
+02-03-2026,Howrah Sorting Yard (SYAE) (12001),30567,DN (R),SR mode,,,Loco switched to SR mode,,No issue observed ,"Radio 1 RX: 2.09 MB
+Radio 2 RX: 5.03 MB",,,
+02-03-2026,Gurap (GRAE) (12020),30567,,,Tag Missing (Both Main & Duplicate Tags),,Tag Missing,,,,,,
+02-03-2026,Belmuri (BMAE) (12017),35048,UP (N),SR mode,,,Loco switched to SR mode,15:12:42,"All station parameters are looking good, primary suspect is Radio intereference. ","Radio 1 RX: 9.55 MB
+Radio 2 RX: 11.62 MB",,,
+02-03-2026,Baruipara (BRPA) (12011),37268,UP (N),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,18:55:26,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 6.01 MB
+Radio 2 RX: 8.01 MB",,,
+02-03-2026,Barddhaman Jn (BWN) (12028),37268,,,Tag Missing (Both Main & Duplicate Tags),,Tag Missing,,,,,,
+02-03-2026,Baruipara (BRPA) (12011),37272,DN (R),LS mode,,,Loco switched to LS mode,,No issue observed in either station or loco log.,"Radio 1 RX: 6.01 MB
+Radio 2 RX: 8.01 MB",,,
+02-03-2026,Janai Road (JOX) (12009),37610,UP (N),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,0:36:46,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 923.51 KB
+Radio 2 RX: 6.04 MB",,,
+02-03-2026,Dankuni (DKAE) (12007),37610,UP (N),SR mode,,,Loco switched to SR mode,0:16:04,"Loco was previously travelling in LS mode, due to no communication with the station, the loco further switched to SR ","Radio 1 RX: 4.50 MB
+Radio 2 RX: 1.52 KB",,,
+02-03-2026,LC-31 (KQU-CDAE) (12014),37879,,,Tag Missing (Both Main & Duplicate Tags),,Tag missing (Tag ID 60),,,,,,
+03-03-2026,LC-31 (KQU-CDAE) (12014),30191,DN (R),LS mode,Radio Communicaiton failure,1,Loco switched to LS mode,9:45:14,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 18.54 MB
+Radio 2 RX: 19.42 MB",,,
+03-03-2026,Baruipara (BRPA) (12011),30191,DN (R),SR mode,,,Loco switched to SR mode,,No issue observed in both station and Loco logs. ,"Radio 1 RX: 979.77 KB
+Radio 2 RX: 1.69 MB",,,
+03-03-2026,LC-41 (CRAE-GRAE) (12019),30328,DN (R),LS mode,,,Loco switched to LS mode,7:49:34,"Loco failed to register with station on time as the loco regular sent by loco is not received by station for a brief moment, hence causing the loco to switch to LS Mode","Radio 1 RX: 4.58 MB
+Radio 2 RX: 3.24 MB",,,
+03-03-2026,Cheragram (CRAE) (12018),30328,DN (R),LS mode,,,Loco switched to LS mode,,"No issue observed in both station and Loco logs. All other radio parameters are also good, likely suspect Radio Intereference. ","Radio 1 RX: 1.46 MB
+Radio 2 RX: 2.15 MB",,,
+03-03-2026,Chandanpur (CDAE) (12015),30328,DN (R),SR mode,,,Loco switched to SR mode,,Station log is completely empty. Need properly populated station log. The mentioned loco log also is not avaialable for analysis.,"Radio 1 RX: 396.17 KB
+Radio 2 RX: 1.12 MB",,,
+03-03-2026,Dankuni (DKAE) (12007),30328,DN (R),SR mode,,,Loco switched to SR mode,,Station log is completely empty. Need properly populated station log. The mentioned loco log also is not avaialable for analysis.,"Radio 1 RX: 2.91 MB
+Radio 2 RX: 1.07 KB",,,
+03-03-2026,Barddhaman Jn (BWN) (12028),30567,DN (R),LS mode,,,Loco switched to LS mode,,"Need to check Loco Antennas, as LS modes were occurred mostly in every station.","Radio 1 RX: 18.73 MB
+Radio 2 RX: 15.57 MB",,,
+03-03-2026,Saktigarh (SKG) (12026),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 10.51 MB
+Radio 2 RX: 1.14 MB",,,
+03-03-2026,Masagram (MSAE) (12024),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 7.12 MB
+Radio 2 RX: 223.07 KB",,,
+03-03-2026,Baruipara (BRPA) (12011),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 979.77 KB
+Radio 2 RX: 1.69 MB",,,
+03-03-2026,Barddhaman Jn (BWN) (12028),30567,DN (R),LS mode,,,Loco switched to LS mode,,,"Radio 1 RX: 18.73 MB
+Radio 2 RX: 15.57 MB",,,
+03-03-2026,Howrah (HWH) (12000),30567,DN (R),SR mode,SOM,,Loco switched to SR mode,,"When the loco configuration was done, SOM SR authority was sent by station. After reading a known route Tag - 241 OS MA was sent by the station","Radio 1 RX: 363.36 KB
+Radio 2 RX: 296.57 KB",,,
+03-03-2026,Howrah Sorting Yard (SYAE) (12001),30567,DN (R),SR mode,,,Loco switched to SR mode,,No issue observed ,"Radio 1 RX: 258.37 KB
+Radio 2 RX: 1.52 MB",,,
+03-03-2026,Belmuri (BMAE) (12017),35048,DN (R),SR mode,,,Loco switched to SR mode,,According to station log there is no SR Mode degradation for this loco as the likely reason is missing data. Loco log also doesn't show any such incident for this loco at the mentioned station.,"Radio 1 RX: 2.09 MB
+Radio 2 RX: 3.47 MB",,,
+03-03-2026,Baruipara (BRPA) (12011),37268,DN (R),LS mode,Radio communicaiton failure,,Loco switched to LS mode,8:04:44,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 979.77 KB
+Radio 2 RX: 1.69 MB",,,
+03-03-2026,Baruipara (BRPA) (12011),37272,DN (R),LS mode,,,Loco switched to LS mode,,Station log is completely empty. Need properly populated station log. The mentioned loco log also is not avaialable for analysis.,"Radio 1 RX: 979.77 KB
+Radio 2 RX: 1.69 MB",,,
+03-03-2026,Janai Road (JOX) (12009),37610,DN (R),LS mode,Radio communicaiton failure,,Loco switched to LS mode,5:39:20,Loco delayed to register with the station causing the loco to switch to LS Mode. ,"Radio 1 RX: 208.25 KB
+Radio 2 RX: 1.73 MB",,,
+03-03-2026,Dankuni (DKAE) (12007),37610,DN (R),SR mode,,,Loco switched to SR mode,5:48:46,No issue observed ,"Radio 1 RX: 2.91 MB
+Radio 2 RX: 1.07 KB",,,
+04-03-2026,Cheragram (CRAE) (12018),30082,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,13:09:46,After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular packets. but are received delay to the station. Hence Loco switched to LS mode.,"Radio 1 RX: 8.19 MB
+Radio 2 RX: 7.64 MB",,,
+04-03-2026,Baruipara (BRPA) (12011),30330,UP (N),LS mode,,,Loco switched to LS mode,23:37:20,"Data is not populated in the station log, likely suspect is the Radio Interference ","Radio 1 RX: 1.32 MB
+Radio 2 RX: 2.24 MB",,,
+04-03-2026,Janai Road (JOX) (12009),30692,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,17:41:46,"After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular packets.but Loco regular packets were received at the station with a delay of 4 seconds, and station packets were received at the loco with a delay of 2 seconds.Hence Loco switched to LS mode.","Radio 1 RX: 329.38 KB
+Radio 2 RX: 1.77 MB",,,
+04-03-2026,Baruipara (BRPA) (12011),37042,UP (N),LS mode,,,Loco switched to LS mode,0:06:22,"Need to check Loco Antennas, as LS modes were occurred mostly in every station.","Radio 1 RX: 1.32 MB
+Radio 2 RX: 2.24 MB",,,
+04-03-2026,Janai Road (JOX) (12009),37042,UP (N),LS mode,,,Loco switched to LS mode,0:00:18,,"Radio 1 RX: 329.38 KB
+Radio 2 RX: 1.77 MB",,,
+04-03-2026,LC-38 (CDAE-BMAE) (12016),37042,UP (N),LS mode,,,Loco switched to LS mode,0:18:40,,"Radio 1 RX: 568.99 KB
+Radio 2 RX: 435.22 KB",,,
+04-03-2026,Palla Road (PRAE) (12025),37042,UP (N),LS mode,,,Loco switched to LS mode,0:42:46,,"Radio 1 RX: 1.53 MB
+Radio 2 RX: 16.25 MB",,,
+04-03-2026,Cheragram (CRAE) (12018),37268,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,7:54:40,Station sent station regular packets. but are not received to Loco. Hence Loco switched to LS mode.,"Radio 1 RX: 8.19 MB
+Radio 2 RX: 7.64 MB",,,
+04-03-2026,LC-38 (CDAE-BMAE) (12016),37268,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,7:57:26,"After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular packets.but Loco regular packets were received at the station with a delay, and station packets were received at the loco with a delay of 2 seconds.Hence Loco switched to LS mode.","Radio 1 RX: 568.99 KB
+Radio 2 RX: 435.22 KB",,,
+04-03-2026,Belur (BEQ) (12003),37908,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:29:06,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 507.79 KB
+Radio 2 RX: 1.03 MB",,,
+04-03-2026,Cheragram (CRAE) (12018),37908,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:57:12,Loco didn't sent Loco regular packets for 10sec. Hence With frame offset 5 Loco  switched to LS mode.,"Radio 1 RX: 8.19 MB
+Radio 2 RX: 7.64 MB",,,
+04-03-2026,Jaugram (JRAE) (12022),37908,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,9:06:18,Loco didn't sent Loco regular packets for 12sec. Hence With frame offset 5 Loco  switched to LS mode.,"Radio 1 RX: 12.88 MB
+Radio 2 RX: 941.59 KB",,,
+04-03-2026,Janai Road (JOX) (12009),39411,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,16:11:56,After deregister with previous station. Loco sent Loco request. but it received delay to the station. Hence Loco switched LS mode.,"Radio 1 RX: 329.38 KB
+Radio 2 RX: 1.77 MB",,,
+05-03-2026,Barddhaman Jn (BWN) (12028),30082,DN (R),SR mode,SOM,1,Loco switched to SR mode,18:50:52,"When the loco configuration was done, SOM SR authority was sent by station. After reading a known route Tag - 624 OS MA was sent by the station","Radio 1 RX: 16.61 MB
+Radio 2 RX: 15.61 MB",,,
+05-03-2026,Belur (BEQ) (12003),30568,UP (N),LS mode,,,Loco switched to LS mode,,No proper information in Loco log. packets were logged upto 4 hours only. but the issue was observed at 23 hours. Need proper Loco log.,"Radio 1 RX: 1.53 MB
+Radio 2 RX: 1.97 MB",,,
+05-03-2026,Janai Road (JOX) (12009),30568,UP (N),LS mode,,,Loco switched to LS mode,,No proper information in Loco log. packets were logged upto 4 hours only. but the issue was observed at 23 hours. Need proper Loco log.,"Radio 1 RX: 434.72 KB
+Radio 2 RX: 2.05 MB","Please check proper google drive loco log, Seperate UP & DN loco log provided for different train movement. Please consider UP movement",,
+05-03-2026,Howrah (HWH) (12000),30568,UP (N),SR mode,,,Loco switched to SR mode,,No proper information in Loco log. packets were logged upto 4 hours only. but the issue was observed at 23 hours. Need proper Loco log.,"Radio 1 RX: 458.91 KB
+Radio 2 RX: 491.85 KB",,,
+05-03-2026,Baruipara (BRPA) (12011),30676,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,4:22:50,"station regular packets were not recevied to Loco for 10sec. hence Loco switched lo LS mode.  but  Data is not populated in the station log, likely suspect is the Radio Interference ","Radio 1 RX: 2.69 MB
+Radio 2 RX: 5.00 MB",,,
+05-03-2026,Dankuni (DKAE) (12007),30676,DN (R),SR mode,KAVACH territory exit,1,Loco switched to SR mode,4:33:06,"Loco After reading Tag-415,Loco switched to SR Mode as it is Kavach territory Exit.","Radio 1 RX: 1.21 MB
+Radio 2 RX: 1.30 KB",,,
+05-03-2026,Howrah (HWH) (12000),30692,UP (N),SR mode,,,Loco switched to SR mode,17:21:38,,"Radio 1 RX: 458.91 KB
+Radio 2 RX: 491.85 KB",,,
+05-03-2026,Baruipara (BRPA) (12011),30692,UP (N),SR mode,,,Loco switched to SR mode,17:47:06,,"Radio 1 RX: 2.69 MB
+Radio 2 RX: 5.00 MB",,,
+05-03-2026,LC-41 (CRAE-GRAE) (12019),37403,UP (N),LS mode,,,Loco switched to LS mode,0:20:32,,"Radio 1 RX: 8.81 MB
+Radio 2 RX: 10.67 MB",,,
+05-03-2026,Cheragram (CRAE) (12018),37456,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:08:24,Station sent station regular packets. but are not received to Loco for 10sec. Hence Loco switched to LS mode.,"Radio 1 RX: 7.16 MB
+Radio 2 RX: 7.97 MB",,,
+05-03-2026,Chandanpur (CDAE) (12015),37456,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:13:36,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 1.99 MB
+Radio 2 RX: 4.80 MB",,,
+05-03-2026,LC-31 (KQU-CDAE) (12014),37456,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:15:48,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 4.71 MB
+Radio 2 RX: 5.20 MB",,,
+05-03-2026,Baruipara (BRPA) (12011),37456,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:30:36,Station sent station regular packets. but are not received to Loco for 10sec. Hence Loco switched to LS mode.,"Radio 1 RX: 2.69 MB
+Radio 2 RX: 5.00 MB",,,
+05-03-2026,Howrah (HWH) (12000),37456,UP (N),SR mode,,,Loco switched to SR mode,18:24:08,No proper information in Loco log. packets were logged upto 9 hours only. but the issue was observed at 18 hours. Need proper Loco log.,"Radio 1 RX: 458.91 KB
+Radio 2 RX: 491.85 KB",,,
+05-03-2026,Jaugram (JRAE) (12022),37657,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,7:32:14,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 9.09 MB
+Radio 2 RX: 924.19 KB",,,
+05-03-2026,Janai Road (JOX) (12009),37657,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:01:46,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 434.72 KB
+Radio 2 RX: 2.05 MB",,,
+05-03-2026,Baruipara (BRPA) (12011),37657,DN (R),SR mode,Radio communicaiton failure,1,Loco switched to LS & SR mode,7:49:58,"1)Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 15 Loco switched to LS mode.
+2)Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 2sec","Radio 1 RX: 2.69 MB
+Radio 2 RX: 5.00 MB",,,
+05-03-2026,Masagram (MSAE) (12024),37778,DN (R),LS mode,,,Loco switched to LS mode,,No issue observed,"Radio 1 RX: 9.59 MB
+Radio 2 RX: 459.54 KB",,,
+05-03-2026,Baruipara (BRPA) (12011),37778,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,5:39:22,Station sent station regular packets. but are not received to Loco for 10sec. Hence Loco switched to LS mode.,"Radio 1 RX: 2.69 MB
+Radio 2 RX: 5.00 MB",,,
+05-03-2026,Howrah (HWH) (12000),37778,DN (R),SR mode,KAVACH territory exit,1,Loco switched to SR mode,6:26:30,"Loco After reading Tag-146,Loco switched to SR Mode as it is Kavach territory Exit.","Radio 1 RX: 458.91 KB
+Radio 2 RX: 491.85 KB",,,
+05-03-2026,Kamarkundu (KQU) (12013),37894,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,7:20:20,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 1.85 MB
+Radio 2 RX: 1.65 MB",,,
+05-03-2026,Howrah (HWH) (12000),37894,DN (R),SR mode,KAVACH territory exit,1,Loco switched to SR mode,8:12:38,"Loco After reading Tag-249,Loco switched to SR Mode as it is Kavach territory Exit.","Radio 1 RX: 458.91 KB
+Radio 2 RX: 491.85 KB",,,
+05-03-2026,Janai Road (JOX) (12009),39132,UP (N),LS mode,,,Loco switched to LS mode,22:19:36,,"Radio 1 RX: 434.72 KB
+Radio 2 RX: 2.05 MB",,,
+05-03-2026,Dankuni (DKAE) (12007),39411,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:36:02,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 1.21 MB
+Radio 2 RX: 1.30 KB",,,
+05-03-2026,Kamarkundu (KQU) (12013),39411,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:47:56,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 1.85 MB
+Radio 2 RX: 1.65 MB",,,
+05-03-2026,Chandanpur (CDAE) (12015),39411,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:50:46,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 1.99 MB
+Radio 2 RX: 4.80 MB",,,
+05-03-2026,Cheragram (CRAE) (12018),39411,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,9:02:18,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 7.16 MB
+Radio 2 RX: 7.97 MB",,,
+05-03-2026,Jaugram (JRAE) (12022),39411,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,9:11:22,Loco sent Loco regular packets. but are not received to the station. Hence with Frame offset 5 Loco switched to LS mode.,"Radio 1 RX: 9.09 MB
+Radio 2 RX: 924.19 KB",,,
+05-03-2026,Cheragram (CRAE) (12018),39411,DN (R),SR mode,,1,Loco switched to SR mode,,,"Radio 1 RX: 7.16 MB
+Radio 2 RX: 7.97 MB",,,
+06-03-2026,Barddhaman Jn (BWN) (12028),30082,DN (R),SR mode,SOM,1,Loco switched to SR mode,19:01:08,"When the loco configuration was done, SOM SR authority was sent by station. After reading a known route Tag - 630 OS MA was sent by the station","Radio 1 RX: 17.47 MB
+Radio 2 RX: 16.08 MB",,,
+06-03-2026,Baruipara (BRPA) (12011),30327,UP (N),LS mode,,1,Loco switched to LS mode,21:19:40,Loco failed to register with the station in time as the StnRegular sent by the station is not received by the loco causing the loco to switch to LS Mode,"Radio 1 RX: 3.75 MB
+Radio 2 RX: 2.00 MB",,,
+06-03-2026,Chandanpur (CDAE) (12015),30457,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,6:33:26,Station failed to receive loco regular packets sent by loco(Verified in loco Log that loco sent packets) hence causing the loco to switch to LS Mode,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",Need to check Radio path connecitivity,,
+06-03-2026,Cheragram (CRAE) (12018),30457,DN (R),LS mode,,1,Loco switched to LS mode,,"Station log is not fully populated. Need proper station log. According to loco log, no issue is observed","Radio 1 RX: 4.97 MB
+Radio 2 RX: 5.02 MB",,,
+06-03-2026,Masagram (MSAE) (12024),30457,DN (R),LS mode,,1,Loco switched to LS mode,,"Station log is not fully populated. Need proper station log. According to loco log, no issue is observed","Radio 1 RX: 12.45 MB
+Radio 2 RX: 1.96 MB",,,
+06-03-2026,Palla Road (PRAE) (12025),30457,DN (R),Tag Missing,,1,Tag Missing,6:17:26,Loco failed to read tag-130.(Verified in TagRead file in loco Log),"Radio 1 RX: 6.34 MB
+Radio 2 RX: 13.98 MB",,,
+06-03-2026,Chandanpur (CDAE) (12015),30568,UP (N),LS mode,,1,Loco switched to LS mode,0:03:54,Station log is not fully populated. Need proper station log. Loco Log also not available for analysis.,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,
+06-03-2026,LC-31 (KQU-CDAE) (12014),30568,UP (N),LS mode,,1,Loco switched to LS mode,0:04:02,need loco log,"Radio 1 RX: 11.43 MB
+Radio 2 RX: 13.56 MB",,,Loco log uploaded in the drive
+06-03-2026,Chandanpur (CDAE) (12015),30692,DN (R),LS mode,,1,Loco switched to LS mode,9:41:52,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,
+06-03-2026,LC-31 (KQU-CDAE) (12014),30692,DN (R),LS mode,,1,Loco switched to LS mode,9:43:28,need loco log,"Radio 1 RX: 11.43 MB
+Radio 2 RX: 13.56 MB",,,Loco log uploaded in the drive
+06-03-2026,Saktigarh (SKG) (12026),30692,DN (R),LS mode,,1,Loco switched to LS mode,,need loco log,"Radio 1 RX: 11.56 MB
+Radio 2 RX: 5.07 MB",,,Loco log uploaded in the drive
+06-03-2026,LC-41 (CRAE-GRAE) (12019),37081,DN (R),LS mode,,1,Loco switched to LS mode,3:57:58,Registration was delyed due to AAP(stn response) was delyed by 4sec and SORP(stn regular) was delyed by 8sec and loco switched to LS mode.,"Radio 1 RX: 4.97 MB
+Radio 2 RX: 5.02 MB",,,
+06-03-2026,Cheragram (CRAE) (12018),37081,DN (R),LS mode,,1,Loco switched to LS mode,4:01:24,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 4.97 MB
+Radio 2 RX: 5.02 MB",,,
+06-03-2026,LC-31 (KQU-CDAE) (12014),37081,DN (R),LS mode,,1,Loco switched to LS mode,4:10:08,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 11.43 MB
+Radio 2 RX: 13.56 MB",,,
+06-03-2026,Chandanpur (CDAE) (12015),37120,DN (R),LS mode,,1,Loco switched to LS mode,4:36:54,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,
+06-03-2026,Janai Road (JOX) (12009),37120,DN (R),LS mode,,1,Loco switched to LS mode,4:50:02,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 1.01 MB
+Radio 2 RX: 2.00 MB",,,
+06-03-2026,LC-31 (KQU-CDAE) (12014),37120,DN (R),LS mode,,1,Loco switched to LS mode,4:38:22,Registration was delyed due to AAP(stn response) was delyed by 8sec and SORP(stn regular) was delyed by 20sec and loco switched to LS mode.,"Radio 1 RX: 11.43 MB
+Radio 2 RX: 13.56 MB",,,
+06-03-2026,Howrah (HWH) (12000),37120,DN (R),SR mode,,1,Loco switched to SR mode,5:09:34,After read KAVACH TERRITORY EXIT tag loco switched to SR mode.,,,,
+06-03-2026,Baruipara (BRPA) (12011),37181,DN (R),LS mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,7:44:20,Loco switched to LS mode with frame offset of 15 in stn section and unable to establish communication with s-kavach then loco switched to SR mode,"Radio 1 RX: 3.75 MB
+Radio 2 RX: 2.00 MB",,,
+06-03-2026,Kamarkundu (KQU) (12013),37181,DN (R),LS mode,,1,Loco switched to LS mode,7:41:24,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 3.37 MB
+Radio 2 RX: 2.89 MB",,,
+06-03-2026,Palla Road (PRAE) (12025),37181,DN (R),LS mode,,1,Loco switched to LS mode,7:17:16,Registration was delyed due to AAP(stn response) was delyed by 116sec and OSRP(loco regular) delyed by 4 sec and loco switched to LS mode.,"Radio 1 RX: 11.56 MB
+Radio 2 RX: 5.07 MB",,,
+06-03-2026,Chandanpur (CDAE) (12015),37181,DN (R),SR mode,,1,Loco switched to SR modeAck SR Mode- No Track Profile ,7:38:48,Loco Switched to LS mode with frame offset 5 in auto section and unable to establish communication with S-Kavach then loco switch to SR mode due to insufficient track profile.,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,
+06-03-2026,Baruipara (BRPA) (12011),37456,DN (R),LS mode,,1,Loco switched to LS mode,8:11:18,"Loco Switched to LS mode with frame offset 15 in stn section and unable to establish communication with S-kavach ,then loco switched to SR mode due to insufficient track profile.","Radio 1 RX: 3.75 MB
+Radio 2 RX: 2.00 MB",,,
+06-03-2026,Chandanpur (CDAE) (12015),37456,DN (R),SR mode,,1,Loco switched to SR mode,8:04:14,Loco switched to LS mode  with frame offset 5 in auto section and unable to establish communication with S-Kavach due to this SR Authority received for 2 sec.,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,
+06-03-2026,Belur (BEQ) (12003),37719,UP (N),LS mode,,1,Loco switched to LS mode,8:30:14,need loco log,"Radio 1 RX: 635.63 KB
+Radio 2 RX: 3.62 MB",,,Loco log uploaded in the drive
+06-03-2026,Chandanpur (CDAE) (12015),37719,DN (R),LS mode,,1,Loco switched to LS mode,,need loco log,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,Loco log uploaded in the drive
+06-03-2026,Saktigarh (SKG) (12026),37719,DN (R),LS mode,,1,Loco switched to LS mode,,need loco log,"Radio 1 RX: 11.56 MB
+Radio 2 RX: 5.07 MB",,,Loco log uploaded in the drive
+06-03-2026,Howrah Sorting Yard (SYAE) (12001),37719,UP (N),LS mode,,1,Loco switched to LS mode,8:26:36,need loco log,"Radio 1 RX: 6.78 MB
+Radio 2 RX: 12.64 MB",,,Loco log uploaded in the drive
+06-03-2026,LC-12 (DKAE-JOX) (12008),37719,UP (N),SR mode,,1,Loco switched to SR mode,8:35:54,need loco log,"Radio 1 RX: 4.79 MB
+Radio 2 RX: 82.54 KB",,,Loco log uploaded in the drive
+06-03-2026,Baruipara (BRPA) (12011),37908,DN (R),LS mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,16:18:16,"1.Srtn regular packets were missing in loco log from 16:18:06 to 16:18:18.Then loco switched to LS mode.
+2.Intermittently stn regular  packets were missing .
+3.after that unable to establish communication with S-kavach loco switched to SR mode due to communication failure.","Radio 1 RX: 3.75 MB
+Radio 2 RX: 2.00 MB",,,
+06-03-2026,Howrah (HWH) (12000),37908,DN (R),SR mode,,1,Loco switched to SR mode,17:06:20,After read KAVACH TERRITORY EXIT tag loco switched to SR mode.,"Radio 1 RX: 1.41 MB
+Radio 2 RX: 2.51 MB",,,
+06-03-2026,Baruipara (BRPA) (12011),39106,DN (R),LS mode,,1,Loco switched to LS mode,6:27:16,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 3.75 MB
+Radio 2 RX: 2.00 MB",,,
+06-03-2026,Jaugram (JRAE) (12022),39106,DN (R),LS mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,6:06:52,Loco Switched to LS mode with frame offset 5 in auto section and unable to establish communication with S-kavach loco switched to SR mode due to radio communication failure.,"Radio 1 RX: 11.91 MB
+Radio 2 RX: 1.06 MB",,,
+06-03-2026,LC-31 (KQU-CDAE) (12014),39106,DN (R),LS mode,,1,Loco switched to SR modeAck SR Mode- No Track Profile ,6:22:10,Loco Switched to LS mode with frame offset 5 in auto section and unable to establish communication with S-kavach loco switched to SR mode due to insufficient track profile.,"Radio 1 RX: 18.07 MB
+Radio 2 RX: 16.01 MB",,,
+06-03-2026,LC-12 (DKAE-JOX) (12008),39178,UP (N),LS mode,,1,Loco switched to LS mode,8:18:44,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 4.59 MB
+Radio 2 RX: 4.98 MB",,,
+06-03-2026,Janai Road (JOX) (12009),39178,UP (N),LS mode,,1,Loco switched to SR mode,8:19:58,"From before stn ,loco travelling in LS mode and unable establish communication with S-kavach and loco switched to SR due to Radio coomunication fail",,,,
+06-03-2026,LC-57 (JRAE-MSAE) (12023),39178,UP (N),SR mode,,1,Loco switched to SR mode,8:54:44,Registration was delyed dueto AAP(stn regular) delyed by 46 sec and loco switched to LS mode after that unable to establish communication with S-Kavach loco received SR Authority received for 2sec.,"Radio 1 RX: 10.63 MB
+Radio 2 RX: 8.20 MB",,,
+06-03-2026,Saktigarh (SKG) (12026),39178,UP (N),SR mode,,1,Loco switched to SR modeAck SR Mode- No Track Profile ,9:01:02,Loco sent loco req but Stn not received  and not sending stn response and loco switched to LS mode after that unable establish communication with S-Kavach loco switched SR mode due insufficient track profile.,"Radio 1 RX: 11.56 MB
+Radio 2 RX: 5.07 MB",,,
+06-03-2026,Janai Road (JOX) (12009),39481,DN (R),LS mode,,1,Loco switched to LS mode,5:27:32,,"Radio 1 RX: 1.01 MB
+Radio 2 RX: 2.00 MB",,,
+07-03-2026,Baruipara (BRPA) (12011),30082,UP (N),LS mode,,1,Loco switched to LS mode,12:43:52," Registration was delayed due to SORP(Stn Regular) received with time delay of 10sec ,then loco switched to LS mode.","Radio 1 RX: 1.67 MB
+Radio 2 RX: 1.81 MB",,,
+07-03-2026,LC-41 (CRAE-GRAE) (12019),30676,DN (R),LS mode,,1,Loco switched to LS mode,7:00:40," Registration was delayed due to SORP(Stn Regular) received with time delay of 10sec ,then loco switched to LS mode.","Radio 1 RX: 12.40 MB
+Radio 2 RX: 776.00 B",,,
+07-03-2026,Palla Road (PRAE) (12025),30676,DN (R),LS mode,,1,Loco switched to LS mode,6:37:04,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 2.29 MB
+Radio 2 RX: 6.74 MB",,,
+07-03-2026,Dankuni (DKAE) (12007),30676,DN (R),SR mode,,1,Loco switched to SR mode,7:35:04,After read KAVACH TERRITORY EXIT tag loco switched to SR mode.,,,,
+07-03-2026,LC-31 (KQU-CDAE) (12014),30676,DN (R),LS mode,,,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,7:12:32," 1.Registration was delayed due to SORP(Stn Regular) received with time delay of 10sec ,then loco switched to LS mode.
+2.Loco travelling in LS Mode and unable to establish communication with S-kavach then loco switched to SR Mode.","Radio 1 RX: 9925kb
+Radio 2 RX: 12983kb",,,
+07-03-2026,Baruipara (BRPA) (12011),37042,DN (R),LS mode,,1,Loco switched to LS mode,4:27:34,Stn regular packetes were missed from 04:27:22 to 0:27:32  and loco switched to LS mode.,"Radio 1 RX: 1.67 MB
+Radio 2 RX: 1.81 MB",,,
+07-03-2026,Belanagar (BZL) (12006),37042,DN (R),LS mode,,1,Loco switched to LS mode,4:41:12,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 10.83 MB
+Radio 2 RX: 132.73 KB",,,
+07-03-2026,Dankuni (DKAE) (12007),37042,DN (R),LS mode,,1,Loco switched to LS mode,4:37:54,Loco Switched to LS mode with frame offset 15 in Stn section,"Radio 1 RX: 12.40 MB
+Radio 2 RX: 776.00 B",,,
+07-03-2026,Janai Road (JOX) (12009),37042,DN (R),LS mode,,1,Loco switched to LS mode,4:31:48,Loco Switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 948.93 KB
+Radio 2 RX: 2.70 MB",,,
+07-03-2026,LC-38 (CDAE-BMAE) (12016),37042,DN (R),LS mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,4:14:08,"1.Loco Switched to LS mode with frame offset 5 in auto section
+2.Loco travelling in LS mode and unabe to esablish communication with S-Kavach and loco switched to SR mode with frame offset 5 in auto section.","Radio 1 RX: 7.18 MB
+Radio 2 RX: 5.00 MB",,,
+07-03-2026,Saktigarh (SKG) (12026),37042,DN (R),LS mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,3:48:30,"1.Loco Switched to LS mode with frame offset 5 in auto section
+2.Loco travelling in LS mode and unabe to esablish communication with S-Kavach and loco switched to SR mode with frame offset 5 in auto section.","Radio 1 RX: 5.33 MB
+Radio 2 RX: 2.21 MB",,,
+07-03-2026,Dankuni (DKAE) (12007),37042,DN (R),LS mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,4:37:54,Loco switched to LS mode with frame offset 15 in stn section  and unable  to establish communication with  S-Kavach and received SR authority for 2sec.,"Radio 1 RX: 12.40 MB
+Radio 2 RX: 776.00 B",,,
+07-03-2026,Belmuri (BMAE) (12017),37272,UP (N),LS mode,,1,Loco switched to LS mode,16:50:18,"Need to check Loco Antennas, as LS modes were occurred mostly in every station.","Radio 1 RX: 3.33 MB
+Radio 2 RX: 3.91 MB",,,
+07-03-2026,Baruipara (BRPA) (12011),37272,UP (N),LS mode,,1,Loco switched to LS mode,16:35:26,,"Radio 1 RX: 1.67 MB
+Radio 2 RX: 1.81 MB",,,
+07-03-2026,Janai Road (JOX) (12009),37272,UP (N),LS mode,,1,Loco switched to LS mode,16:28:44,,"Radio 1 RX: 948.93 KB
+Radio 2 RX: 2.70 MB",,,
+07-03-2026,LC-38 (CDAE-BMAE) (12016),37272,UP (N),LS mode,,1,Loco switched to LS mode,16:43:54,,"Radio 1 RX: 7.18 MB
+Radio 2 RX: 5.00 MB",,,
+07-03-2026,LC-57 (JRAE-MSAE) (12023),37272,DN (R),LS mode,,1,Loco switched to LS mode,8:33:22,,"Radio 1 RX: 6.91 MB
+Radio 2 RX: 5.24 MB",,,
+07-03-2026,Palla Road (PRAE) (12025),37272,DN (R),LS mode,,1,Loco switched to LS mode,8:26:32,,"Radio 1 RX: 2.29 MB
+Radio 2 RX: 6.74 MB",,,
+07-03-2026,Howrah Sorting Yard (SYAE) (12001),37272,UP (N),LS mode,,1,Loco switched to LS mode,16:16:46,,"Radio 1 RX: 6.90 MB
+Radio 2 RX: 17.54 MB",,,
+07-03-2026,LC-48 (GRAE-JRAE) (12021),37272,UP (N),SR mode,,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,16:57:30,,"Radio 1 RX: 2.48 MB
+Radio 2 RX: 2.76 MB",,,
+07-03-2026,LC-31 (KQU-CDAE) (12014),37456,DN (R),LS mode,,1,Loco switched to SR mode Ack SR Mode- No Track Profile ,8:01:54,"1.Registration was delyed due to OSRP(Loco regular) delyed by  4sec and SORP(stn regular) delayed by 8sec and then loco switched to LS mode.
+2.Loco unable to establish communication with S-Kavach  then loco switched to SR mode due to insufficient track profile.","Radio 1 RX: 9.69 MB
+Radio 2 RX: 12.68 MB",,,
+07-03-2026,Baruipara (BRPA) (12011),37456,DN (R),LS mode,,1,Loco switched to LS mode,8:10:18,Stn regular packetes were missed in loco log from 08:10:08 to 08:10:18  and loco switched to LS mode.,"Radio 1 RX: 1.67 MB
+Radio 2 RX: 1.81 MB",,,
+07-03-2026,Belmuri (BMAE) (12017),37456,DN (R),LS mode,,1,Loco switched to LS mode,7:54:52,Registration was delayed due to AAP( Stn response) was delayed by  48sec and loco switched to LS mode.,"Radio 1 RX: 12.40 MB
+Radio 2 RX: 776.00 B",,,
+07-03-2026,Kamarkundu (KQU) (12013),37657,DN (R),LS mode,,1,Loco switched to LS mode,4:53:06,Loco switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 4.14 MB
+Radio 2 RX: 3.39 MB",,,
+07-03-2026,Janai Road (JOX) (12009),37657,DN (R),LS mode,,1,Loco switched to SR mode,5:18:04, Throughout the stn Loco modes are toggling from OS to SR with frame offset 5 .,"Radio 1 RX: 948.93 KB
+Radio 2 RX: 2.70 MB",,,
+07-03-2026,Jaugram (JRAE) (12022),37657,DN (R),LS mode,,1,Loco switched to LS mode Ack SR Mode - Station Radio Comm Fail,4:32:58,Loco switched to LS mode with frame offset 5 in auto section and unable to esablish  communication with S-kavach  and then loco switched to SR mode with frame offset 5 in auto section.,"Radio 1 RX: 6.71 MB
+Radio 2 RX: 448.10 KB",,,
+07-03-2026,Saktigarh (SKG) (12026),37657,DN (R),LS mode,,1,Loco switched to LS mode,4:21:30,Loco switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 5.33 MB
+Radio 2 RX: 2.21 MB",,,
+07-03-2026,Baruipara (BRPA) (12011),37908,UP (N),LS mode,,1,Loco switched to LS mode,19:46:48,Need loco log,"Radio 1 RX: 1.67 MB
+Radio 2 RX: 1.81 MB",,,
+08-03-2026,Baruipara (BRPA) (12011),30327,UP (N),LS mode,,1,Loco switched to LS mode,23:36:28,Need loco log,"Radio 1 RX: 319.44 KB
+Radio 2 RX: 510.25 KB",,,Loco log uploaded in the drive
+08-03-2026,LC-31 (KQU-CDAE) (12014),30457,DN (R),LS mode,,1,Loco switched to LS mode,3:30:14,Loco switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 6.02 MB
+Radio 2 RX: 8.94 MB",,,
+08-03-2026,LC-38 (CDAE-BMAE) (12016),37042,UP (N),LS mode,,1,Loco switched to LS mode,0:06:36,Need loco log,"Radio 1 RX: 1.70 MB
+Radio 2 RX: 279.88 KB",,,Loco log uploaded in the drive
+08-03-2026,Palla Road (PRAE) (12025),37042,UP (N),LS mode,,1,Loco switched to LS mode,0:25:42,Need loco log,"Radio 1 RX: 177.42 KB
+Radio 2 RX: 4.50 MB",,,Loco log uploaded in the drive
+08-03-2026,LC-31 (KQU-CDAE) (12014),37181,DN (R),LS mode,,1,Loco switched to LS mode,4:59:04,Loco switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 6.02 MB
+Radio 2 RX: 8.94 MB",,,
+08-03-2026,Baruipara (BRPA) (12011),37779,UP (N),LS mode,,1,Loco switched to LS mode,18:52:12,Loco switched to LS mode with frame offset 5 in auto section,"Radio 1 RX: 319.44 KB
+Radio 2 RX: 510.25 KB",,,
+09-03-2026,Baruipara (BRPA) (12011),39133,,LS mode,,,,,Need loco log,,,,Loco log uploaded in the drive
+09-03-2026,Dankuni (DKAE) (12007),30191,,LS mode,,,,,Need loco log,,,,Loco log uploaded in the drive
+09-03-2026,Saktigarh (SKG) (12026),37779,DN (R),LS mode,,1,Loco switched to LS mode,7:35:34,"After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular packets, but are received 4 sec delay to the station and station regular was also delay Hence Loco switched to LS mode.","Radio 1 RX: 3.80 MB
+Radio 2 RX: 562 KB",,,
+09-03-2026,Chandanpur (CDAE) (12015),39195,,SR mode,,,,,Need loco log,,,,Loco log uploaded in the drive
+10-03-2026,Janai Road (JOX) (12009),30692,DN (R),LS mode,,1,Loco switched to LS mode,4:37:46,Issue was observed in ahead station(LC-12). Loco after in deregister with Jox station at 04:37:40.  Loco request and station responce is at same time. Loco sent Loco regular packets. but are received 2sec delay to station. and station regular packets were sent 4sec delay. Hence Loco switched to LS mode.,"LC-12 - Need to check Radio1 Revpwr
+Radio1 Revpwr = 2",,,
+10-03-2026,LC-57 (JRAE-MSAE)  (12023),37272,,LS mode,,,,,Need loco log,,,,Loco log uploaded in the drive
+10-03-2026,Belmuri (BMAE) (12017),37168,,LS mode,,,,,Need loco log,,,,Loco log uploaded in the drive
+10-03-2026,Baruipara (BRPA) (12011),37609,,LS mode,,,,,Need loco log,,,,Loco log uploaded in the drive
+10-03-2026,LC-12 (DKAE-JOX) (12008),30191,,LS mode,,1,Loco switched to LS mode,,"Need to check Loco Antennas, as LS modes were occurred mostly in every station.",,,,
+10-03-2026,Kalubathan (KAO)  (14027),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Mugma (MMU)  (14025),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Kumardubi (KMME)  (14024),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Thaparnagar (TNW)  (14026),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Nimcha B H (NMC)  (14016),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,LC-12 (DKAE-JOX)  (12008),37894,,LS mode,,1,Loco switched to LS mode,,"Need to check Loco Antennas, as LS modes were occurred mostly in every station.",,,,
+10-03-2026,Kalubathan (KAO)  (14027),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Mugma (MMU)  (14025),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Thaparnagar (TNW)  (14026),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Nimcha B H (NMC)  (14016),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Asansol (ASN)  (14019),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Kaliphari (KPK)  (14018),,,LS mode,,1,Loco switched to LS mode,,,,,,
+10-03-2026,Asansol (ASN)  (14019),39265,UP (N),LS mode,,1,,20:06:30,Loco sent Loco regular packets. but are not received to station. Hence with frame off set 15 Loco switched to LS mode.,,,,
+10-03-2026,Kaliphari (KPK)  (14018),39265,,LS mode,,,,,No issue observed,,,,
+10-03-2026,Kalubathan (KAO)  (14027),39265,,SR mode,,,Loco switched to LS mode,,No issue observed,,,,
+10-03-2026,Nimcha B H (NMC)  (14016),39265,,SR mode,,,Loco switched to LS mode,,No issue observed,,,,
+10-03-2026,Kaliphari (KPK)  (14018),39265,UP (N),SR mode,,,Loco switched to SR mode,20:05:18,,,,,
+10-03-2026,Thaparnagar (TNW)  (14026),37894,,SR mode,,,Loco switched to SR mode,,Need loco log,,,,
+10-03-2026,Baktarnagar B H (BQT)  (14014),37894,,SR mode,,,Loco switched to SR mode,,Need loco log,,,,
+10-03-2026,Andal (UDL)  (14013),37894,,SR mode,,,Loco switched to SR mode,,Need loco log,,,,
+,,,,,,,,,,,,,
+11-03-2026,Asansol (ASN)  (14019),37719,DN (R),LS mode,,,,7:28:24,Issue was observed in STN station. Where Loco sent Loco regular packets. but are not received to the station. Hence Loco switched to LS mode with frame off set 5.,"Radio2 Revpwr was logged as 1.9
+Radio1 RX = 4.53MB
+Radio2 RX = 4.23MB",,,
+11-03-2026,Asansol (ASN)  (14019),30805,DN (R),LS mode,,,,7:55:24,"After deregister with previous station. Loco sent Loco request, but it was received delay by the station. Hence Loco switched to LS mode.","Radio2 Revpwr was logged as 1.9
+Radio1 RX = 4.53MB
+Radio2 RX = 4.23MB",,,
+11-03-2026,Asansol (ASN)  (14019),39265,DN (R),LS mode,,,,7:02:20,After deregister with previous station. Loco sent Loco request and station also sent station responce  but it was received delay by the Loco. Hence Loco switched to LS mode.,"Radio2 Revpwr was logged as 1.9
+Radio1 RX = 4.53MB
+Radio2 RX = 4.23MB",,,
+11-03-2026,Kaliphari (KPK)  (14018),37586,DN (R),LS mode,,,,5:04:50,Issue was observed in ASN station. Where Loco sent Loco regular packets. but are not received to the station. Hence Loco switched to LS mode with frame off set 15.,"Radio2 Revpwr was logged as 1.9
+Radio1 RX = 4.53MB
+Radio2 RX = 4.23MB",,,
+11-03-2026,Kaliphari (KPK)  (14018),37452,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,Kaliphari (KPK)  (14018),39265,DN (R),LS mode,,,,7:15:04,,,,,
+11-03-2026,Kaliphari (KPK)  (14018),39105,,LS mode,,,,,No issue observed,,,,
+11-03-2026,Kaliphari (KPK)  (14018),37894,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,Khana Link (KAN-GLI)  (12032),37586,DN (R),LS mode,,,,5:59:34,After deregister with previous station. Loco sent Loco request. but it was received delay to the station. Hence Loco switched to LS mode.,Need to check RTU to station connectivity,,,
+11-03-2026,Khana Link (KAN-GLI)  (12032),37894,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,Khana Link (KAN-GLI)  (12032),39265,,LS mode,,,,8:48:06,After deregister with previous station. Loco sent Loco request. but it was received delay to the station. Hence Loco switched to LS mode.,Need to check RTU to station connectivity,,,
+11-03-2026,LC-12 (KAO-CAM)  (14028),37894,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,LC-12 (KAO-CAM)  (14028),30805,DN (R),LS mode,,,,7:04:42,After deregister with previous station. Loco sent Loco request. but it received delay to the station. Hence Loco switched to LS mode.,"Radio2 Revpwr was logged as 1.9
+Radio1 RX = 7.20MB
+Radio2 RX = 473KB",,,
+11-03-2026,Kalubathan (KAO)  (14027),37719,,LS mode,,,,,No issue observed,,,,
+11-03-2026,Kalubathan (KAO)  (14027),37894,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,Kalubathan (KAO)  (14027),37894,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,Nimcha B H (NMC)  (14016),39105,,LS mode,,,,,No issue observed,,,,
+11-03-2026,Nimcha B H (NMC)  (14016),39105,,LS mode,,,,,No issue observed,,,,
+11-03-2026,Nimcha B H (NMC)  (14016),39265,DN (R),LS mode,,,,7:20:16,After deregister with previous station. Loco sent Loco request. but it received delay to the station. Hence Loco switched to LS mode.,Need to check RTU to station connectivity,,,
+11-03-2026,Nimcha B H (NMC)  (14016),37894,,LS mode,,,,,Need Loco Log,,,,
+11-03-2026,Sitarampur Central (STN)  (14021),30805,DN (R),LS mode,,,,7:38:44,After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular packets. but are not recived to station. Hence Loco switched to LS mode.,Need to check RTU to station connectivity,,,
+11-03-2026,Kaliphari (KPK)  (14018),37894,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,Mankar (MNAE)  (14003),37452,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,LC-83 (GLI-PAJ)  (14001),37452,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,LC-12 (KAO-CAM)  (14028),39105,DN (R),SR mode,,,,,No issue observed,,,,
+11-03-2026,Kalubathan (KAO)  (14027),37586,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,Kalubathan (KAO)  (14027),37894,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,Kalubathan (KAO)  (14027),39105,DN (R),SR mode,,,,,No issue observed,,,,
+11-03-2026,Kalubathan (KAO)  (14027),37719,DN (R),SR mode,,,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,7:00:24,"Loco sent Loco regular packets. No station Regular packets are missing in Loco log. There is no frame offset at that time. Need to check in station log, but No proper information was logged in station log.",,,,
+11-03-2026,Nimcha B H (NMC)  (14016),37894,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,Nimcha B H (NMC)  (14016),37586,DN (R),SR mode,,,,,Need Loco Log,,,,
+11-03-2026,Nimcha B H (NMC)  (14016),39265,DN (R),SR mode,,,,7:20:16,"1)After deregister with previous station. Loco sent Loco request . station sent responce, but it was not received to Loco. Hence Loco switched to LS mode.
+2) Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 2sec.
+",,,,
+11-03-2026,Andal (UDL)  (14013),37719,DN (R),SR mode,,,,,No issue observed,,,,
+11-03-2026,Sitarampur Central (STN)  (14021),30805,DN (R),SR mode,,,,,,,,,
+12-03-2026,Baruipara (BRPA)  (12011),39133,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,5:57:36,Station sent station regular packets. but are not received to Loco. Hence Loco switched to LS mode.,"Radio1 RX = 2.72MB
+Radio2 RX = 3.93MB",,,
+12-03-2026,Baruipara (BRPA)  (12011),37181,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,14:48:18,After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular. but are received 2sec delay to the station. Station sent station regular. it was received 4sec delay to Loco. Hence Loco switched to LS mode.,"Radio1 RX = 2.72MB
+Radio2 RX = 3.93MB",,,
+12-03-2026,Baruipara (BRPA)  (12011),37908,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:43:20,Station sent station regular packets. but are not received to Loco. Hence Loco switched to LS mode.,"Radio1 RX = 2.72MB
+Radio2 RX = 3.93MB",,,
+12-03-2026,Kamarkundu (KQU)  (12013),37908,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:40:28,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio1 RX = 4.23MB
+Radio2 RX = 3.31MB",,,
+12-03-2026,LC-31 (KQU-CDAE)  (12014),30676,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,4:01:42,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio1 RX = 19.9MB
+Radio2 RX = 22.2MB",,,
+12-03-2026,LC-31 (KQU-CDAE)  (12014),39093,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:05:06,"After deregister with previous station. Loco request and station responce is at same time. Loco sent Loco regular packets, but are received delay to the station. Hence Loco switched to LS mode.","Radio1 RX = 19.9MB
+Radio2 RX = 22.2MB",,,
+12-03-2026,LC-57 (JRAE-MSAE)  (12023),37908,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:14:40,After deregister with previous station. Loco request and station responce is at same time. station regular are sent delay of 10sec. Hence Loco switched to LS mode.,Radio2 Revpwr was Logged as 2,,,
+12-03-2026,LC-31 (KQU-CDAE)  (12014),37908,DN (R),SR mode,,,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,8:37:48,"1) Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.
+2) Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 2sec.",,,,
+12-03-2026,Chandanpur (CDAE)  (12015),37586,,SR mode,,,,,Need Loco log,,,,
+12-03-2026,LC-57 (JRAE-MSAE)  (12023),37586,,SR mode,,,,,Need Loco log,,,,
+12-03-2026,Palla Road (PRAE)  (12025),37481,UP (N),Tag Missing,,,PRAE (TAG ID - 103),,No issue observed as per Loco Log,,,,
+13-03-2026,Baruipara (BRPA)  (12011),37908,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:13:10,Station sent station regular packets. but are not received to Loco. Hence Loco switched to LS mode.,"Radio1 RX = 1.13MB
+Radio2 RX = 1.60MB",,,
+13-03-2026,Janai Road (JOX)  (12009),37908,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:14:22,Issue was observed in previous station (BRPA). where Station regular are not received to Loco. Hence Loco switched to LS mode.,"Radio1 RX = 1.13MB
+Radio2 RX = 1.60MB",,,
+13-03-2026,Braddhaman Jn (BWN)  (12028),39105,,LS mode,,,,,No issue observed,,,,
+13-03-2026,Belanagar (BZL)  (12006),37779,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,22:13:54,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio2 FwPwr was logged as 9.9
+Radio1 RX = 4.15MB
+Radio2 RX = 179KB",,,
+13-03-2026,Palla Road (PRAE)  (12025),30487,,LS mode,,,,,Need Loco log,,,,
+13-03-2026,Palla Road (PRAE)  (12025),37908,,LS mode,,,,,No issue observed,,,,
+13-03-2026,Palla Road (PRAE)  (12025),30487,,SR mode,,,,,Need Loco log,,,,
+13-03-2026,Howrah (HWH)  (12000),30568,,SR mode,,,,,No issue observed,,,,
+14-03-2026,Kamarkundu (KQU)  (12013),30468,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,23:05:32,Issue was observed in ahead station. after deregister with KQU. Loco request and station responce is at same time. Loco regular are received delaty to the station. Hence Loco switched to LS mode.,"Radio1 RX = 19.2MB
+Radio2 RX = 14.6MB",,,
+14-03-2026,Chandanpur (CDAE)  (12015),30468,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,23:07:46,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio1 RX = 6.82MB
+Radio2 RX = 7.51MB",,,
+14-03-2026,Braddhaman Jn (BWN)  (12028),30487,,LS mode,,,,,Need Loco log,,,,
+14-03-2026,Saktigarh (SKG)  (12026),30487,,LS mode,,,,,Need Loco log,,,,
+14-03-2026,Kamarkundu (KQU)  (12013),30487,,LS mode,,,,,Need Loco log,,,,
+14-03-2026,Chandanpur (CDAE)  (12015),37168,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,10:40:12,"Issue was observed in ahead station. After deregister with previous station. Loco request was sent and station also sent responce, but station responce was received delay to the station. Hence Loco switched to LS mode.","Radio1 RX = 6.82MB
+Radio2 RX = 7.51MB",,,
+14-03-2026,Baruipara (BRPA)  (12011),37168,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,10:33:50,"Issue was observed in ahead station. After deregister with previous station. Loco request was sent, but it was received delay to the station. Hence Loco switched to LS mode.","Radio1 RX = 6.08MB
+Radio2 RX = 7.02MB",,,
+14-03-2026,Baruipara (BRPA)  (12011),37272,,LS mode,,,,,Need Loco log,,,,
+14-03-2026,Jaugram (JRAE)  (12022),37657,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,6:07:20,"After deregister with previous station. Loco request was sent and station also sent responce, but station responce was received delay to the station. Hence Loco switched to LS mode.","Radio1 RX = 6.77MB
+Radio2 RX = 2.12MB",,,
+14-03-2026,Jaugram (JRAE)  (12022),39135,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,10:54:18,After deregister with previous station. Loco request was sent and station responce was delay. Hence Loco switched to LS mode.,"Radio1 RX = 6.77MB
+Radio2 RX = 2.12MB",,,
+14-03-2026,Baruipara (BRPA)  (12011),39135,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,11:15:36,After deregister with previous station. Loco request and station responce is at same time.but Loco regular packets are received 4 sec delay to the station and station regular are sent 4 sec delay by station. Hence Loco switched to LS mode.,"Radio1 RX = 6.08MB
+Radio2 RX = 7.02MB",,,
+14-03-2026,Dankuni (DKAE)  (12007),30082,UP (N),SR mode,SR authority,1,Loco switched to SR mode,12:46:32,"1) SR authority received at DKAE station.
+2) S2S communication required between DKAE and LC-12 stations.
+3) Where DKAE sent Handover and LC-12 has sent  RRI. but RRI was not received to DKAE. Hence Loco switched to SR mode.","Radio1 RX = 2.85MB
+Radio2 RX = 425KB",,,
+14-03-2026,Chandanpur (CDAE)  (12015),30468,UP (N),SR mode,Radio communicaiton failure,1,Loco switched to LS mode Ack SR Mode - Station Radio Comm Fail,23:10:26,"1) Loco sent Loco regular packets. but are not received to station. Hence with frmae offset 5 Loco switched to LS mode.
+2) Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 4sec.","Radio1 RX = 6.82MB
+Radio2 RX = 7.51MB",,,
+14-03-2026,Talit (TIT)  (12029),30487,,SR mode,,,,,Need Loco log,,,,
+14-03-2026,Palla Road (PRAE)  (12025),30487,,SR mode,,,,,Need Loco log,,,,
+14-03-2026,Cheragram (CRAE)  (12018),30487,,SR mode,,,,,Need Loco log,,,,
+14-03-2026,Jaugram (JRAE)  (12022),37168,,SR mode,,,,,No issue observed ,,,,
+14-03-2026,Belmuri (BMAE)  (12017),37168,UP (N),SR mode,Radio communicaiton failure,1,Loco switched to LS mode Ack SR Mode - Station Radio Comm Fail,10:46:38,"1) Issue was observed in ahead station. After deregister with BMAE. Looc sent Loco request, but station responce was delay. such that  Loco haven't register with CRAE station. Hence with in 10sec Loco switched LS mode. follow on SR mode received for 2sec.",,,,
+15-03-2026,Belmuri (BMAE)  (12017),37273,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:25:46,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio1 RX = 3.60MB
+Radio2 RX = 4.49MB",,,
+15-03-2026,Chandanpur (CDAE)  (12015),30686,,LS mode,,,,,Need Loco log,,,,
+15-03-2026,Kamarkundu (KQU)  (12013),30490,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,3:37:56,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio1 RX = 2.39MB
+Radio2 RX = 1.49MB",,,
+15-03-2026,LC-31 (KQU-CDAE)  (12014),39105,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,4:12:32,After deregister with previous station. Loco request was sent and station responce was also received. Loco regular packets were received 10sec delay to the station. Hence Loco switched to LS mode.,"Radio1 RX = 16.5MB
+Radio2 RX = 15.5MB",,,
+15-03-2026,LC-38 (CDAE-BMAE)  (12016),37273,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,8:27:48,Loco sent Loco regular packets. but are not received to station. Hence with frame offset 5 Loco switched to LS mode.,"Radio1 RX = 2.08MB
+Radio2 RX = 3.03MB",,,
+15-03-2026,LC-38 (CDAE-BMAE)  (12016),37894,,LS mode,,,,,Need Loco log,,,,
+15-03-2026,LC-41 (CRAE-GRAE)  (12019),39105,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,4:02:00,After deregister with previous station. Loco request was sent and station responce was also received. Loco regular packets were received 10sec delay to the station. Hence Loco switched to LS mode.,"Radio1 RX = 4.64MB
+Radio2 RX = 4.50MB",,,
+15-03-2026,Dankuni (DKAE)  (12007),30490,DN (R),SR mode,KAVACH territory exit,1,Loco switched to SR mode,3:51:28,"Loco After reading Tag-415,Loco switched to SR Mode as it is Kavach territory Exit.",,,,
+15-03-2026,Dankuni (DKAE)  (12007),30082,UP (N),SR mode,SR authority,1,Loco switched to SR mode,12:46:32,"1) SR authority received at DKAE station.
+2) S2S communication required between DKAE and LC-12 stations.
+3) Where DKAE sent Handover and LC-12 has sent  RRI. but RRI was not received to DKAE. Hence Loco switched to SR mode.",,,,
+15-03-2026,Belmuri (BMAE)  (12017),30082,,SR mode,,,,,No issue observed,,,,
+15-03-2026,Howrah (HWH)  (12000),30795,,SR mode,,,,,Need Loco log,,,,
+15-03-2026,LC-31 (KQU-CDAE)  (12014),30490,DN (R),SR mode,Radio communicaiton failure,1,Loco switched to LS mode Ack SR Mode - Station Radio Comm Fail,3:35:08,"1) After deregister with previous station. Loco request was sent and station responce was also received. Loco regular packets were received delay to the station. Hence Loco switched to LS mode.
+2) Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 2sec","Radio1 RX = 16.5MB
+Radio2 RX = 15.5MB",,,
+15-03-2026,Janai Road (JOX)  (12009),37894,,SR mode,,,,,Need Loco log,,,,
+15-03-2026,LC-38 (CDAE-BMAE)  (12016),37181,UP (N),Tag Missing,,,LC-38 - TAG ID - 233 ,19:03:30,,,,,
+15-03-2026,Belanagar (BZL)  (12006),37273,,Tag Missing,,,BZL - TAG ID - 201,,No issue observed,,,,
+16-03-2026,Braddhaman Jn (BWN)  (12028),30203,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,0:38:32,"After deregister with Previous station. Loco sent Loco request, but it was received delay to the station. Hence Loco switched to LS mode","Radio1 RX = 9.52MB
+Radio2 RX = 8.63MB",,,
+16-03-2026,Baruipara (BRPA)  (12011),39135,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,5:34:16,"Station sent station regular packets, but are not received to Loco. Hence Loco switched to LS mode.","Radio1 RX = 619KB
+Radio2 RX = 1.16MB",,,
+16-03-2026,Janai Road (JOX)  (12009),30805,,LS mode,,,,,Need Loco log,,,,
+16-03-2026,Janai Road (JOX)  (12009),37455,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,10:31:08,"After deregister with Previous station. Loco sent Loco request, but station responce was delay. Hence Loco switched to LS mode","Radio1 RX = 320KB
+Radio2 RX = 640KB",,,
+16-03-2026,Jaugram (JRAE)  (12022),39135,UP (N),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,15:16:58,"After deregister with Previous station. Loco sent Loco request, but station responce was delay. Hence Loco switched to LS mode","Radio1 RX = 6.48MB
+Radio2 RX = 1.99MB",,,
+16-03-2026,LC-41 (CRAE-GRAE)  (12019),30203,UP (N),Tag Missing,,,LC-41 (TAG ID - 559),0:16:40,No proper information was logged in Loco log. need Proper Loco log,,,,
+17-03-2026,LC-41 (CRAE-GRAE)  (12019),37586,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,4:45:04,After deregister with previous station. Loco request and station responce is at same time.but Loco regular packets are received delay to the station. Hence Loco switched to LS mode.,,,,
+17-03-2026,Belmuri (BMAE)  (12017),39135,,LS mode,,,,,,,,,
+17-03-2026,Baruipara (BRPA)  (12011),39135,DN (R),LS mode,Radio communicaiton failure,1,Loco switched to LS mode,13:14:00,"Station sent station regular packets, but are not received to Loco. Hence Loco switched to LS mode.",,,,
+17-03-2026,LC-57 (JRAE-MSAE)  (12023),39132,DN (R),SR mode,Radio communicaiton failure,1,Loco switched to LS mode,6:48:48,"After deregister with previous station. Loco request was sent, but it was received delay to the station. Hence Loco switched to LS mode.",,,,
+17-03-2026,Baruipara (BRPA)  (12011),37268,UP (N),SR mode,Radio communicaiton failure,1,Loco switched to LS modeAck SR Mode - Station Radio Comm Fail,10:27:00,"1) After deregister with previous station. Loco request and station responce is at same time. Loco regular are received 4 sec delayed to station. and station regular were received delay to the Loco. Hence Loco switched to LS mode
+2) Due to no communication between 2 stations. S2S communication was paused and regained later. to avoid EB. station sent SR authority for 2sec",,,,
+17-03-2026,Chandanpur (CDAE)  (12015),30191,,SR mode,,,,,No issue observed,,,,
+17-03-2026,Braddhaman Jn (BWN)  (12028),30686,,Tag Missing,,,TAG ID-728,,Need Loco log,,,,
+17-03-2026,Kaliphari (KPK)  (14018),37455,,LS mode,,,,,Need Loco log,,,,
+17-03-2026,Barachak Jn (BCQ)  (14020),37455,,LS mode,,,,,Need Loco log,,,,
+17-03-2026,Sitarampur Central (STN)  (14021),37455,,LS mode,,,,,Need Loco log,,,,
+17-03-2026,Kaliphari (KPK)  (14018),37455,,SR mode,,,,,Need Loco log,,,,
+17-03-2026,Asansol (ASN)  (14019),37455,,SR mode,,,,,Need Loco log,,,,
+17-03-2026,Barachak Jn (BCQ)  (14020),37455,,SR mode,,,,,Need Loco log,,,,
+17-03-2026,Sitarampur Central (STN)  (14021),37455,,SR mode,,,,,Need Loco log,,,,
+17-03-2026,Chhota Ambana (CAM)  (14029),,,Tag Missing,,,CAM  R-183,,Need Loco log,,,,
+18-03-2026,Jaugram (JRAE)  (12022),37657,,LS mode,,,,,,,,,
+18-03-2026,Jaugram (JRAE)  (12022),37779,,LS mode,,,,,,,,,
+18-03-2026,Cheragram (CRAE)  (12018),37779,,LS mode,,,,,,,,,
+18-03-2026,Kamarkundu (KQU)  (12013),37779,,LS mode,,,,,,,,,
+18-03-2026,Baruipara (BRPA)  (12011),37779,,LS mode,,,,,,,,,
+18-03-2026,Masagram (MSAE)  (12024),37720,,LS mode,,,,,,,,,
+18-03-2026,Kamarkundu (KQU)  (12013),37452,,LS mode,,,,,,,,,
+18-03-2026,Kaliphari (KPK)  (14018),37456,,SR mode,,,,,,,,,
+18-03-2026,Asansol (ASN)  (14019),37456,,SR mode,,,,,,,,,
+18-03-2026,Chhota Ambana (CAM)  (14029),,,Tag Missing,,,CAM  R-183,,,,,,
+19-03-2026,Baruipara (BRPA)  (12011),39177,,LS mode,,,,,,,,,
+19-03-2026,Janai Road (JOX)  (12009),39177,,LS mode,,,,,,,,,
+19-03-2026,Baruipara (BRPA)  (12011),37860,,LS mode,,,,,,,,,
+19-03-2026,Jaugram (JRAE)  (12022),30168,,SR mode,,,,,,,,,
+19-03-2026,Baruipara (BRPA)  (12011),37273,,SR mode,,,,,,,,,
+20-03-2026,Gangpur (GRP)  (12027),30372,,LS mode,,,,,,,,,
+20-03-2026,Belmuri (BMAE)  (12017),30372,,LS mode,,,,,,,,,
+20-03-2026,Baruipara (BRPA)  (12011),30372,,LS mode,,,,,,,,,
+20-03-2026,Kamarkundu (KQU)  (12013),30372,,LS mode,,,,,,,,,
+20-03-2026,LC-59 (TIT-KAN)  (12030),37116,,SR mode,,,,,,,,,
+20-03-2026,Palla Road (PRAE)  (12025),37116,,SR mode,,,,,,,,,
+20-03-2026,Asansol (ASN)  (14019),37116,,LS mode,,,,,,,,,
+20-03-2026,LC-105 (PAN-RBH)  (14006),37116,,LS mode,,,,,,,,,
+20-03-2026,Khana Jn (KAN)  (12031),37116,,LS mode,,,,,,,,,
+20-03-2026,LC-105 (PAN-RBH)  (14006),37168,,LS mode,,,,,,,,,
+20-03-2026,LC-105 (PAN-RBH)  (14006),37116,,SR mode,,,,,,,,,
+20-03-2026,Andal (UDL)  (14013),37168,,SR mode,,,,,,,,,
+21-03-2026,Baruipara (BRPA)  (12011),30457,,LS mode,,,,,,,,,
+21-03-2026,Baruipara (BRPA)  (12011),30369,,LS mode,,,,,,,,,
+21-03-2026,Jaugram (JRAE)  (12022),30369,,SR mode,,,,,,,,,
+21-03-2026,Asansol (ASN)  (14019),39133,,SR mode,,,,,,,,,
+21-03-2026,,,,,,,,,,,,,
+21-03-2026,,,,,,,,,,,,,
