@@ -236,11 +236,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 
 .footer{text-align:center;padding:24px;color:var(--text-light);font-size:.75rem;opacity:.7}
 
-/* === AI INSIGHTS BUTTON === */
-.ai-insights-btn{background:linear-gradient(135deg,#1A1A1A,#2A2A2A);border:1px solid rgba(255,255,255,.25);
-  color:#E8DCC8;padding:8px 16px;border-radius:8px;font-size:.8rem;text-decoration:none;font-weight:600;
-  display:flex;align-items:center;gap:6px;transition:all .3s ease;backdrop-filter:blur(8px);cursor:pointer;font-family:'DM Sans',sans-serif}
-.ai-insights-btn:hover{background:linear-gradient(135deg,#2A2A2A,#3A3A3A);transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.3);border-color:#E8DCC8}
 
 /* === ZONE SLICER === */
 .zone-slicer-wrap{display:flex;align-items:center;gap:10px;margin-bottom:18px;animation:slicerSlideZ .5s cubic-bezier(.16,1,.3,1) .1s forwards;opacity:0;transform:translateY(12px)}
@@ -265,10 +260,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   <!-- HEADER -->
   <div class="header">
     <div class="header-actions">
-      <button class="ai-insights-btn" onclick="openAIInsights()">
-        <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIAAgADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k=" width="18" height="18" style="border-radius:4px;background:#E85D3A;padding:1px">
-        AI Insights
-      </button>
       <button class="print-btn" onclick="generatePDFReport()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
         Export PDF
@@ -299,9 +290,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
       <button class="zone-pill" data-zone="ECR" onclick="setZone('ECR')">
         🟧 ECR <span class="zone-count" id="zc-ECR">—</span>
       </button>
+      <button class="zone-pill" data-zone="WR" onclick="setZone('WR')">
+        🟩 WR <span class="zone-count" id="zc-WR">—</span>
+      </button>
     </div>
     <div class="zone-loading" id="zoneLoading">
-      <div class="zone-spinner"></div> Loading ECR data…
+      <div class="zone-spinner"></div> Loading zone data…
     </div>
   </div>
 
@@ -364,8 +358,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   <div class="pdf-report" id="pdfReport"></div>
 </div>
 
-<!-- AI Insights page opened via openAIInsights() -->
-
 <script>
 // Particles
 (function(){for(let i=0;i<20;i++){const p=document.createElement('div');p.className='particle';
@@ -378,12 +370,13 @@ const RAW_DATA = [{"Date": "01-03-2026", "Station": "Barddhaman Jn (BWN) (12028)
 
 const ZONE_CONFIGS={
   ER:{sheetId:'1VSETtuuIgVrDn3Hk2CSXaYAphGM2vrmBCC94UARWeSk',sheetName:'March_issues_Concatenated',label:'Eastern Railway (ER)'},
-  ECR:{sheetId:'1DGpcEnvPsPzftoeFv5m7QODPj9XI2KaSrkndb4Plt8I',sheetName:'Sheet1',label:'East Central Railway (ECR)'}
+  ECR:{sheetId:'1DGpcEnvPsPzftoeFv5m7QODPj9XI2KaSrkndb4Plt8I',sheetName:'Sheet1',label:'East Central Railway (ECR)'},
+  WR:{sheetId:'1vtr0mGbmQn0RpVVzUGTRNKs1wOThNZ7lCgG34Zu3JNE',sheetName:'March-2026',label:'Western Railway (WR)'}
 };
 const SHEET_CONFIG=ZONE_CONFIGS.ER; // legacy compat
 const FILTER_IDS=['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'];
 
-let allDataER=[], allDataECR=[], ecrLoaded=false;
+let allDataER=[], allDataECR=[], allDataWR=[], ecrLoaded=false, wrLoaded=false;
 let currentZone='all'; // 'all' | 'ER' | 'ECR'
 
 let allData=[], charts={}, filteredData=[], lastLiveSyncLabel='';
@@ -391,13 +384,15 @@ let allData=[], charts={}, filteredData=[], lastLiveSyncLabel='';
 function getZoneData(){
   if(currentZone==='ER') return allDataER;
   if(currentZone==='ECR') return allDataECR;
-  return [...allDataER,...allDataECR];
+  if(currentZone==='WR') return allDataWR;
+  return [...allDataER,...allDataECR,...allDataWR];
 }
 
 function updateZoneCounts(){
-  document.getElementById('zc-all').textContent=(allDataER.length+allDataECR.length)||'—';
+  document.getElementById('zc-all').textContent=(allDataER.length+allDataECR.length+allDataWR.length)||'—';
   document.getElementById('zc-ER').textContent=allDataER.length||'—';
   document.getElementById('zc-ECR').textContent=allDataECR.length||'—';
+  document.getElementById('zc-WR').textContent=allDataWR.length||'—';
 }
 
 function setZone(zone){
@@ -410,7 +405,7 @@ function setZone(zone){
   populateSlicers();
   applyFilters();
   // Update subtitle
-  const zLabel=zone==='all'?'All Zones (ER + ECR)':zone==='ER'?'Eastern Railway (ER)':'East Central Railway (ECR)';
+  const zLabel=zone==='all'?'All Zones (ER + ECR + WR)':zone==='ER'?'Eastern Railway (ER)':zone==='ECR'?'East Central Railway (ECR)':'Western Railway (WR)';
   setStatusText('<span style="opacity:.7">Zone: '+zLabel+'</span> &nbsp;|&nbsp; '+lastLiveSyncLabel);
 }
 
@@ -569,6 +564,55 @@ function mapECRSheetRow(row){
     Zone:'ECR'
   }
 }
+function normaliseWRIssueType(raw){
+  if(!raw) return '';
+  const t=raw.trim();
+  const tl=t.toLowerCase();
+  // Known keywords — checked first regardless of surrounding text
+  if(tl.includes('ls mode')) return 'LS Mode';
+  if(tl.includes('sr mode')) return 'SR Mode';
+  if(/\bsoc\b/.test(tl)) return 'SOC';
+  if(/\beb\b/.test(tl)||tl.includes('emergency brake')) return 'EB';
+  if(tl.includes('tag missing')||tl.includes('rfid')||tl.includes('missing rfid')) return 'Tag Missing';
+  if(tl.includes('radio comm')||tl.includes('communication fail')) return 'Radio Comm Fail';
+  if(tl.includes('loco trip')||tl.includes('tripped')) return 'Loco Tripped';
+  if(tl.includes('antenna')) return 'Antenna';
+  if(tl.includes('wheel slip')) return 'Wheel Slip';
+  // Value contains " - ": take text before first dash and trim
+  const dashIdx=t.indexOf('-');
+  if(dashIdx>0) return t.substring(0,dashIdx).trim();
+  // Short enough already — return as-is
+  return t;
+}
+function mapWRSheetRow(row){
+  const serialNo=pickField(row,['S.No','S. No','S No']);
+  // WR IssueType is derived from Issue Sub Category column
+  const rawSubCat=pickField(row,['Issue Sub Category','Issue Sub CategoryM','Issue Sub category']);
+  const issueType=normaliseWRIssueType(rawSubCat);
+  return {
+    SerialNo:serialNo,
+    Date:normaliseDateValue(pickField(row,['Date'])),
+    LocoId:pickField(row,['Loco Id','Loco ID','LocoId']),
+    TrainNo:pickField(row,['Train No.','Train No','Train Number']),
+    Direction:pickField(row,['Direction']),
+    IssueType:issueType,
+    IssueAbsLoc:pickField(row,['Issue AbsLoc','Issue Abs Loc']),
+    Station:pickField(row,['Station Name','Station']),
+    Analysis:pickField(row,['Analysis']),
+    SubCategory:rawSubCat,
+    TrialNote:pickField(row,['Issues noted During Trial','Issues Noted During Trial','Trial Note']),
+    Time:pickField(row,['Issue Time','Time']),
+    CorrectiveAction:pickField(row,['Corrective Action']),
+    IssueCategory:pickField(row,['Issue Category']),
+    ActionTaken:pickField(row,['Action Taken']),
+    RootCause:pickField(row,['Root Cause/Why2','Root Cause / Why2','Root Cause']),
+    MissingRFID:pickField(row,['Missing RFID Tags','MIssing RFID Tags']),
+    Remarks:pickField(row,['Remarks']),
+    ConcernTeams:pickField(row,['Concern Teams']),
+    IssueCount:pickField(row,['Issue Count'])||(serialNo?'1':''),
+    Zone:'WR'
+  }
+}
 function hasMeaningfulData(row){return !!(row.Date||row.Station||row.LocoId||row.IssueType||row.Analysis||row.SubCategory||row.Time)}
 function fetchSheetDataFrom(sheetId,sheetName,rowMapper){
   return new Promise(function(resolve,reject){
@@ -616,7 +660,6 @@ function fetchSheetData(){return fetchSheetDataFrom(ZONE_CONFIGS.ER.sheetId,ZONE
 function clearSlicerOptions(id){const select=document.getElementById(id);while(select.options.length>1)select.remove(1)}
 function getFilterState(){const state={};FILTER_IDS.forEach(function(id){state[id]=document.getElementById(id).value});return state}
 function restoreFilterState(state){FILTER_IDS.forEach(function(id){const select=document.getElementById(id);const wanted=state&&state[id]?state[id]:'all';select.value=[...select.options].some(o=>o.value===wanted)?wanted:'all'})}
-function updateAIRecordCount(){const btn=document.querySelector('.ai-insights-btn');if(btn)btn.title='AI Insights will analyse '+filteredData.length+' filtered records.'}
 function setDataset(nextData,zone){
   const state=getFilterState();
   if(zone==='ECR') allDataECR=Array.isArray(nextData)?[...nextData]:[];
@@ -631,26 +674,30 @@ function updateDashboardMeta(sourceLabel){
   const trend=document.getElementById('trendSubtitle');
   const table=document.getElementById('tableSubtitle');
   if(trend) trend.textContent='Issues by type across '+range;
-  if(table) table.textContent='Filtered | ER: '+allDataER.length+' | ECR: '+allDataECR.length+' records';
-  setStatusText(sourceLabel+' | '+range,'KAVACH ER+ECR | Internal Dashboard | '+sourceLabel+' | '+allData.length+' records')
+  if(table) table.textContent='Filtered | ER: '+allDataER.length+' | ECR: '+allDataECR.length+' | WR: '+allDataWR.length+' records';
+  setStatusText(sourceLabel+' | '+range,'KAVACH ER+ECR+WR | Internal Dashboard | '+sourceLabel+' | '+allData.length+' records')
 }
 let liveRefreshTimer=0;
 async function refreshLiveData(zone,isInitial){
   const cfg=ZONE_CONFIGS[zone]||ZONE_CONFIGS.ER;
   if(isInitial&&zone==='ER') setStatusText('Connecting to Google Sheets…');
-  if(zone==='ECR'){
+  if(zone==='ECR'||zone==='WR'){
     document.getElementById('zoneLoading').style.display='flex';
   }
   try{
-    const liveData=await fetchSheetDataFrom(cfg.sheetId,cfg.sheetName,zone==='ECR'?mapECRSheetRow:mapSheetRow);
+    const mapper=zone==='ECR'?mapECRSheetRow:zone==='WR'?mapWRSheetRow:mapSheetRow;
+    const liveData=await fetchSheetDataFrom(cfg.sheetId,cfg.sheetName,mapper);
     if(zone==='ER'){
       allDataER=liveData;
       lastLiveSyncLabel='Last synced '+getSyncLabel();
-    } else {
+    } else if(zone==='ECR'){
       allDataECR=liveData;
       ecrLoaded=true;
-      document.getElementById('zoneLoading').style.display='none';
+    } else if(zone==='WR'){
+      allDataWR=liveData;
+      wrLoaded=true;
     }
+    if(zone==='ECR'||zone==='WR') document.getElementById('zoneLoading').style.display='none';
     updateZoneCounts();
     allData=getZoneData();
     buildAnonymisationMap();populateSlicers();
@@ -660,33 +707,38 @@ async function refreshLiveData(zone,isInitial){
     const trend=document.getElementById('trendSubtitle');
     const table=document.getElementById('tableSubtitle');
     if(trend) trend.textContent='Issues by type across '+range;
-    if(table) table.textContent='Filtered records | ER: '+allDataER.length+' | ECR: '+allDataECR.length+' total';
+    if(table) table.textContent='Filtered records | ER: '+allDataER.length+' | ECR: '+allDataECR.length+' | WR: '+allDataWR.length+' total';
     setStatusText((currentZone==='all'?'All Zones':'Zone: '+currentZone)+' | '+range+' | '+lastLiveSyncLabel,
-      'KAVACH ER+ECR | Internal Dashboard | '+lastLiveSyncLabel);
+      'KAVACH ER+ECR+WR | Internal Dashboard | '+lastLiveSyncLabel);
   }catch(err){
     console.warn(zone+' fetch failed:',err);
     if(zone==='ECR'){
       document.getElementById('zoneLoading').innerHTML='<span style="color:var(--accent-coral);font-size:.7rem">⚠ ECR load failed</span>';
+    }
+    if(zone==='WR'){
+      document.getElementById('zoneLoading').innerHTML='<span style="color:var(--accent-coral);font-size:.7rem">⚠ WR load failed</span>';
     }
     if(zone==='ER'&&allDataER.length===0){
       allDataER=RAW_DATA.map(r=>({...r,Zone:'ER'}));
       allData=getZoneData();
       buildAnonymisationMap();populateSlicers();applyFilters();
       updateZoneCounts();
-      setStatusText('ER (offline fallback) | ECR loading…');
+      setStatusText('ER (offline fallback) | ECR & WR loading…');
     }
   }
 }
 function initialiseDashboard(){
   // Fetch ER first (fast — has RAW_DATA fallback)
   refreshLiveData('ER',true).then(()=>{
-    // Then fetch ECR in background
+    // Then fetch ECR and WR in background
     refreshLiveData('ECR',false);
+    refreshLiveData('WR',false);
   });
   if(liveRefreshTimer)window.clearInterval(liveRefreshTimer);
   liveRefreshTimer=window.setInterval(function(){
     refreshLiveData('ER',false);
     refreshLiveData('ECR',false);
+    refreshLiveData('WR',false);
   },300000);
 }
 
@@ -740,7 +792,7 @@ function applyFilters(){
     if(tv!=='all'&&r.IssueType!==tv)return false;
     if(scv!=='all'&&r.SubCategory!==scv)return false;
     if(drv!=='all'&&r.Direction!==drv)return false;return true});
-  renderAll();updateAIRecordCount();
+  renderAll();
 }
 function resetFilters(){
   ['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'].forEach(id=>document.getElementById(id).value='all');
@@ -751,7 +803,7 @@ function renderKPIs(){
   const t=filteredData.length,st=new Set(filteredData.map(r=>r.Station)).size,lo=new Set(filteredData.map(r=>r.LocoId).filter(Boolean)).size;
   const topIssues=getIssueTypeEntries(filteredData,3);
   const issueIcons=['🔵','🟠','🟡'];
-  const zoneBadge=currentZone==='ER'?'🟦 ER':currentZone==='ECR'?'🟧 ECR':'🇮🇳 ER+ECR';
+  const zoneBadge=currentZone==='ER'?'🟦 ER':currentZone==='ECR'?'🟧 ECR':currentZone==='WR'?'🟩 WR':'🇮🇳 All';
   const kpis=[{i:'📊',v:t,l:'Total Issues'},{i:'🗺️',v:zoneBadge,l:'Active Zone'}]
     .concat(topIssues.map(function(entry,idx){return{i:issueIcons[idx]||'📌',v:entry[1],l:entry[0]}}))
     .concat([{i:'🚉',v:st,l:'Stations'},{i:'🚂',v:lo,l:'Locomotives'}]);
@@ -1257,24 +1309,6 @@ function generateXLSXReport(){
   document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(url);
 }
 
-function openAIInsights(){
-  var ctx = buildAnonymisedContext();
-  var inject = {
-    ctx: ctx,
-    reverseMap: {reverse_stations: anonMap.reverse_stations, reverse_locos: anonMap.reverse_locos},
-    stationsMap: anonMap.stations,
-    locosMap: anonMap.locos,
-    stats: {
-      total: filteredData.length,
-      days: new Set(filteredData.map(function(r){return r.Date})).size,
-      stations: new Set(filteredData.map(function(r){return r.Station})).size,
-      locos: new Set(filteredData.map(function(r){return r.LocoId}).filter(Boolean)).size
-    },
-    robotIcon: "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIAAgADASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AIyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB//9k="
-  };
-  sessionStorage.setItem('kavach_ai_inject', JSON.stringify(inject));
-  window.open('ai.html', '_blank');
-}
 </script>
 </body>
 </html>
