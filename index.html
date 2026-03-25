@@ -371,7 +371,7 @@ const RAW_DATA = [{"Date": "01-03-2026", "Station": "Barddhaman Jn (BWN) (12028)
 const ZONE_CONFIGS={
   ER:{sheetId:'1VSETtuuIgVrDn3Hk2CSXaYAphGM2vrmBCC94UARWeSk',sheetName:'March_issues_Concatenated',label:'Eastern Railway (ER)'},
   ECR:{sheetId:'1DGpcEnvPsPzftoeFv5m7QODPj9XI2KaSrkndb4Plt8I',sheetName:'Sheet1',label:'East Central Railway (ECR)'},
-  WR:{sheetId:'1vtr0mGbmQn0RpVVzUGTRNKs1wOThNZ7lCgG34Zu3JNE',sheetName:'March-2026',label:'Western Railway (WR)'}
+  WR:{sheetId:'1BLqRLJjrHFkFh-GP0omWg4OMXYqk0YvbnpXQfd28z_g',sheetName:'March-2026',label:'Western Railway (WR)'}
 };
 const SHEET_CONFIG=ZONE_CONFIGS.ER; // legacy compat
 const FILTER_IDS=['fromDateSlicer','toDateSlicer','stationSlicer','issueTypeSlicer','subCatSlicer','directionSlicer'];
@@ -515,7 +515,7 @@ function mapSheetRow(row){
     RootCause:pickField(row,['Root Cause/Why2','Root Cause / Why2','Root Cause']),
     MissingRFID:pickField(row,['Missing RFID Tags','MIssing RFID Tags']),
     Remarks:pickField(row,['Remarks']),
-    ConcernTeams:pickField(row,['Concern Teams']),
+    ConcernTeams:pickField(row,['Concern Teams','Concern Team','ConcernTeams','Concern teams','concern teams']),
     IssueCount:pickField(row,['Issue Count'])||(serialNo?'1':''),
     Zone:'ER'
   }
@@ -559,7 +559,7 @@ function mapECRSheetRow(row){
     RootCause:pickField(row,['Root Cause/Why2','Root Cause / Why2','Root Cause']),
     MissingRFID:pickField(row,['Missing RFID Tags','MIssing RFID Tags']),
     Remarks:pickField(row,['Remarks']),
-    ConcernTeams:pickField(row,['Concern Teams']),
+    ConcernTeams:pickField(row,['Concern Teams','Concern Team','ConcernTeams','Concern teams','concern teams']),
     IssueCount:pickField(row,['Issue Count'])||(serialNo?'1':''),
     Zone:'ECR'
   }
@@ -608,7 +608,7 @@ function mapWRSheetRow(row){
     RootCause:pickField(row,['Root Cause/Why2','Root Cause / Why2','Root Cause']),
     MissingRFID:pickField(row,['Missing RFID Tags','MIssing RFID Tags']),
     Remarks:pickField(row,['Remarks']),
-    ConcernTeams:pickField(row,['Concern Teams']),
+    ConcernTeams:pickField(row,['Concern Teams','Concern Team','ConcernTeams','Concern teams','concern teams']),
     IssueCount:pickField(row,['Issue Count'])||(serialNo?'1':''),
     Zone:'WR'
   }
@@ -887,9 +887,9 @@ function renderStacked(){
 
 function renderRadar(){
   dc('radar');const metrics=getIssueTypeEntries(filteredData,4).map(function(entry){return{l:entry[0],v:entry[1]}}).concat([
-    {l:'Radio Failures',v:filteredData.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length},
+    {l:'Radio Failures',v:filteredData.filter(r=>(r.SubCategory||'').toLowerCase().includes('radio')).length},
     {l:'SOM Events',v:filteredData.filter(r=>r.SubCategory==='SOM').length},
-    {l:'KAVACH Exit',v:filteredData.filter(r=>r.SubCategory.includes('KAVACH')).length}]);
+    {l:'KAVACH Exit',v:filteredData.filter(r=>(r.SubCategory||'').includes('KAVACH')).length}]);
   charts.radar=new Chart(document.getElementById('radarChart'),{type:'radar',data:{
     labels:metrics.map(m=>m.l),datasets:[{label:'Count',data:metrics.map(m=>m.v),
     backgroundColor:'rgba(26,107,138,.15)',borderColor:C.LS,borderWidth:2,
@@ -970,7 +970,7 @@ function generatePDFReport(){
   const total=d.length,ls=d.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length,
         sr=d.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length,tag=d.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length,
         stCount=new Set(d.map(r=>r.Station)).size,loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size,
-        radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+        radioFail=d.filter(r=>(r.SubCategory||'').toLowerCase().includes('radio')).length;
 
   const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
   const dateRange=dates.length?dates[0]+' to '+dates[dates.length-1]:'N/A';
@@ -1002,38 +1002,47 @@ function generatePDFReport(){
   const subCatC={};d.forEach(r=>{const sc=r.SubCategory||'(Not specified)';subCatC[sc]=(subCatC[sc]||0)+1});
   const scSorted=Object.entries(subCatC).sort((a,b)=>b[1]-a[1]);
 
-  // Build station detail cards (top 15)
-  let stHtml='';
-  stSorted.slice(0,15).forEach(function(entry,idx){
-    const station=entry[0],issues=entry[1];
-    const sLS=issues.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;
-    const sSR=issues.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
-    const sTag=issues.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
-    const sRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
-    const locos=[...new Set(issues.map(r=>r.LocoId).filter(Boolean))];
-    stHtml+='<div style="margin:6pt 0;page-break-inside:avoid">';
-    stHtml+='<div style="font-family:\'Times New Roman\',Times,serif;font-size:17pt;color:#0B3D5B;padding:4pt 8pt;background:#D4F1F9;border-left:3px solid #1A6B8A;margin-bottom:4pt">';
-    stHtml+=(idx+1)+'. '+station+' - '+issues.length+' issue'+(issues.length>1?'s':'')+' (LS:'+sLS+' | SR:'+sSR+' | Tag:'+sTag+(sRadio?' | Radio:'+sRadio:'')+')';
-    stHtml+='<span style="font-size:10pt;font-weight:400;margin-left:6pt">Locos: '+(locos.join(', ')||'-')+'</span></div>';
-    issues.sort(function(a,b){return parseDate(a.Date)-parseDate(b.Date)}).forEach(function(r){
-      var bgStyle=(r.IssueType||'').toLowerCase()==='ls mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':(r.IssueType||'').toLowerCase()==='sr mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
-      stHtml+='<div style="padding:4pt 8pt;margin-bottom:3pt;border:1px solid #e8dcc8;border-radius:3pt;font-size:13pt;background:#fff">';
-      stHtml+='<div style="color:#7A9AAA;font-size:12pt;margin-bottom:2pt">';
-      stHtml+='<span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:11pt;font-weight:700;'+bgStyle+'">'+( r.IssueType||'-')+'</span>';
-      if(r.SubCategory) stHtml+=' | <b>'+r.SubCategory+'</b>';
-      if(r.Date) stHtml+=' | '+r.Date;
-      if(r.Time) stHtml+=' @ '+r.Time;
-      if(r.LocoId) stHtml+=' | Loco <b>'+r.LocoId+'</b>';
-      if(r.Direction) stHtml+=' | Dir: '+r.Direction;
-      stHtml+='</div>';
-      if(r.Analysis) stHtml+='<div style="color:#4A6070;font-size:13pt;line-height:1.4"><b>Analysis:</b> '+r.Analysis+'</div>';
-      if(r.RootCause) stHtml+='<div style="color:#4A6070;font-size:13pt;line-height:1.4"><b>Root Cause:</b> '+r.RootCause+'</div>';
-      if(r.ActionTaken) stHtml+='<div style="color:#3ABBB0;font-size:13pt;line-height:1.4"><b>Action:</b> '+r.ActionTaken+'</div>';
-      stHtml+='</div>';
-    });
-    stHtml+='</div>';
+  // Build Concern Team detail section
+  const byConcernTeam={};
+  d.forEach(function(r){
+    const team=(r.ConcernTeams||'').trim()||'Not Assigned';
+    if(!byConcernTeam[team]) byConcernTeam[team]=[];
+    byConcernTeam[team].push(r);
   });
-  if(stSorted.length>15) stHtml+='<div style="font-size:14pt;color:#7A9AAA;padding:6pt;text-align:center">+ '+(stSorted.length-15)+' more stations in appendix</div>';
+  const ctPriority=['Site Team-Loco','Site Team-Station'];
+  const ctSorted=Object.entries(byConcernTeam).sort(function(a,b){
+    var ai=ctPriority.indexOf(a[0]),bi=ctPriority.indexOf(b[0]);
+    if(ai===-1) ai=ctPriority.length;
+    if(bi===-1) bi=ctPriority.length;
+    if(ai!==bi) return ai-bi;
+    return b[1].length-a[1].length;
+  });
+  let ctHtml='';
+  ctSorted.forEach(function(entry,idx){
+    const team=entry[0],issues=entry[1];
+    ctHtml+='<div style="margin:8pt 0;page-break-inside:avoid">';
+    ctHtml+='<div style="font-family:\'Times New Roman\',Times,serif;font-size:18pt;font-weight:700;color:#0B3D5B;padding:5pt 10pt;background:#D4F1F9;border-left:4px solid #1A6B8A;margin-bottom:5pt">';
+    ctHtml+=(idx+1)+'. '+team+' <span style="font-size:13pt;font-weight:400;color:#4A6070">('+issues.length+' issue'+(issues.length>1?'s':'')+')</span></div>';
+    ctHtml+='<table style="width:100%;border-collapse:collapse;font-size:13pt;margin-bottom:4pt">';
+    ctHtml+='<thead><tr><th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Loco ID</th>';
+    ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Station</th>';
+    ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Issue Category</th>';
+    ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Sub-Category</th>';
+    ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Analysis</th>';
+    ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Action Taken</th></tr></thead><tbody>';
+    issues.sort(function(a,b){return parseDate(a.Date)-parseDate(b.Date)}).forEach(function(r,ri){
+      var bgC=ri%2===0?'background:#fff':'background:#faf6ee';
+      ctHtml+='<tr style="'+bgC+';page-break-inside:avoid">';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;font-weight:600">'+(r.LocoId||'-')+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+stationCode(r.Station)+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+(r.IssueType||'-')+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+(r.SubCategory||'-')+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;max-width:140pt;font-size:12pt">'+(r.Analysis||'-')+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;max-width:140pt;font-size:12pt">'+(r.ActionTaken||'-')+'</td>';
+      ctHtml+='</tr>';
+    });
+    ctHtml+='</tbody></table></div>';
+  });
 
   // Loco table rows
   var locoRows='';
@@ -1042,7 +1051,7 @@ function generatePDFReport(){
     var lLS=issues.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;
     var lSR=issues.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
     var lTag=issues.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
-    var lRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+    var lRadio=issues.filter(r=>(r.SubCategory||'').toLowerCase().includes('radio')).length;
     var lSt=[...new Set(issues.map(r=>stationCode(r.Station)))].join(', ');
     locoRows+='<tr><td style="font-weight:700">'+loco+'</td><td style="font-weight:700">'+issues.length+'</td><td>'+lLS+'</td><td>'+lSR+'</td><td>'+lTag+'</td><td>'+lRadio+'</td><td style="font-size:10pt">'+lSt+'</td></tr>';
   });
@@ -1142,9 +1151,9 @@ function generatePDFReport(){
   doc+='<tr class="tr"><td>TOTAL</td><td>'+ls+'</td><td>'+sr+'</td><td>'+tag+'</td><td>'+total+'</td></tr></tbody></table>';
 
   doc+='<div class="pb"></div>';
-  doc+='<div class="st">Section A: Station-wise Issue Details</div>';
-  doc+='<div style="font-size:12pt;color:#7A9AAA;margin-bottom:6pt">'+stCount+' stations | Top 15 with full details</div>';
-  doc+=stHtml;
+  doc+='<div class="st">Section A: Concern Team-wise Issue Details</div>';
+  doc+='<div style="font-size:12pt;color:#7A9AAA;margin-bottom:6pt">'+ctSorted.length+' concern team'+(ctSorted.length>1?'s':'')+' | Loco ID, Station, Category, Sub-Category, Analysis &amp; Action Taken</div>';
+  doc+=ctHtml;
 
   doc+='<div class="pb"></div>';
   doc+='<div class="st">Section B: Locomotive-wise Summary</div>';
@@ -1217,11 +1226,11 @@ function buildAnonymisedContext(){
   const ls=d.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;const sr=d.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
   const tag=d.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
   const stCount=new Set(d.map(r=>r.Station)).size;const loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size;
-  const radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
+  const radioFail=d.filter(r=>(r.SubCategory||'').toLowerCase().includes('radio')).length;
   const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
   const byStation={};d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
   const stSum=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length).slice(0,15).map(([s,iss])=>{
-    return (anonMap.stations[s]||s)+': '+iss.length+' (LS:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length+', SR:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length+', Radio:'+iss.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length+')';
+    return (anonMap.stations[s]||s)+': '+iss.length+' (LS:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length+', SR:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length+', Radio:'+iss.filter(r=>(r.SubCategory||'').toLowerCase().includes('radio')).length+')';
   }).join('\n');
   const byLoco={};d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
   const loSum=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length).slice(0,10).map(([l,iss])=>{
