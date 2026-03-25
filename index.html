@@ -74,66 +74,66 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
 .pdf-report{display:none}
 @media print{
   *{animation:none!important;transition:none!important}
-  body{background:#fff!important;color:#1A2A35!important;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:10pt!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  body{background:#fff!important;color:#1A2A35!important;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:20pt!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   .ocean-bg,.particle,.slicer-bar,.header-actions,.reset-btn,.footer,.card:has(#heatmapContainer),.zone-slicer-wrap,.zone-loading{display:none!important}
   .dashboard-wrapper{max-width:100%!important;padding:0!important;margin:0!important}
   .header{border-radius:0!important;margin-bottom:14pt!important;padding:20pt 24pt!important;box-shadow:none!important;page-break-after:avoid}
-  .header h1{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:20pt!important;font-weight:700!important}
-  .header .subtitle{font-size:10pt!important;font-weight:600!important}
+  .header h1{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:40pt!important;font-weight:700!important}
+  .header .subtitle{font-size:20pt!important;font-weight:600!important}
   .header-stats{gap:20pt!important;margin-top:10pt!important}
-  .header-stat .num{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:18pt!important;font-weight:700!important}
-  .header-stat .label{font-size:8pt!important;font-weight:700!important;letter-spacing:1.5px}
+  .header-stat .num{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:36pt!important;font-weight:700!important}
+  .header-stat .label{font-size:16pt!important;font-weight:700!important;letter-spacing:1.5px}
   .header::before,.header::after{display:none!important}
   .kpi-row{grid-template-columns:repeat(6,1fr)!important;gap:8pt!important;margin-bottom:12pt!important}
   .kpi-card{padding:10pt 8pt!important;box-shadow:none!important;border:1.5px solid #ccc!important;border-radius:8pt!important}
   .kpi-card::after{height:3px!important}
-  .kpi-card .kpi-icon{font-size:1.6rem!important;margin-bottom:6px!important}
-  .kpi-card .kpi-value{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:15pt!important;font-weight:700!important}
-  .kpi-card .kpi-label{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:7pt!important;font-weight:700!important;letter-spacing:1px}
+  .kpi-card .kpi-icon{font-size:3.2rem!important;margin-bottom:6px!important}
+  .kpi-card .kpi-value{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:30pt!important;font-weight:700!important}
+  .kpi-card .kpi-label{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:14pt!important;font-weight:700!important;letter-spacing:1px}
   .grid{gap:12pt!important;margin-bottom:12pt!important}
   .card{box-shadow:none!important;border:1.5px solid #ddd!important;border-radius:8pt!important;padding:14pt!important;page-break-inside:avoid}
   .card::before{display:none!important}
-  .card-title{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:11pt!important;font-weight:700!important}
+  .card-title{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:22pt!important;font-weight:700!important}
   .card-title .icon{width:34px!important;height:34px!important;font-size:1.1rem!important;border-radius:8px!important}
-  .card-subtitle{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:8pt!important;font-weight:600!important;margin-bottom:10pt!important}
+  .card-subtitle{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:16pt!important;font-weight:600!important;margin-bottom:10pt!important}
   .chart-container canvas{max-height:220px!important}
   .table-wrapper{max-height:none!important;overflow:visible!important}
-  .data-table th{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:7.5pt!important;padding:5pt 7pt!important;font-weight:700!important}
-  .data-table td{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:7.5pt!important;padding:4pt 7pt!important}
-  .heatmap-cell{font-size:6pt!important;padding:3pt!important;font-weight:700!important}
-  .heatmap-header{font-size:6pt!important;font-weight:700!important}
+  .data-table th{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:15pt!important;padding:5pt 7pt!important;font-weight:700!important}
+  .data-table td{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:15pt!important;padding:4pt 7pt!important}
+  .heatmap-cell{font-size:12pt!important;padding:3pt!important;font-weight:700!important}
+  .heatmap-header{font-size:12pt!important;font-weight:700!important}
   .pdf-report{display:block!important;page-break-before:always}
   .pdf-report-header{background:linear-gradient(135deg,#0B3D5B,#1A6B8A)!important;color:#fff!important;
     padding:20pt;text-align:center;margin-bottom:16pt}
-  .pdf-report-header h2{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:16pt;font-weight:700;margin-bottom:4pt}
-  .pdf-report-header p{font-size:9pt;opacity:.85;font-weight:600}
+  .pdf-report-header h2{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:32pt;font-weight:700;margin-bottom:4pt}
+  .pdf-report-header p{font-size:18pt;opacity:.85;font-weight:600}
   .pdf-summary{margin:0 12pt 12pt;padding:12pt;background:#f8f6f0!important;border:1px solid #ddd;border-radius:6pt}
-  .pdf-summary h3{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:12pt;font-weight:700;color:#0B3D5B;margin-bottom:8pt;
+  .pdf-summary h3{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:24pt;font-weight:700;color:#0B3D5B;margin-bottom:8pt;
     border-bottom:2px solid #2D9CBA;padding-bottom:4pt;display:inline-block}
   .pdf-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8pt}
   .pdf-summary-item{padding:6pt;background:#fff;border:1px solid #e8dcc8;border-radius:4pt}
-  .pdf-summary-item .label{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:7pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:700}
-  .pdf-summary-item .value{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:13pt;color:#0B3D5B;font-weight:700}
-  .pdf-detail-table{width:100%;border-collapse:collapse;font-size:7.5pt;margin:0 12pt;page-break-inside:auto}
-  .pdf-detail-table caption{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:12pt;font-weight:700;color:#0B3D5B;text-align:left;
+  .pdf-summary-item .label{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:14pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:700}
+  .pdf-summary-item .value{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:26pt;color:#0B3D5B;font-weight:700}
+  .pdf-detail-table{width:100%;border-collapse:collapse;font-size:15pt;margin:0 12pt;page-break-inside:auto}
+  .pdf-detail-table caption{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:24pt;font-weight:700;color:#0B3D5B;text-align:left;
     margin-bottom:6pt;padding:0 0 4pt;border-bottom:2px solid #2D9CBA;caption-side:top}
   .pdf-detail-table th{background:#0B3D5B!important;color:#fff!important;padding:6pt 7pt;text-align:left;
-    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:7pt}
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:14pt}
   .pdf-detail-table td{padding:5pt 7pt;border-bottom:1px solid #e8dcc8;vertical-align:top;word-wrap:break-word;max-width:120pt;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important}
   .pdf-detail-table tr:nth-child(even){background:#faf6ee!important}
   .pdf-detail-table tr{page-break-inside:avoid}
-  .pdf-badge{display:inline-block;padding:2pt 7pt;border-radius:10pt;font-size:6.5pt;font-weight:700}
+  .pdf-badge{display:inline-block;padding:2pt 7pt;border-radius:10pt;font-size:13pt;font-weight:700}
   .pdf-badge-ls{background:rgba(26,107,138,.15)!important;color:#1A6B8A!important}
   .pdf-badge-sr{background:rgba(232,114,74,.15)!important;color:#E8724A!important}
   .pdf-badge-tag{background:rgba(212,168,67,.15)!important;color:#D4A843!important}
   .pdf-section-break{page-break-before:always;padding-top:12pt}
   .pdf-station-section{margin:8pt 12pt;page-break-inside:avoid}
-  .pdf-station-title{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:10pt;font-weight:700;color:#0B3D5B;padding:5pt 10pt;
+  .pdf-station-title{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-size:20pt;font-weight:700;color:#0B3D5B;padding:5pt 10pt;
     background:#D4F1F9!important;border-left:4px solid #1A6B8A;margin-bottom:6pt}
-  .pdf-issue-card{padding:7pt 10pt;margin-bottom:5pt;border:1px solid #e8dcc8;border-radius:5pt;font-size:8pt;background:#fff!important}
-  .pdf-issue-card .meta{color:#7A9AAA;font-size:7pt;margin-bottom:3pt;font-weight:600}
-  .pdf-issue-card .analysis-text{color:#4A6070;font-size:8pt;line-height:1.5}
-  .pdf-page-footer{text-align:center;font-size:7pt;color:#7A9AAA;margin-top:14pt;padding-top:8pt;border-top:1px solid #e8dcc8;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-weight:600}
+  .pdf-issue-card{padding:7pt 10pt;margin-bottom:5pt;border:1px solid #e8dcc8;border-radius:5pt;font-size:16pt;background:#fff!important}
+  .pdf-issue-card .meta{color:#7A9AAA;font-size:14pt;margin-bottom:3pt;font-weight:600}
+  .pdf-issue-card .analysis-text{color:#4A6070;font-size:16pt;line-height:1.5}
+  .pdf-page-footer{text-align:center;font-size:14pt;color:#7A9AAA;margin-top:14pt;padding-top:8pt;border-top:1px solid #e8dcc8;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif!important;font-weight:600}
 }
 
 /* === SLICERS === */
@@ -569,8 +569,8 @@ function normaliseWRIssueType(raw){
   const t=raw.trim();
   const tl=t.toLowerCase();
   // Known keywords — checked first regardless of surrounding text
-  if(tl.includes('ls mode')) return 'LS Mode';
-  if(tl.includes('sr mode')) return 'SR Mode';
+  if(tl.includes('ls mode')) return 'LS mode';
+  if(tl.includes('sr mode')) return 'SR mode';
   if(/\bsoc\b/.test(tl)) return 'SOC';
   if(/\beb\b/.test(tl)||tl.includes('emergency brake')) return 'EB';
   if(tl.includes('tag missing')||tl.includes('rfid')||tl.includes('missing rfid')) return 'Tag Missing';
@@ -753,7 +753,7 @@ Chart.defaults.animation.easing='easeOutQuart';
 const C={LS:'#1A6B8A',SR:'#E8724A',Tag:'#D4A843',
 sea:['#0B3D5B','#1A6B8A','#2D9CBA','#5CC5E2','#A8E0F0'],
 pal:['#1A6B8A','#E8724A','#D4A843','#3ABBB0','#C46B8E','#0B3D5B','#5CC5E2','#B8A088','#A8E0F0','#D4C4A8','#2D9CBA','#4A6070']};
-const ISSUE_COLOR_MAP={'LS mode':C.LS,'SR mode':C.SR,'Tag Missing':C.Tag};
+const ISSUE_COLOR_MAP={'ls mode':C.LS,'sr mode':C.SR,'tag missing':C.Tag};
 function getIssueTypeEntries(data,limit){
   const counts={};
   data.forEach(function(row){
@@ -764,7 +764,7 @@ function getIssueTypeEntries(data,limit){
   const entries=Object.entries(counts).sort(function(a,b){return b[1]-a[1]||a[0].localeCompare(b[0])});
   return typeof limit==='number'?entries.slice(0,limit):entries
 }
-function getIssueColor(type,index){return ISSUE_COLOR_MAP[type]||C.pal[index%C.pal.length]}
+function getIssueColor(type,index){return ISSUE_COLOR_MAP[(type||'').toLowerCase()]||ISSUE_COLOR_MAP[type]||C.pal[index%C.pal.length]}
 
 function populateSlicers(){
   clearSlicerOptions('fromDateSlicer');clearSlicerOptions('toDateSlicer');clearSlicerOptions('stationSlicer');
@@ -935,9 +935,9 @@ function renderCumulative(){
 function renderStationMix(){
   dc('stationMix');
   const sc=countBy(filteredData,'Station');const ts=topN(sc,8).map(s=>s[0]);
-  const lsData=ts.map(s=>filteredData.filter(r=>r.Station===s&&r.IssueType==='LS mode').length);
-  const srData=ts.map(s=>filteredData.filter(r=>r.Station===s&&r.IssueType==='SR mode').length);
-  const tagData=ts.map(s=>filteredData.filter(r=>r.Station===s&&r.IssueType==='Tag Missing').length);
+  const lsData=ts.map(s=>filteredData.filter(r=>r.Station===s&&(r.IssueType||'').toLowerCase()==='ls mode').length);
+  const srData=ts.map(s=>filteredData.filter(r=>r.Station===s&&(r.IssueType||'').toLowerCase()==='sr mode').length);
+  const tagData=ts.map(s=>filteredData.filter(r=>r.Station===s&&(r.IssueType||'').toLowerCase()==='tag missing').length);
   charts.stationMix=new Chart(document.getElementById('stationMixChart'),{type:'bar',data:{
     labels:ts.map(s=>stationCode(s)),
     datasets:[
@@ -954,7 +954,7 @@ function renderStationMix(){
 function renderTable(){
   const data=filteredData.slice(0,100);
   let h=`<table class="data-table"><thead><tr><th>Date</th><th>Station</th><th>Loco</th><th>Dir</th><th>Type</th><th>Sub Category</th><th>Count</th><th>Time</th><th>Analysis</th></tr></thead><tbody>`;
-  data.forEach((r,i)=>{const bc=r.IssueType==='LS mode'?'badge-ls':r.IssueType==='SR mode'?'badge-sr':'badge-tag';
+  data.forEach((r,i)=>{const bc=(r.IssueType||'').toLowerCase()==='ls mode'?'badge-ls':(r.IssueType||'').toLowerCase()==='sr mode'?'badge-sr':'badge-tag';
     h+=`<tr style="animation-delay:${i*20}ms"><td>${r.Date}</td><td>${stationCode(r.Station)}</td>
     <td>${r.LocoId}</td><td>${r.Direction||'-'}</td><td><span class="badge ${bc}">${r.IssueType||'-'}</span></td>
     <td class="wrap">${r.SubCategory||'-'}</td><td>${r.IssueCount||'-'}</td>
@@ -967,8 +967,8 @@ function renderTable(){
 function generatePDFReport(){
   const d=filteredData.filter(r=>r.Date);
   if(!d.length){alert('No data to export. Adjust your filters.');return}
-  const total=d.length,ls=d.filter(r=>r.IssueType==='LS mode').length,
-        sr=d.filter(r=>r.IssueType==='SR mode').length,tag=d.filter(r=>r.IssueType==='Tag Missing').length,
+  const total=d.length,ls=d.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length,
+        sr=d.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length,tag=d.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length,
         stCount=new Set(d.map(r=>r.Station)).size,loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size,
         radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
 
@@ -995,8 +995,8 @@ function generatePDFReport(){
   const byLoco={};d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
   const loSorted=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length);
   const byDate={};d.forEach(r=>{if(!byDate[r.Date])byDate[r.Date]={LS:0,SR:0,Tag:0,total:0};
-    if(r.IssueType==='LS mode')byDate[r.Date].LS++;else if(r.IssueType==='SR mode')byDate[r.Date].SR++;
-    else if(r.IssueType==='Tag Missing')byDate[r.Date].Tag++;byDate[r.Date].total++});
+    if((r.IssueType||'').toLowerCase()==='ls mode')byDate[r.Date].LS++;else if((r.IssueType||'').toLowerCase()==='sr mode')byDate[r.Date].SR++;
+    else if((r.IssueType||'').toLowerCase()==='tag missing')byDate[r.Date].Tag++;byDate[r.Date].total++});
   const avgPD=dates.length?(total/dates.length).toFixed(1):'0';
   let peakDay='-',peakC=0;dates.forEach(dt=>{if(byDate[dt].total>peakC){peakC=byDate[dt].total;peakDay=dt}});
   const subCatC={};d.forEach(r=>{const sc=r.SubCategory||'(Not specified)';subCatC[sc]=(subCatC[sc]||0)+1});
@@ -1006,55 +1006,55 @@ function generatePDFReport(){
   let stHtml='';
   stSorted.slice(0,15).forEach(function(entry,idx){
     const station=entry[0],issues=entry[1];
-    const sLS=issues.filter(r=>r.IssueType==='LS mode').length;
-    const sSR=issues.filter(r=>r.IssueType==='SR mode').length;
-    const sTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
+    const sLS=issues.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;
+    const sSR=issues.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
+    const sTag=issues.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
     const sRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
     const locos=[...new Set(issues.map(r=>r.LocoId).filter(Boolean))];
     stHtml+='<div style="margin:6pt 0;page-break-inside:avoid">';
-    stHtml+='<div style="font-family:Playfair Display,serif;font-size:8.5pt;color:#0B3D5B;padding:4pt 8pt;background:#D4F1F9;border-left:3px solid #1A6B8A;margin-bottom:4pt">';
+    stHtml+='<div style="font-family:\'Times New Roman\',Times,serif;font-size:17pt;color:#0B3D5B;padding:4pt 8pt;background:#D4F1F9;border-left:3px solid #1A6B8A;margin-bottom:4pt">';
     stHtml+=(idx+1)+'. '+station+' - '+issues.length+' issue'+(issues.length>1?'s':'')+' (LS:'+sLS+' | SR:'+sSR+' | Tag:'+sTag+(sRadio?' | Radio:'+sRadio:'')+')';
-    stHtml+='<span style="font-size:5pt;font-weight:400;margin-left:6pt">Locos: '+(locos.join(', ')||'-')+'</span></div>';
+    stHtml+='<span style="font-size:10pt;font-weight:400;margin-left:6pt">Locos: '+(locos.join(', ')||'-')+'</span></div>';
     issues.sort(function(a,b){return parseDate(a.Date)-parseDate(b.Date)}).forEach(function(r){
-      var bgStyle=r.IssueType==='LS mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':r.IssueType==='SR mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
-      stHtml+='<div style="padding:4pt 8pt;margin-bottom:3pt;border:1px solid #e8dcc8;border-radius:3pt;font-size:6.5pt;background:#fff">';
-      stHtml+='<div style="color:#7A9AAA;font-size:6pt;margin-bottom:2pt">';
-      stHtml+='<span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:5.5pt;font-weight:700;'+bgStyle+'">'+( r.IssueType||'-')+'</span>';
+      var bgStyle=(r.IssueType||'').toLowerCase()==='ls mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':(r.IssueType||'').toLowerCase()==='sr mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
+      stHtml+='<div style="padding:4pt 8pt;margin-bottom:3pt;border:1px solid #e8dcc8;border-radius:3pt;font-size:13pt;background:#fff">';
+      stHtml+='<div style="color:#7A9AAA;font-size:12pt;margin-bottom:2pt">';
+      stHtml+='<span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:11pt;font-weight:700;'+bgStyle+'">'+( r.IssueType||'-')+'</span>';
       if(r.SubCategory) stHtml+=' | <b>'+r.SubCategory+'</b>';
       if(r.Date) stHtml+=' | '+r.Date;
       if(r.Time) stHtml+=' @ '+r.Time;
       if(r.LocoId) stHtml+=' | Loco <b>'+r.LocoId+'</b>';
       if(r.Direction) stHtml+=' | Dir: '+r.Direction;
       stHtml+='</div>';
-      if(r.Analysis) stHtml+='<div style="color:#4A6070;font-size:6.5pt;line-height:1.4"><b>Analysis:</b> '+r.Analysis+'</div>';
-      if(r.RootCause) stHtml+='<div style="color:#4A6070;font-size:6.5pt;line-height:1.4"><b>Root Cause:</b> '+r.RootCause+'</div>';
-      if(r.ActionTaken) stHtml+='<div style="color:#3ABBB0;font-size:6.5pt;line-height:1.4"><b>Action:</b> '+r.ActionTaken+'</div>';
+      if(r.Analysis) stHtml+='<div style="color:#4A6070;font-size:13pt;line-height:1.4"><b>Analysis:</b> '+r.Analysis+'</div>';
+      if(r.RootCause) stHtml+='<div style="color:#4A6070;font-size:13pt;line-height:1.4"><b>Root Cause:</b> '+r.RootCause+'</div>';
+      if(r.ActionTaken) stHtml+='<div style="color:#3ABBB0;font-size:13pt;line-height:1.4"><b>Action:</b> '+r.ActionTaken+'</div>';
       stHtml+='</div>';
     });
     stHtml+='</div>';
   });
-  if(stSorted.length>15) stHtml+='<div style="font-size:7pt;color:#7A9AAA;padding:6pt;text-align:center">+ '+(stSorted.length-15)+' more stations in appendix</div>';
+  if(stSorted.length>15) stHtml+='<div style="font-size:14pt;color:#7A9AAA;padding:6pt;text-align:center">+ '+(stSorted.length-15)+' more stations in appendix</div>';
 
   // Loco table rows
   var locoRows='';
   loSorted.forEach(function(entry){
     var loco=entry[0],issues=entry[1];
-    var lLS=issues.filter(r=>r.IssueType==='LS mode').length;
-    var lSR=issues.filter(r=>r.IssueType==='SR mode').length;
-    var lTag=issues.filter(r=>r.IssueType==='Tag Missing').length;
+    var lLS=issues.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;
+    var lSR=issues.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
+    var lTag=issues.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
     var lRadio=issues.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
     var lSt=[...new Set(issues.map(r=>stationCode(r.Station)))].join(', ');
-    locoRows+='<tr><td style="font-weight:700">'+loco+'</td><td style="font-weight:700">'+issues.length+'</td><td>'+lLS+'</td><td>'+lSR+'</td><td>'+lTag+'</td><td>'+lRadio+'</td><td style="font-size:5pt">'+lSt+'</td></tr>';
+    locoRows+='<tr><td style="font-weight:700">'+loco+'</td><td style="font-weight:700">'+issues.length+'</td><td>'+lLS+'</td><td>'+lSR+'</td><td>'+lTag+'</td><td>'+lRadio+'</td><td style="font-size:10pt">'+lSt+'</td></tr>';
   });
 
   // Appendix rows
   var appRows='';
   d.forEach(function(r,i){
-    var bgStyle=r.IssueType==='LS mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':r.IssueType==='SR mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
+    var bgStyle=(r.IssueType||'').toLowerCase()==='ls mode'?'background:rgba(26,107,138,.12);color:#1A6B8A':(r.IssueType||'').toLowerCase()==='sr mode'?'background:rgba(232,114,74,.12);color:#E8724A':'background:rgba(212,168,67,.12);color:#D4A843';
     var an=(r.Analysis||'-').slice(0,120);if(r.Analysis&&r.Analysis.length>120)an+='...';
     appRows+='<tr><td style="color:#7A9AAA">'+(i+1)+'</td><td>'+r.Date+'</td><td>'+stationCode(r.Station)+'</td><td>'+(r.LocoId||'-')+'</td><td>'+(r.Direction||'-')+'</td>';
-    appRows+='<td><span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:5pt;font-weight:700;'+bgStyle+'">'+(r.IssueType||'-')+'</span></td>';
-    appRows+='<td>'+(r.SubCategory||'-')+'</td><td>'+(r.Time||'-')+'</td><td style="max-width:160pt;white-space:normal;font-size:5.5pt">'+an+'</td></tr>';
+    appRows+='<td><span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:10pt;font-weight:700;'+bgStyle+'">'+(r.IssueType||'-')+'</span></td>';
+    appRows+='<td>'+(r.SubCategory||'-')+'</td><td>'+(r.Time||'-')+'</td><td style="max-width:160pt;white-space:normal;font-size:11pt">'+an+'</td></tr>';
   });
 
   // Daily summary rows
@@ -1076,34 +1076,33 @@ function generatePDFReport(){
   if(!w){alert('Pop-up blocked! Please allow pop-ups for this site and try again.');return}
 
   var doc='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>KAVACH ER Issues Report</title>';
-  doc+='<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">';
   doc+='<style>';
   doc+='*{margin:0;padding:0;box-sizing:border-box}';
-  doc+="body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;color:#1A2A35;font-size:9pt;padding:20pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}";
+  doc+="body{font-family:'Times New Roman',Times,serif;color:#1A2A35;font-size:18pt;padding:20pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}";
   doc+="@media print{body{padding:0}@page{margin:12mm 10mm;size:A4}.no-print{display:none!important}}";
   doc+='.hdr{background:linear-gradient(135deg,#0B3D5B,#1A6B8A,#2D9CBA);color:#fff;padding:22pt;text-align:center;border-radius:6pt;margin-bottom:16pt}';
-  doc+=".hdr h2{font-family:'Segoe UI',Tahoma,sans-serif;font-size:18pt;font-weight:700;margin-bottom:4pt}";
-  doc+=".hdr p{font-size:9pt;opacity:.9;font-weight:600}";
-  doc+=".hdr .flt{font-size:7.5pt;margin-top:5pt;padding:4pt 12pt;background:rgba(255,255,255,.18);border-radius:4pt;display:inline-block;font-weight:600}";
+  doc+=".hdr h2{font-family:'Times New Roman',Times,serif;font-size:36pt;font-weight:700;margin-bottom:4pt}";
+  doc+=".hdr p{font-size:18pt;opacity:.9;font-weight:600}";
+  doc+=".hdr .flt{font-size:15pt;margin-top:5pt;padding:4pt 12pt;background:rgba(255,255,255,.18);border-radius:4pt;display:inline-block;font-weight:600}";
   doc+=".summary{margin-bottom:14pt;padding:14pt;background:#f8f6f0;border:1.5px solid #ddd;border-radius:5pt}";
-  doc+=".summary h3{font-family:'Segoe UI',Tahoma,sans-serif;font-size:12pt;font-weight:700;color:#0B3D5B;margin-bottom:10pt;border-bottom:2.5px solid #2D9CBA;padding-bottom:4pt;display:inline-block}";
+  doc+=".summary h3{font-family:'Times New Roman',Times,serif;font-size:24pt;font-weight:700;color:#0B3D5B;margin-bottom:10pt;border-bottom:2.5px solid #2D9CBA;padding-bottom:4pt;display:inline-block}";
   doc+='.sg{display:grid;grid-template-columns:repeat(5,1fr);gap:7pt}';
   doc+='.si{padding:8pt;background:#fff;border:1.5px solid #e8dcc8;border-radius:4pt;text-align:center}';
-  doc+=".si .lb{font-family:'Segoe UI',Tahoma,sans-serif;font-size:6.5pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:700}";
-  doc+=".si .vl{font-family:'Segoe UI',Tahoma,sans-serif;font-size:13pt;color:#0B3D5B;font-weight:700}";
-  doc+=".st{font-family:'Segoe UI',Tahoma,sans-serif;font-size:12pt;font-weight:700;color:#0B3D5B;border-bottom:2.5px solid #2D9CBA;padding-bottom:4pt;display:inline-block;margin:12pt 0 8pt}";
-  doc+=".fd{font-size:8.5pt;line-height:1.7;color:#4A6070;margin-bottom:12pt;font-weight:500}";
+  doc+=".si .lb{font-family:'Times New Roman',Times,serif;font-size:13pt;text-transform:uppercase;letter-spacing:1px;color:#7A9AAA;font-weight:700}";
+  doc+=".si .vl{font-family:'Times New Roman',Times,serif;font-size:26pt;color:#0B3D5B;font-weight:700}";
+  doc+=".st{font-family:'Times New Roman',Times,serif;font-size:24pt;font-weight:700;color:#0B3D5B;border-bottom:2.5px solid #2D9CBA;padding-bottom:4pt;display:inline-block;margin:12pt 0 8pt}";
+  doc+=".fd{font-size:17pt;line-height:1.7;color:#4A6070;margin-bottom:12pt;font-weight:500}";
   doc+='.fd div{margin-bottom:4pt}';
-  doc+="table{width:100%;border-collapse:collapse;font-size:7.5pt;margin-bottom:12pt;font-family:'Segoe UI',Tahoma,sans-serif}";
-  doc+=".table caption{font-family:'Segoe UI',Tahoma,sans-serif;font-size:11pt;font-weight:700;color:#0B3D5B;text-align:left;margin-bottom:5pt;padding-bottom:4pt;border-bottom:2.5px solid #2D9CBA;caption-side:top}";
-  doc+="th{background:#0B3D5B;color:#fff;padding:5pt 6pt;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:6.5pt}";
+  doc+="table{width:100%;border-collapse:collapse;font-size:15pt;margin-bottom:12pt;font-family:'Times New Roman',Times,serif}";
+  doc+=".table caption{font-family:'Times New Roman',Times,serif;font-size:22pt;font-weight:700;color:#0B3D5B;text-align:left;margin-bottom:5pt;padding-bottom:4pt;border-bottom:2.5px solid #2D9CBA;caption-side:top}";
+  doc+="th{background:#0B3D5B;color:#fff;padding:5pt 6pt;text-align:left;font-weight:700;text-transform:uppercase;letter-spacing:.5px;font-size:13pt}";
   doc+='td{padding:4pt 6pt;border-bottom:1px solid #e8dcc8;vertical-align:top}';
   doc+='tr:nth-child(even){background:#faf6ee}';
   doc+='tr{page-break-inside:avoid}';
   doc+='.tr{font-weight:700;background:#D4F1F9!important}';
   doc+='.pb{page-break-before:always}';
-  doc+=".ft{text-align:center;font-size:7pt;color:#7A9AAA;margin-top:14pt;padding-top:8pt;border-top:1px solid #e8dcc8;font-family:'Segoe UI',Tahoma,sans-serif;font-weight:600}";
-  doc+=".pn-btn{display:block;margin:0 auto 18pt;padding:12px 32px;background:linear-gradient(135deg,#1A6B8A,#2D9CBA);color:#fff;border:none;border-radius:8px;font-family:'Segoe UI',Tahoma,sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.5px}";
+  doc+=".ft{text-align:center;font-size:14pt;color:#7A9AAA;margin-top:14pt;padding-top:8pt;border-top:1px solid #e8dcc8;font-family:'Times New Roman',Times,serif;font-weight:600}";
+  doc+=".pn-btn{display:block;margin:0 auto 18pt;padding:12px 32px;background:linear-gradient(135deg,#1A6B8A,#2D9CBA);color:#fff;border:none;border-radius:8px;font-family:'Times New Roman',Times,serif;font-size:28px;font-weight:700;cursor:pointer;letter-spacing:.5px}";
   doc+='.pn-btn:hover{opacity:.9}';
   doc+='</style></head><body>';
 
@@ -1117,14 +1116,14 @@ function generatePDFReport(){
 
   doc+='<div class="summary"><h3>Executive Summary</h3><div class="sg">';
   doc+='<div class="si"><div class="lb">Total Issues</div><div class="vl">'+total+'</div></div>';
-  doc+='<div class="si"><div class="lb">LS Mode</div><div class="vl" style="color:#1A6B8A">'+ls+' <span style="font-size:6pt;font-weight:400">('+( total?(ls/total*100).toFixed(1):'0')+'%)</span></div></div>';
-  doc+='<div class="si"><div class="lb">SR Mode</div><div class="vl" style="color:#E8724A">'+sr+' <span style="font-size:6pt;font-weight:400">('+( total?(sr/total*100).toFixed(1):'0')+'%)</span></div></div>';
+  doc+='<div class="si"><div class="lb">LS Mode</div><div class="vl" style="color:#1A6B8A">'+ls+' <span style="font-size:12pt;font-weight:400">('+( total?(ls/total*100).toFixed(1):'0')+'%)</span></div></div>';
+  doc+='<div class="si"><div class="lb">SR Mode</div><div class="vl" style="color:#E8724A">'+sr+' <span style="font-size:12pt;font-weight:400">('+( total?(sr/total*100).toFixed(1):'0')+'%)</span></div></div>';
   doc+='<div class="si"><div class="lb">Tag Missing</div><div class="vl" style="color:#D4A843">'+tag+'</div></div>';
   doc+='<div class="si"><div class="lb">Radio Failures</div><div class="vl">'+radioFail+'</div></div>';
   doc+='<div class="si"><div class="lb">Stations</div><div class="vl">'+stCount+'</div></div>';
   doc+='<div class="si"><div class="lb">Locomotives</div><div class="vl">'+loCount+'</div></div>';
   doc+='<div class="si"><div class="lb">Avg / Day</div><div class="vl">'+avgPD+'</div></div>';
-  doc+='<div class="si"><div class="lb">Peak Day</div><div class="vl" style="font-size:8pt">'+peakDay+' ('+peakC+')</div></div>';
+  doc+='<div class="si"><div class="lb">Peak Day</div><div class="vl" style="font-size:16pt">'+peakDay+' ('+peakC+')</div></div>';
   doc+='<div class="si"><div class="lb">Days Covered</div><div class="vl">'+dates.length+'</div></div>';
   doc+='</div></div>';
 
@@ -1144,7 +1143,7 @@ function generatePDFReport(){
 
   doc+='<div class="pb"></div>';
   doc+='<div class="st">Section A: Station-wise Issue Details</div>';
-  doc+='<div style="font-size:6pt;color:#7A9AAA;margin-bottom:6pt">'+stCount+' stations | Top 15 with full details</div>';
+  doc+='<div style="font-size:12pt;color:#7A9AAA;margin-bottom:6pt">'+stCount+' stations | Top 15 with full details</div>';
   doc+=stHtml;
 
   doc+='<div class="pb"></div>';
@@ -1215,21 +1214,21 @@ function deAnonymiseText(text){
 
 function buildAnonymisedContext(){
   const d=filteredData;const anonData=d.map(anonymiseRecord);const total=d.length;
-  const ls=d.filter(r=>r.IssueType==='LS mode').length;const sr=d.filter(r=>r.IssueType==='SR mode').length;
-  const tag=d.filter(r=>r.IssueType==='Tag Missing').length;
+  const ls=d.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;const sr=d.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
+  const tag=d.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
   const stCount=new Set(d.map(r=>r.Station)).size;const loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size;
   const radioFail=d.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length;
   const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
   const byStation={};d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
   const stSum=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length).slice(0,15).map(([s,iss])=>{
-    return (anonMap.stations[s]||s)+': '+iss.length+' (LS:'+iss.filter(r=>r.IssueType==='LS mode').length+', SR:'+iss.filter(r=>r.IssueType==='SR mode').length+', Radio:'+iss.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length+')';
+    return (anonMap.stations[s]||s)+': '+iss.length+' (LS:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length+', SR:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length+', Radio:'+iss.filter(r=>r.SubCategory.toLowerCase().includes('radio')).length+')';
   }).join('\n');
   const byLoco={};d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
   const loSum=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length).slice(0,10).map(([l,iss])=>{
-    return (anonMap.locos[l]||l)+': '+iss.length+' (LS:'+iss.filter(r=>r.IssueType==='LS mode').length+', SR:'+iss.filter(r=>r.IssueType==='SR mode').length+')';
+    return (anonMap.locos[l]||l)+': '+iss.length+' (LS:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length+', SR:'+iss.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length+')';
   }).join('\n');
   const dailySum=dates.map(dt=>{const dd=d.filter(r=>r.Date===dt);
-    return dt+': '+dd.length+' (LS:'+dd.filter(r=>r.IssueType==='LS mode').length+', SR:'+dd.filter(r=>r.IssueType==='SR mode').length+', Tag:'+dd.filter(r=>r.IssueType==='Tag Missing').length+')';
+    return dt+': '+dd.length+' (LS:'+dd.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length+', SR:'+dd.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length+', Tag:'+dd.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length+')';
   }).join('\n');
   const sampleRec=anonData.slice(0,30).map((r,i)=>(i+1)+'. '+r.Date+' | '+r.Station+' | '+r.LocoId+' | '+r.IssueType+' | '+(r.SubCategory||'-')+' | '+(r.Time||'-')+' | '+(r.Analysis||'-').slice(0,100)).join('\n');
   return `You are an expert railway signalling analyst for the KAVACH system (Indian Railways).
@@ -1274,9 +1273,9 @@ function generateXLSXReport(){
 
   // Summary rows
   const total=d.length;
-  const ls=d.filter(r=>r.IssueType==='LS mode').length;
-  const sr=d.filter(r=>r.IssueType==='SR mode').length;
-  const tag=d.filter(r=>r.IssueType==='Tag Missing').length;
+  const ls=d.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;
+  const sr=d.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
+  const tag=d.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
   const stCount=new Set(d.map(r=>r.Station)).size;
   const loCount=new Set(d.map(r=>r.LocoId).filter(Boolean)).size;
   const dates=[...new Set(d.map(r=>r.Date))].sort((a,b)=>parseDate(a)-parseDate(b));
@@ -1294,9 +1293,9 @@ function generateXLSXReport(){
   csv+='"Station","Total","LS","SR","Tag Missing"\n';
   const byStation={};d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]={t:0,ls:0,sr:0,tag:0};
     byStation[r.Station].t++;
-    if(r.IssueType==='LS mode')byStation[r.Station].ls++;
-    else if(r.IssueType==='SR mode')byStation[r.Station].sr++;
-    else if(r.IssueType==='Tag Missing')byStation[r.Station].tag++;
+    if((r.IssueType||'').toLowerCase()==='ls mode')byStation[r.Station].ls++;
+    else if((r.IssueType||'').toLowerCase()==='sr mode')byStation[r.Station].sr++;
+    else if((r.IssueType||'').toLowerCase()==='tag missing')byStation[r.Station].tag++;
   });
   Object.entries(byStation).sort((a,b)=>b[1].t-a[1].t).forEach(([s,v])=>{
     csv+='"'+s+'",'+v.t+','+v.ls+','+v.sr+','+v.tag+'\n'
