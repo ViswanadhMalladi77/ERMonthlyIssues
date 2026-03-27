@@ -260,6 +260,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--beige-cream);color:var(--
   <!-- HEADER -->
   <div class="header">
     <div class="header-actions">
+      <a class="gsheet-link" href="station_parameters.html" style="background:rgba(58,187,176,.25);border-color:rgba(58,187,176,.5)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        Station Parameters
+      </a>
       <button class="print-btn" onclick="generatePDFReport()">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
         Export PDF
@@ -482,11 +486,23 @@ function extractGvizJson(text){
 function pickField(row,names){for(let i=0;i<names.length;i++){if(Object.prototype.hasOwnProperty.call(row,names[i])) return cleanValue(row[names[i]])}return''}
 function readGoogleTable(table){
   const headers=table.cols.map((col,i)=>cleanValue(col.label||col.id||('Column '+(i+1))));
+  const dateColIndices=new Set();
+  table.cols.forEach(function(col,i){if(col.type==='date'||col.type==='datetime') dateColIndices.add(i)});
   return table.rows.map(function(row){
     const out={};
     headers.forEach(function(header,idx){
       const cell=row.c[idx];
-      const nextValue=cell&&cell.f!==undefined&&cell.f!==null?cleanValue(cell.f):cell&&cell.v!==undefined&&cell.v!==null?cleanValue(cell.v):'';
+      if(!cell){out[header]='';return}
+      // For date columns, prefer parsing cell.v Date() literal to avoid locale issues with cell.f
+      if(dateColIndices.has(idx)&&typeof cell.v==='string'&&cell.v.match(/^Date\(/i)){
+        const dm=cell.v.match(/^Date\((\d+),(\d+),(\d+)/);
+        if(dm){
+          var dd=Number(dm[3]),mm=Number(dm[2])+1,yy=Number(dm[1]);
+          out[header]=String(dd).padStart(2,'0')+'-'+String(mm).padStart(2,'0')+'-'+yy;
+          return
+        }
+      }
+      const nextValue=cell.f!==undefined&&cell.f!==null?cleanValue(cell.f):cell.v!==undefined&&cell.v!==null?cleanValue(cell.v):'';
       if(Object.prototype.hasOwnProperty.call(out,header) && cleanValue(out[header]) && !nextValue) return;
       if(Object.prototype.hasOwnProperty.call(out,header) && cleanValue(out[header]) && nextValue && cleanValue(out[header])!==nextValue) return;
       out[header]=nextValue
@@ -990,18 +1006,6 @@ function generatePDFReport(){
   if(drV!=='all') af.push('Direction: '+drV);
   const filterText=af.length?af.join(' | '):'No filters applied (all data)';
 
-  const byStation={};d.forEach(r=>{if(!byStation[r.Station])byStation[r.Station]=[];byStation[r.Station].push(r)});
-  const stSorted=Object.entries(byStation).sort((a,b)=>b[1].length-a[1].length);
-  const byLoco={};d.filter(r=>r.LocoId).forEach(r=>{if(!byLoco[r.LocoId])byLoco[r.LocoId]=[];byLoco[r.LocoId].push(r)});
-  const loSorted=Object.entries(byLoco).sort((a,b)=>b[1].length-a[1].length);
-  const byDate={};d.forEach(r=>{if(!byDate[r.Date])byDate[r.Date]={LS:0,SR:0,Tag:0,total:0};
-    if((r.IssueType||'').toLowerCase()==='ls mode')byDate[r.Date].LS++;else if((r.IssueType||'').toLowerCase()==='sr mode')byDate[r.Date].SR++;
-    else if((r.IssueType||'').toLowerCase()==='tag missing')byDate[r.Date].Tag++;byDate[r.Date].total++});
-  const avgPD=dates.length?(total/dates.length).toFixed(1):'0';
-  let peakDay='-',peakC=0;dates.forEach(dt=>{if(byDate[dt].total>peakC){peakC=byDate[dt].total;peakDay=dt}});
-  const subCatC={};d.forEach(r=>{const sc=r.SubCategory||'(Not specified)';subCatC[sc]=(subCatC[sc]||0)+1});
-  const scSorted=Object.entries(subCatC).sort((a,b)=>b[1]-a[1]);
-
   // Build Concern Team detail section
   const byConcernTeam={};
   d.forEach(function(r){
@@ -1009,18 +1013,30 @@ function generatePDFReport(){
     if(!byConcernTeam[team]) byConcernTeam[team]=[];
     byConcernTeam[team].push(r);
   });
-  const ctPriority=['Site Team-Loco','Site Team-Station'];
+  const ctPriority=['Site Team-Loco','Site Team-Station','Application Data Team','R & D Team'];
   const ctSorted=Object.entries(byConcernTeam).sort(function(a,b){
-    var ai=ctPriority.indexOf(a[0]),bi=ctPriority.indexOf(b[0]);
+    var ai=ctPriority.findIndex(function(p){return a[0].toLowerCase()===p.toLowerCase()});
+    var bi=ctPriority.findIndex(function(p){return b[0].toLowerCase()===p.toLowerCase()});
     if(ai===-1) ai=ctPriority.length;
     if(bi===-1) bi=ctPriority.length;
     if(ai!==bi) return ai-bi;
     return b[1].length-a[1].length;
   });
+
+  // Concern Team summary rows
+  var ctSummaryRows='';
+  ctSorted.forEach(function(entry){
+    ctSummaryRows+='<tr><td style="font-weight:600">'+entry[0]+'</td><td style="font-weight:700">'+entry[1].length+'</td></tr>';
+  });
+
   let ctHtml='';
-  ctSorted.forEach(function(entry,idx){
+  var ctIdx=0;
+  ctSorted.forEach(function(entry){
+    if(entry[0].toLowerCase().includes('external rf interference')) return;
+    ctIdx++;
+    const idx=ctIdx-1;
     const team=entry[0],issues=entry[1];
-    ctHtml+='<div style="margin:8pt 0;page-break-inside:avoid">';
+    ctHtml+='<div style="margin:8pt 0">';
     ctHtml+='<div style="font-family:\'Times New Roman\',Times,serif;font-size:18pt;font-weight:700;color:#0B3D5B;padding:5pt 10pt;background:#D4F1F9;border-left:4px solid #1A6B8A;margin-bottom:5pt">';
     ctHtml+=(idx+1)+'. '+team+' <span style="font-size:13pt;font-weight:400;color:#4A6070">('+issues.length+' issue'+(issues.length>1?'s':'')+')</span></div>';
     ctHtml+='<table style="width:100%;border-collapse:collapse;font-size:13pt;margin-bottom:4pt">';
@@ -1030,31 +1046,74 @@ function generatePDFReport(){
     ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Sub-Category</th>';
     ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Analysis</th>';
     ctHtml+='<th style="background:#0B3D5B;color:#fff;padding:4pt 6pt;text-align:left;font-size:12pt;font-weight:700">Action Taken</th></tr></thead><tbody>';
-    issues.sort(function(a,b){return parseDate(a.Date)-parseDate(b.Date)}).forEach(function(r,ri){
+    // Merge rows with same Loco + Analysis + SubCategory + IssueType + ActionTaken
+    issues.sort(function(a,b){return parseDate(a.Date)-parseDate(b.Date)});
+    var merged=[];
+    issues.forEach(function(r){
+      function normKey(s){return (s||'-').replace(/\s+/g,' ').trim().toLowerCase()}
+      var key=normKey(r.LocoId)+'|||'+normKey(r.IssueType)+'|||'+normKey(r.SubCategory);
+      var found=null;
+      for(var mi=0;mi<merged.length;mi++){if(merged[mi].key===key){found=merged[mi];break;}}
+      if(found){
+        var sn=stationCode(r.Station);
+        if(found.stationCounts[sn]) found.stationCounts[sn]++;
+        else found.stationCounts[sn]=1;
+        if((r.Analysis||'').length>found.Analysis.length) found.Analysis=r.Analysis||'-';
+        if((r.ActionTaken||'').length>found.ActionTaken.length) found.ActionTaken=r.ActionTaken||'-';
+      } else {
+        var sc={};sc[stationCode(r.Station)]=1;
+        merged.push({key:key,LocoId:r.LocoId||'-',IssueType:r.IssueType||'-',SubCategory:r.SubCategory||'-',Analysis:r.Analysis||'-',ActionTaken:r.ActionTaken||'-',stationCounts:sc});
+      }
+    });
+    merged.forEach(function(m,ri){
       var bgC=ri%2===0?'background:#fff':'background:#faf6ee';
+      var stNames=Object.keys(m.stationCounts);
+      var totalOcc=0;stNames.forEach(function(s){totalOcc+=m.stationCounts[s]});
+      var stLabel;
+      if(totalOcc===1){
+        stLabel=stNames[0];
+      } else {
+        stLabel=stNames.map(function(s){return s+' (x'+m.stationCounts[s]+')'}).join(', ');
+      }
       ctHtml+='<tr style="'+bgC+';page-break-inside:avoid">';
-      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;font-weight:600">'+(r.LocoId||'-')+'</td>';
-      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+stationCode(r.Station)+'</td>';
-      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+(r.IssueType||'-')+'</td>';
-      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+(r.SubCategory||'-')+'</td>';
-      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;max-width:140pt;font-size:12pt">'+(r.Analysis||'-')+'</td>';
-      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;max-width:140pt;font-size:12pt">'+(r.ActionTaken||'-')+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;font-weight:600">'+m.LocoId+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+stLabel+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+m.IssueType+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8">'+m.SubCategory+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;max-width:140pt;font-size:12pt">'+m.Analysis+'</td>';
+      ctHtml+='<td style="padding:4pt 6pt;border-bottom:1px solid #e8dcc8;max-width:140pt;font-size:12pt">'+m.ActionTaken+'</td>';
       ctHtml+='</tr>';
     });
     ctHtml+='</tbody></table></div>';
   });
 
-  // Loco table rows
-  var locoRows='';
-  loSorted.forEach(function(entry){
-    var loco=entry[0],issues=entry[1];
-    var lLS=issues.filter(r=>(r.IssueType||'').toLowerCase()==='ls mode').length;
-    var lSR=issues.filter(r=>(r.IssueType||'').toLowerCase()==='sr mode').length;
-    var lTag=issues.filter(r=>(r.IssueType||'').toLowerCase()==='tag missing').length;
-    var lRadio=issues.filter(r=>(r.SubCategory||'').toLowerCase().includes('radio')).length;
-    var lSt=[...new Set(issues.map(r=>stationCode(r.Station)))].join(', ');
-    locoRows+='<tr><td style="font-weight:700">'+loco+'</td><td style="font-weight:700">'+issues.length+'</td><td>'+lLS+'</td><td>'+lSR+'</td><td>'+lTag+'</td><td>'+lRadio+'</td><td style="font-size:10pt">'+lSt+'</td></tr>';
+  // External RF Interference — station-wise heatmap
+  var rfIssues=d.filter(function(r){return (r.ConcernTeams||'').toLowerCase().includes('external rf interference')});
+  var rfStationMap={};
+  rfIssues.forEach(function(r){
+    var st=stationCode(r.Station);
+    if(!rfStationMap[st]) rfStationMap[st]=0;
+    rfStationMap[st]++;
   });
+  var rfStations=Object.entries(rfStationMap).sort(function(a,b){return b[1]-a[1]});
+  var rfMaxCount=rfStations.length?rfStations[0][1]:1;
+  var rfHtml='';
+  if(rfStations.length){
+    rfHtml+='<div style="display:flex;flex-wrap:wrap;gap:4pt;margin-top:6pt">';
+    rfStations.forEach(function(entry){
+      var st=entry[0],cnt=entry[1];
+      var intensity=Math.max(0.15,cnt/rfMaxCount);
+      var bgColor='rgba(232,114,74,'+intensity.toFixed(2)+')';
+      var txtColor=intensity>0.5?'#fff':'#1A2A35';
+      rfHtml+='<div style="padding:6pt 10pt;border-radius:4pt;background:'+bgColor+';color:'+txtColor+';font-size:13pt;font-weight:700;text-align:center;min-width:70pt;border:1px solid rgba(232,114,74,0.3)">';
+      rfHtml+=st+'<div style="font-size:18pt;margin-top:2pt">'+cnt+'</div></div>';
+    });
+    rfHtml+='</div>';
+    rfHtml+='<div style="margin-top:5pt;font-size:11pt;color:#7A9AAA;display:flex;align-items:center;gap:6pt">';
+    rfHtml+='<span>Low</span><div style="width:120pt;height:10pt;border-radius:3pt;background:linear-gradient(90deg,rgba(232,114,74,0.15),rgba(232,114,74,1))"></div><span>High</span></div>';
+  } else {
+    rfHtml+='<div style="font-size:14pt;color:#7A9AAA;padding:8pt">No External RF Interference issues in filtered data.</div>';
+  }
 
   // Appendix rows
   var appRows='';
@@ -1064,18 +1123,6 @@ function generatePDFReport(){
     appRows+='<tr><td style="color:#7A9AAA">'+(i+1)+'</td><td>'+r.Date+'</td><td>'+stationCode(r.Station)+'</td><td>'+(r.LocoId||'-')+'</td><td>'+(r.Direction||'-')+'</td>';
     appRows+='<td><span style="display:inline-block;padding:1pt 5pt;border-radius:8pt;font-size:10pt;font-weight:700;'+bgStyle+'">'+(r.IssueType||'-')+'</span></td>';
     appRows+='<td>'+(r.SubCategory||'-')+'</td><td>'+(r.Time||'-')+'</td><td style="max-width:160pt;white-space:normal;font-size:11pt">'+an+'</td></tr>';
-  });
-
-  // Daily summary rows
-  var dailyRows='';
-  dates.forEach(function(dt){var v=byDate[dt];
-    dailyRows+='<tr><td style="font-weight:600">'+dt+'</td><td>'+v.LS+'</td><td>'+v.SR+'</td><td>'+v.Tag+'</td><td style="font-weight:700">'+v.total+'</td></tr>';
-  });
-
-  // Sub-cat rows
-  var scRows='';
-  scSorted.forEach(function(entry){
-    scRows+='<tr><td style="font-weight:600">'+entry[0]+'</td><td>'+entry[1]+'</td><td>'+(total?(entry[1]/total*100).toFixed(1):'0')+'%</td></tr>';
   });
 
   var genDate=new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})+' '+new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
@@ -1118,53 +1165,31 @@ function generatePDFReport(){
   // Print button at top
   doc+='<button class="pn-btn no-print" onclick="window.print()">🖨️ Print / Save as PDF</button>';
 
-  doc+='<div class="hdr"><h2>KAVACH ER Issues Report</h2>';
-  doc+='<p>Eastern Railway | LS / SR Mode &amp; Tag Missing Issues</p>';
-  doc+='<p>Report Period: '+dateRange+' | Generated: '+genDate+'</p>';
+  doc+='<div class="hdr"><h2>Summary of Issues</h2>';
+  doc+='<p>Eastern Railway | KAVACH Issues</p>';
+  doc+='<p>Report Period: '+dateRange+'</p>';
   doc+='<div class="flt">Filters: '+filterText+'</div></div>';
 
-  doc+='<div class="summary"><h3>Executive Summary</h3><div class="sg">';
-  doc+='<div class="si"><div class="lb">Total Issues</div><div class="vl">'+total+'</div></div>';
-  doc+='<div class="si"><div class="lb">LS Mode</div><div class="vl" style="color:#1A6B8A">'+ls+' <span style="font-size:12pt;font-weight:400">('+( total?(ls/total*100).toFixed(1):'0')+'%)</span></div></div>';
-  doc+='<div class="si"><div class="lb">SR Mode</div><div class="vl" style="color:#E8724A">'+sr+' <span style="font-size:12pt;font-weight:400">('+( total?(sr/total*100).toFixed(1):'0')+'%)</span></div></div>';
-  doc+='<div class="si"><div class="lb">Tag Missing</div><div class="vl" style="color:#D4A843">'+tag+'</div></div>';
-  doc+='<div class="si"><div class="lb">Radio Failures</div><div class="vl">'+radioFail+'</div></div>';
-  doc+='<div class="si"><div class="lb">Stations</div><div class="vl">'+stCount+'</div></div>';
-  doc+='<div class="si"><div class="lb">Locomotives</div><div class="vl">'+loCount+'</div></div>';
-  doc+='<div class="si"><div class="lb">Avg / Day</div><div class="vl">'+avgPD+'</div></div>';
-  doc+='<div class="si"><div class="lb">Peak Day</div><div class="vl" style="font-size:16pt">'+peakDay+' ('+peakC+')</div></div>';
-  doc+='<div class="si"><div class="lb">Days Covered</div><div class="vl">'+dates.length+'</div></div>';
-  doc+='</div></div>';
+  // Concern Team Distribution table (no percentage)
+  doc+='<table><caption>Concern Team Distribution</caption><thead><tr><th>Concern Team</th><th>Count</th></tr></thead><tbody>'+ctSummaryRows;
+  doc+='<tr class="tr"><td>TOTAL</td><td>'+total+'</td></tr></tbody></table>';
 
-  doc+='<div class="st">Key Findings</div>';
-  doc+='<div class="fd">';
-  doc+='<div>&#9654; <b>LS Mode</b> accounts for '+(total?(ls/total*100).toFixed(1):'0')+'% ('+ls+' of '+total+') of all issues.</div>';
-  doc+='<div>&#9654; <b>Radio Communication Failure</b> is the leading root cause with '+radioFail+' confirmed cases.</div>';
-  doc+='<div>&#9654; Most affected station: <b>'+(stSorted.length?stSorted[0][0]:'-')+'</b> ('+(stSorted.length?stSorted[0][1].length:0)+' issues).</div>';
-  doc+='<div>&#9654; Most affected loco: <b>'+(loSorted.length?loSorted[0][0]:'-')+'</b> ('+(loSorted.length?loSorted[0][1].length:0)+' issues).</div>';
-  doc+='<div>&#9654; Peak day: <b>'+peakDay+'</b> with '+peakC+' issues.</div>';
-  doc+='</div>';
+  // External RF Interference — Station-wise Heatmap
+  doc+='<div style="margin:12pt 0"><div class="st">External RF Interference — Station-wise Heatmap (Railway Issue)</div>';
+  doc+='<div style="font-size:12pt;color:#7A9AAA;margin-bottom:4pt">'+rfIssues.length+' issue'+(rfIssues.length!==1?'s':'')+' across '+rfStations.length+' station'+(rfStations.length!==1?'s':'')+'</div>';
+  doc+=rfHtml+'</div>';
 
-  doc+='<table><caption>Sub-Category Distribution</caption><thead><tr><th>Sub-Category</th><th>Count</th><th>%</th></tr></thead><tbody>'+scRows+'</tbody></table>';
-
-  doc+='<table><caption>Daily Issue Summary</caption><thead><tr><th>Date</th><th>LS</th><th>SR</th><th>Tag</th><th>Total</th></tr></thead><tbody>'+dailyRows;
-  doc+='<tr class="tr"><td>TOTAL</td><td>'+ls+'</td><td>'+sr+'</td><td>'+tag+'</td><td>'+total+'</td></tr></tbody></table>';
-
-  doc+='<div class="pb"></div>';
-  doc+='<div class="st">Section A: Concern Team-wise Issue Details</div>';
-  doc+='<div style="font-size:12pt;color:#7A9AAA;margin-bottom:6pt">'+ctSorted.length+' concern team'+(ctSorted.length>1?'s':'')+' | Loco ID, Station, Category, Sub-Category, Analysis &amp; Action Taken</div>';
+  // Issue Details by Concern Team
+  doc+='<div class="st" style="page-break-before:always;margin-bottom:6pt">Issue Details</div>';
   doc+=ctHtml;
 
-  doc+='<div class="pb"></div>';
-  doc+='<div class="st">Section B: Locomotive-wise Summary</div>';
-  doc+='<table><thead><tr><th>Loco ID</th><th>Total</th><th>LS</th><th>SR</th><th>Tag</th><th>Radio</th><th>Stations</th></tr></thead><tbody>'+locoRows+'</tbody></table>';
-
+  // Appendix
   doc+='<div class="pb"></div>';
   doc+='<table><caption>Appendix: Complete Issue Log ('+d.length+' Records)</caption>';
   doc+='<thead><tr><th>#</th><th>Date</th><th>Station</th><th>Loco</th><th>Dir</th><th>Type</th><th>Sub-Cat</th><th>Time</th><th>Analysis</th></tr></thead>';
   doc+='<tbody>'+appRows+'</tbody></table>';
 
-  doc+='<div class="ft">KAVACH Eastern Railway | Internal Issue Report | Confidential | '+genDate+' | '+total+' records</div>';
+  doc+='<div class="ft">KAVACH Eastern Railway | Internal Issue Report | Confidential | '+genDate+' | '+total+' records | Developed by Viswanadh Malladi</div>';
   doc+='</body></html>';
 
   w.document.write(doc);
