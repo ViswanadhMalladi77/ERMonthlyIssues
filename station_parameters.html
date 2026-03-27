@@ -3,630 +3,358 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KAVACH Station Parameters — Radio & GPS Diagnostics</title>
+<title>KAVACH Station Parameters</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Outfit:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --bg:#0C1220;--bg2:#111827;--bg3:#1A2332;--bg4:#223044;
-  --accent:#3ABBB0;--accent2:#5CC5E2;--warn:#E8724A;--danger:#E84A5F;--gold:#D4A843;
-  --text:#E8EDF2;--text2:#8FA3B8;--text3:#5A7088;
-  --border:#1E2D3D;--border2:#2A3F55;
-  --glow:0 0 20px rgba(58,187,176,.15);
-  --radius:12px;
-}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-
-/* === GRID NOISE BACKGROUND === */
-body::before{content:'';position:fixed;inset:0;
-  background:radial-gradient(ellipse at 20% 50%,rgba(58,187,176,.04) 0%,transparent 50%),
-    radial-gradient(ellipse at 80% 20%,rgba(92,197,226,.03) 0%,transparent 50%);
-  pointer-events:none;z-index:0}
-body::after{content:'';position:fixed;inset:0;
-  background-image:repeating-linear-gradient(0deg,transparent,transparent 49px,rgba(30,45,61,.3) 50px),
-    repeating-linear-gradient(90deg,transparent,transparent 49px,rgba(30,45,61,.3) 50px);
-  background-size:50px 50px;pointer-events:none;z-index:0;opacity:.4}
-
+:root{--bg:#0C1220;--bg2:#111827;--bg3:#1A2332;--bg4:#223044;--accent:#3ABBB0;--accent2:#5CC5E2;--warn:#E8724A;--danger:#E84A5F;--gold:#D4A843;--text:#E8EDF2;--text2:#8FA3B8;--text3:#5A7088;--border:#1E2D3D;--border2:#2A3F55;--radius:12px}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(58,187,176,.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(92,197,226,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
 .app{position:relative;z-index:1;max-width:1500px;margin:0 auto;padding:20px}
-
-/* === TOP BAR === */
-.topbar{display:flex;align-items:center;gap:16px;padding:16px 24px;background:var(--bg2);
-  border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;flex-wrap:wrap}
-.topbar-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent);
-  display:flex;align-items:center;gap:10px}
-.topbar-title svg{opacity:.7}
-.topbar .back-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);
-  padding:8px 16px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.8rem;font-weight:600;
-  cursor:pointer;transition:all .2s;text-decoration:none;display:flex;align-items:center;gap:6px}
-.topbar .back-btn:hover{background:var(--bg4);color:var(--text);border-color:var(--accent)}
+.topbar{display:flex;align-items:center;gap:16px;padding:16px 24px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;flex-wrap:wrap}
+.topbar-title{font-family:'Outfit',sans-serif;font-size:1.3rem;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:10px}
+.back-btn{background:var(--bg3);border:1px solid var(--border2);color:var(--text2);padding:8px 16px;border-radius:8px;font-size:.8rem;font-weight:600;cursor:pointer;text-decoration:none;display:flex;align-items:center;gap:6px;font-family:inherit;transition:all .2s}
+.back-btn:hover{background:var(--bg4);color:var(--text);border-color:var(--accent)}
 .server-status{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.75rem;color:var(--text3)}
-.status-dot{width:8px;height:8px;border-radius:50%;background:var(--danger);transition:background .3s}
-.status-dot.ok{background:#4ADE80;box-shadow:0 0 8px rgba(74,222,128,.5)}
-
-/* === CONTROLS === */
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--danger)}.status-dot.ok{background:#4ADE80;box-shadow:0 0 8px rgba(74,222,128,.5)}
 .controls{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:flex-end}
-.control-group{display:flex;flex-direction:column;gap:4px}
-.control-group label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);font-weight:600}
-.control-group select,.control-group input{background:var(--bg2);border:1px solid var(--border);
-  color:var(--text);padding:10px 14px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;
-  cursor:pointer;min-width:180px;transition:border-color .2s}
-.control-group select:focus,.control-group input:focus{outline:none;border-color:var(--accent);box-shadow:var(--glow)}
-.load-btn{background:linear-gradient(135deg,var(--accent),#2A9D8F);color:#fff;border:none;
-  padding:10px 24px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;font-weight:700;
-  cursor:pointer;transition:all .2s;align-self:flex-end;letter-spacing:.3px}
-.load-btn:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(58,187,176,.3)}
-.load-btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-/* === KPI ROW === */
-.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
-.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px;
-  position:relative;overflow:hidden;transition:all .3s}
-.kpi:hover{border-color:var(--accent);box-shadow:var(--glow)}
+.cg{display:flex;flex-direction:column;gap:4px}
+.cg label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--text3);font-weight:600}
+.cg select{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:10px 14px;border-radius:8px;font-family:inherit;font-size:.85rem;cursor:pointer;min-width:140px}
+.cg select:focus{outline:none;border-color:var(--accent)}
+.load-btn{background:linear-gradient(135deg,var(--accent),#2A9D8F);color:#fff;border:none;padding:10px 24px;border-radius:8px;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer}
+.load-btn:disabled{opacity:.4;cursor:not-allowed}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-bottom:20px}
+.kpi{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;position:relative;overflow:hidden}
 .kpi::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px}
-.kpi.teal::after{background:var(--accent)}.kpi.blue::after{background:var(--accent2)}
-.kpi.orange::after{background:var(--warn)}.kpi.gold::after{background:var(--gold)}
-.kpi.red::after{background:var(--danger)}
-.kpi-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);font-weight:600;margin-bottom:6px}
-.kpi-value{font-family:'Outfit',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text)}
-.kpi-sub{font-size:.7rem;color:var(--text2);margin-top:2px}
-
-/* === CHARTS === */
-.chart-grid{display:grid;gap:16px;margin-bottom:20px}
-.chart-grid.g2{grid-template-columns:1fr 1fr}
-.chart-grid.g3{grid-template-columns:1fr 1fr 1fr}
-.chart-grid.g1{grid-template-columns:1fr}
-@media(max-width:900px){.chart-grid.g2,.chart-grid.g3{grid-template-columns:1fr}}
-
-.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px;
-  position:relative;transition:all .3s}
-.card:hover{border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.card-title{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);
-  display:flex;align-items:center;gap:8px}
+.kpi.teal::after{background:var(--accent)}.kpi.blue::after{background:var(--accent2)}.kpi.orange::after{background:var(--warn)}.kpi.gold::after{background:var(--gold)}.kpi.red::after{background:var(--danger)}
+.kpi-label{font-size:.6rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);font-weight:600;margin-bottom:4px}
+.kpi-value{font-family:'Outfit',sans-serif;font-size:1.4rem;font-weight:800}
+.kpi-sub{font-size:.65rem;color:var(--text2);margin-top:2px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g1{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+@media(max-width:900px){.g2{grid-template-columns:1fr}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:20px}
+.card-title{font-family:'Outfit',sans-serif;font-size:.95rem;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
 .card-title .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
-.card-subtitle{font-size:.7rem;color:var(--text3)}
-.chart-wrap{position:relative;width:100%}
-.chart-wrap canvas{width:100%!important}
-
-/* === STATION HEALTH TABLE === */
-.health-table-wrap{max-height:500px;overflow:auto;border-radius:8px;border:1px solid var(--border)}
-.health-table-wrap::-webkit-scrollbar{width:6px;height:6px}
-.health-table-wrap::-webkit-scrollbar-track{background:var(--bg)}
-.health-table-wrap::-webkit-scrollbar-thumb{background:var(--bg4);border-radius:3px}
-.health-table{width:100%;border-collapse:collapse;font-size:.78rem}
-.health-table thead{position:sticky;top:0;z-index:2}
-.health-table th{background:var(--bg3);color:var(--text2);padding:10px 12px;text-align:left;
-  font-weight:600;text-transform:uppercase;letter-spacing:.5px;font-size:.65rem;border-bottom:1px solid var(--border)}
-.health-table td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--text)}
-.health-table tbody tr:hover{background:var(--bg3)}
-.health-table .mono{font-family:'JetBrains Mono',monospace;font-size:.75rem}
-.badge-ok{color:#4ADE80;font-weight:600}.badge-warn{color:var(--gold);font-weight:600}
-.badge-bad{color:var(--danger);font-weight:600}
-.bar-cell{position:relative;min-width:80px}
-.bar-fill{height:6px;border-radius:3px;background:var(--accent);transition:width .5s}
-
-/* === EMPTY / LOADING / ERROR STATES === */
+.section-label{font-family:'Outfit',sans-serif;font-size:1rem;font-weight:700;margin:24px 0 12px;display:flex;align-items:center;gap:8px}
+.section-label .bar{width:4px;height:18px;border-radius:2px}
 .state-msg{text-align:center;padding:60px 20px;color:var(--text3)}
 .state-msg .icon{font-size:2.5rem;margin-bottom:12px}
 .state-msg h3{font-family:'Outfit',sans-serif;font-size:1.1rem;color:var(--text2);margin-bottom:8px}
 .state-msg p{font-size:.85rem;max-width:400px;margin:0 auto;line-height:1.6}
 .state-msg code{background:var(--bg3);padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:.8rem}
-.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);
-  border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* === ANIMATIONS === */
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.animate-in{animation:fadeUp .5s cubic-bezier(.16,1,.3,1) forwards}
+.date-bar{display:flex;gap:10px;align-items:center;margin-bottom:16px;flex-wrap:wrap;padding:10px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px}
+.date-bar label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.2px;color:var(--text3);font-weight:600}
+.date-bar select{background:var(--bg3);border:1px solid var(--border2);color:var(--text);padding:6px 10px;border-radius:6px;font-family:inherit;font-size:.8rem;cursor:pointer;min-width:100px}
+.date-bar select:focus{outline:none;border-color:var(--accent)}
+.date-bar button{background:var(--bg3);border:1px solid var(--border2);color:var(--text3);padding:6px 12px;border-radius:6px;font-size:.72rem;cursor:pointer;font-family:inherit}
+.date-bar button:hover{color:var(--text);border-color:var(--accent)}
 </style>
 </head>
 <body>
 <div class="app">
-
-  <!-- TOP BAR -->
   <div class="topbar">
-    <a class="back-btn" href="index.html">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Back to Dashboard
-    </a>
-    <div class="topbar-title">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
-      Station Parameters
-    </div>
-    <div class="server-status">
-      <span class="status-dot" id="statusDot"></span>
-      <span id="statusLabel">Checking server…</span>
-    </div>
+    <a class="back-btn" href="index.html"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to Dashboard</a>
+    <div class="topbar-title"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>Station Parameters</div>
+    <div class="server-status"><span class="status-dot" id="sDot"></span><span id="sLbl">Checking…</span></div>
   </div>
-
-  <!-- CONTROLS -->
-  <div class="controls" id="controlsArea">
-    <div class="control-group">
-      <label>Station</label>
-      <select id="stationSelect"><option value="">— Select Station —</option></select>
-    </div>
-    <div class="control-group">
-      <label>Month</label>
-      <select id="monthSelect">
-        <option value="">All Months</option>
-        <option value="Jan">January</option><option value="Feb">February</option>
-        <option value="Mar" selected>March</option><option value="Apr">April</option>
-        <option value="May">May</option><option value="Jun">June</option>
-        <option value="Jul">July</option><option value="Aug">August</option>
-        <option value="Sep">September</option><option value="Oct">October</option>
-        <option value="Nov">November</option><option value="Dec">December</option>
-      </select>
-    </div>
-    <button class="load-btn" id="loadBtn" onclick="loadStationData()" disabled>Load Diagnostics</button>
+  <div class="controls">
+    <div class="cg"><label>Station</label><select id="selStn"><option value="">— Select Station —</option></select></div>
+    <div class="cg"><label>Month</label><select id="selMo"><option value="">All</option><option value="Jan">Jan</option><option value="Feb">Feb</option><option value="Mar" selected>Mar</option><option value="Apr">Apr</option><option value="May">May</option><option value="Jun">Jun</option><option value="Jul">Jul</option><option value="Aug">Aug</option><option value="Sep">Sep</option><option value="Oct">Oct</option><option value="Nov">Nov</option><option value="Dec">Dec</option></select></div>
+    <button class="load-btn" id="loadBtn" onclick="loadData()" disabled>Load Diagnostics</button>
   </div>
-
-  <!-- MAIN CONTENT -->
-  <div id="mainContent">
-    <div class="state-msg" id="initialState">
-      <div class="icon">📡</div>
-      <h3>Station Diagnostics Viewer</h3>
-      <p>Select a station above to view Radio RflPwr and GPS health data from the network share.<br><br>
-        Server: <code>http://localhost:5050</code><br>
-        Data source: <code>\\10.10.28.13</code>
-      </p>
-    </div>
-  </div>
-
+  <div id="main"><div class="state-msg"><div class="icon">📡</div><h3>Station Diagnostics Viewer</h3><p>Select a station to view Radio 1, Radio 2, and GPS data.<br>Server: <code>http://localhost:5050</code></p></div></div>
 </div>
 
 <script>
-const API_BASE = 'http://localhost:5050';
-let charts = {};
-let stationList = [];
-let stationIdMap = {}; // stationName → numericId from Google Sheet
+var API='http://localhost:5050';
+var charts={},stationList=[],idMap={};
+var savedRadio=null,savedGps=null;
 
-// ============================================================
-// STATION ID SHEET FETCHER (from Google Sheets)
-// ============================================================
-const STATION_ID_SHEETS = {
-  ER: { sheetId: '1VSETtuuIgVrDn3Hk2CSXaYAphGM2vrmBCC94UARWeSk', sheetName: "Station ID'S" },
-  ECR: { sheetId: '1DGpcEnvPsPzftoeFv5m7QODPj9XI2KaSrkndb4Plt8I', sheetName: 'Dropdown master data' }
+/* Station ID sheets */
+var SID_CFG={
+  ER:{sid:'1VSETtuuIgVrDn3Hk2CSXaYAphGM2vrmBCC94UARWeSk',tab:"Station ID'S"},
+  ECR:{sid:'1DGpcEnvPsPzftoeFv5m7QODPj9XI2KaSrkndb4Plt8I',tab:'Dropdown master data'}
 };
 
-function fetchStationIdSheet(zone) {
-  return new Promise(function(resolve, reject) {
-    const cfg = STATION_ID_SHEETS[zone];
-    if (!cfg) { resolve([]); return; }
-    const cb = 'stnIdCb_' + zone + '_' + Date.now();
-    const tqx = 'out:json;responseHandler:' + cb;
-    const url = 'https://docs.google.com/spreadsheets/d/' + cfg.sheetId +
-      '/gviz/tq?sheet=' + encodeURIComponent(cfg.sheetName) + '&headers=1&tqx=' + encodeURIComponent(tqx);
-    const script = document.createElement('script');
-    let done = false;
-    const timeout = setTimeout(function() { finish([]); }, 8000);
-
-    function finish(data) {
-      if (done) return; done = true;
-      clearTimeout(timeout);
-      try { delete window[cb]; } catch(e) {}
-      if (script.parentNode) script.parentNode.removeChild(script);
-      resolve(data);
-    }
-
-    window.google = window.google || {};
-    window.google.visualization = window.google.visualization || {};
-    window.google.visualization.Query = window.google.visualization.Query || {};
-    window.google.visualization.Query.setResponse = function(payload) {
-      // This may be called for the wrong zone if multiple calls in flight
-    };
-
-    window[cb] = function(payload) {
-      try {
-        if (!payload || !payload.table) { finish([]); return; }
-        const cols = payload.table.cols.map(c => (c.label || c.id || '').trim());
-        const rows = payload.table.rows.map(function(r) {
-          const obj = {};
-          cols.forEach(function(col, i) {
-            const cell = r.c[i];
-            obj[col] = cell && cell.v != null ? String(cell.v).trim() : '';
-          });
-          return obj;
+function fetchIds(zone){
+  return new Promise(function(resolve){
+    var cfg=SID_CFG[zone];if(!cfg){resolve([]);return}
+    var cb='cb_'+zone+'_'+Date.now(),script=document.createElement('script'),done=false;
+    var timer=setTimeout(function(){fin([])},8000);
+    function fin(d){if(done)return;done=true;clearTimeout(timer);try{delete window[cb]}catch(e){}if(script.parentNode)script.parentNode.removeChild(script);resolve(d)}
+    window[cb]=function(p){
+      try{
+        if(!p||!p.table){fin([]);return}
+        var cols=p.table.cols.map(function(c){return(c.label||c.id||'').trim()});
+        var rows=p.table.rows.map(function(r){var o={};cols.forEach(function(col,i){var cl=r.c[i];o[col]=cl&&cl.v!=null?String(cl.v).trim():''});return o});
+        var out=[];
+        rows.forEach(function(row){
+          var id='',nm='',cd='';
+          if(row['Station ID']){id=row['Station ID'];nm=row['Station Name']||'';cd=row['Stn Code']||''}
+          if(!id){var vals=Object.values(row);for(var i=0;i<vals.length;i++){if(/^\d{5}$/.test(vals[i])){id=vals[i];break}}}
+          if(!id){var vals2=Object.values(row).filter(Boolean);for(var j=0;j<vals2.length;j++){var ps=vals2[j].split(/\s*-\s*/);if(ps.length>=3){var lp=ps[ps.length-1].trim();if(/^\d{5}$/.test(lp)){id=lp;nm=ps[0].trim();cd=ps[1]?ps[1].trim():'';break}}}}
+          if(id&&/^\d{4,5}$/.test(id))out.push({id:id,name:nm,code:cd,zone:zone});
         });
-
-        const result = [];
-        rows.forEach(function(row) {
-          // ER format: "Station ID", "Station Name", "Stn Code"
-          // ECR format: station name - code - id (in different columns or as dash-separated)
-          let id = '', name = '', code = '';
-
-          // Try ER column names
-          if (row['Station ID']) { id = row['Station ID']; name = row['Station Name'] || ''; code = row['Stn Code'] || ''; }
-          // Try numeric ID in any column
-          if (!id) {
-            Object.values(row).forEach(function(v) {
-              if (/^\d{5}$/.test(v)) id = v;
-            });
-          }
-          // Try ECR dash-separated format: "Pradhankhunta Jn. - PKA - 45000"
-          if (!id) {
-            const vals = Object.values(row).filter(Boolean);
-            vals.forEach(function(v) {
-              const parts = v.split(/\s*-\s*/);
-              if (parts.length >= 3) {
-                const lastPart = parts[parts.length - 1].trim();
-                if (/^\d{5}$/.test(lastPart)) {
-                  id = lastPart;
-                  name = parts[0].trim();
-                  code = parts.length > 2 ? parts[1].trim() : '';
-                }
-              }
-            });
-          }
-          if (id && /^\d{4,5}$/.test(id)) {
-            result.push({ id: id, name: name, code: code, zone: zone });
-          }
-        });
-        finish(result);
-      } catch (e) { finish([]); }
+        fin(out);
+      }catch(e){fin([])}
     };
-
-    script.onerror = function() { finish([]); };
-    script.src = url;
+    script.onerror=function(){fin([])};
+    script.src='https://docs.google.com/spreadsheets/d/'+cfg.sid+'/gviz/tq?sheet='+encodeURIComponent(cfg.tab)+'&headers=1&tqx='+encodeURIComponent('out:json;responseHandler:'+cb);
     document.head.appendChild(script);
   });
 }
 
-// ============================================================
-// SERVER COMMUNICATION
-// ============================================================
-
-async function checkServer() {
-  const dot = document.getElementById('statusDot');
-  const label = document.getElementById('statusLabel');
-  try {
-    const r = await fetch(API_BASE + '/api/health', { signal: AbortSignal.timeout(3000) });
-    const data = await r.json();
-    dot.className = 'status-dot ok';
-    label.textContent = 'Server online — ' + data.stations + ' stations found';
-    return true;
-  } catch (e) {
-    dot.className = 'status-dot';
-    label.textContent = 'Server offline — start kavach_diagnostics_server.py';
-    return false;
-  }
+/* Server */
+function checkServer(){
+  var dot=document.getElementById('sDot'),lbl=document.getElementById('sLbl');
+  return fetch(API+'/api/health',{signal:AbortSignal.timeout(3000)}).then(function(r){return r.json()}).then(function(d){
+    dot.className='status-dot ok';lbl.textContent='Online — '+d.stations+' stations';return true;
+  }).catch(function(){dot.className='status-dot';lbl.textContent='Offline';return false});
 }
 
-async function loadStationList() {
-  try {
-    const r = await fetch(API_BASE + '/api/stations');
-    const data = await r.json();
-    stationList = data.stations || [];
-    const select = document.getElementById('stationSelect');
-    // Clear existing options
-    select.innerHTML = '<option value="">— Select Station —</option>';
-    // Group by zone
-    const zones = {};
-    stationList.forEach(function(s) {
-      if (!zones[s.zone]) zones[s.zone] = [];
-      zones[s.zone].push(s);
-    });
-    Object.keys(zones).sort().forEach(function(zone) {
-      const grp = document.createElement('optgroup');
-      grp.label = zone;
-      zones[zone].forEach(function(s) {
-        const opt = document.createElement('option');
-        opt.value = s.stationId;
-        // Try to find a name from the Google Sheet Station ID map
-        const sheetEntry = stationIdMap[s.stationId];
-        const displayName = sheetEntry ? sheetEntry.name + ' (' + s.stationCode + ')' : s.stationCode;
-        opt.textContent = s.stationId + ' — ' + displayName;
-        if (s.hasRadio) opt.textContent += ' 📻';
-        if (s.hasGps) opt.textContent += ' 🛰️';
-        grp.appendChild(opt);
+function loadStationList(){
+  return fetch(API+'/api/stations').then(function(r){return r.json()}).then(function(d){
+    stationList=d.stations||[];
+    var sel=document.getElementById('selStn');
+    sel.innerHTML='<option value="">— Select Station —</option>';
+    var zones={};stationList.forEach(function(s){if(!zones[s.zone])zones[s.zone]=[];zones[s.zone].push(s)});
+    Object.keys(zones).sort().forEach(function(z){
+      var g=document.createElement('optgroup');g.label=z;
+      zones[z].forEach(function(s){
+        var o=document.createElement('option');o.value=s.stationId;
+        var si=idMap[s.stationId];
+        o.textContent=s.stationId+' — '+(si?si.name+' ('+s.stationCode+')':s.stationCode)+(s.hasRadio?' 📻':'')+(s.hasGps?' 🛰️':'');
+        g.appendChild(o);
       });
-      select.appendChild(grp);
+      sel.appendChild(g);
     });
-    document.getElementById('loadBtn').disabled = false;
-  } catch (e) {
-    console.warn('Could not load station list:', e);
+    document.getElementById('loadBtn').disabled=false;
+  }).catch(function(){});
+}
+
+/* Chart helpers */
+Chart.defaults.font.family="'DM Sans',sans-serif";Chart.defaults.font.size=11;Chart.defaults.color='#8FA3B8';
+Chart.defaults.plugins.legend.labels.usePointStyle=true;Chart.defaults.plugins.legend.labels.pointStyle='circle';
+Chart.defaults.animation.duration=800;
+function dc(id){if(charts[id]){charts[id].destroy();delete charts[id]}}
+function sd(d){return d.split('-').slice(0,2).join('/')}
+function pd(d){if(!d)return null;var p=d.split('-');return p.length===3?new Date(+p[2],+p[1]-1,+p[0]):null}
+function dateFilter(arr,f,t){if(!f&&!t)return arr;return arr.filter(function(d){var dt=pd(d.date);if(!dt)return true;if(f&&dt<f)return false;if(t&&dt>t)return false;return true})}
+function mergeDates(a,b){var s={};a.forEach(function(d){s[d.date]=1});b.forEach(function(d){s[d.date]=1});return Object.keys(s).sort(function(x,y){return pd(x)-pd(y)})}
+function toMap(arr){var m={};arr.forEach(function(d){m[d.date]=d});return m}
+
+/* Apply date filter from dropdowns */
+function applyDateFilter(){
+  var fv=document.getElementById('dateFrom').value;
+  var tv=document.getElementById('dateTo').value;
+  var radio=savedRadio&&savedRadio.summary?savedRadio.summary:null;
+  var gps=savedGps&&savedGps.summary?savedGps.summary:null;
+  renderCharts(radio,gps,fv?pd(fv):null,tv?pd(tv):null);
+}
+function resetDateFilter(){
+  document.getElementById('dateFrom').value='';
+  document.getElementById('dateTo').value='';
+  var radio=savedRadio&&savedRadio.summary?savedRadio.summary:null;
+  var gps=savedGps&&savedGps.summary?savedGps.summary:null;
+  renderCharts(radio,gps,null,null);
+}
+
+/* Render all charts */
+function renderCharts(radio,gps,fD,tD){
+  if(!radio&&!gps)return;
+  var GC='#1E2D3D';
+  var r1=radio&&radio.radio1?radio.radio1:{count:0};
+  var r2=radio&&radio.radio2?radio.radio2:{count:0};
+  var r1d=dateFilter(r1.dailySummary||[],fD,tD);
+  var r2d=dateFilter(r2.dailySummary||[],fD,tD);
+  var cd=dateFilter(radio&&radio.dailySummary?radio.dailySummary:[],fD,tD);
+  var gd=dateFilter(gps&&gps.dailySummary?gps.dailySummary:[],fD,tD);
+
+  /* R1 vs R2 Forward Power */
+  dc('fw');
+  if(r1d.length||r2d.length){
+    var ds=mergeDates(r1d,r2d),m1=toMap(r1d),m2=toMap(r2d);
+    charts.fw=new Chart(document.getElementById('fwC'),{type:'line',data:{
+      labels:ds.map(sd),
+      datasets:[
+        {label:'Radio 1 FwPwr',data:ds.map(function(d){return m1[d]?m1[d].avgFwPwr:null}),borderColor:'#3ABBB0',backgroundColor:'#3ABBB022',tension:.4,borderWidth:2.5,pointRadius:3,fill:true,spanGaps:true},
+        {label:'Radio 2 FwPwr',data:ds.map(function(d){return m2[d]?m2[d].avgFwPwr:null}),borderColor:'#5CC5E2',backgroundColor:'#5CC5E222',tension:.4,borderWidth:2.5,pointRadius:3,fill:true,spanGaps:true}
+      ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+        scales:{y:{beginAtZero:true,grid:{color:GC},title:{display:true,text:'Watts',color:'#5A7088'}},x:{grid:{display:false}}},
+        plugins:{legend:{position:'top'}}}});
+  }
+
+  /* R1 vs R2 Reflected Power */
+  dc('rv');
+  if(r1d.length||r2d.length){
+    var ds=mergeDates(r1d,r2d),m1=toMap(r1d),m2=toMap(r2d);
+    charts.rv=new Chart(document.getElementById('rvC'),{type:'bar',data:{
+      labels:ds.map(sd),
+      datasets:[
+        {label:'R1 Max RevPwr',data:ds.map(function(d){return m1[d]?m1[d].maxRevPwr:0}),backgroundColor:'#E8724AAA',borderRadius:4},
+        {label:'R2 Max RevPwr',data:ds.map(function(d){return m2[d]?m2[d].maxRevPwr:0}),backgroundColor:'#C46B8EAA',borderRadius:4}
+      ]},options:{responsive:true,maintainAspectRatio:false,
+        scales:{y:{beginAtZero:true,grid:{color:GC},title:{display:true,text:'Watts',color:'#5A7088'}},x:{grid:{display:false}}},
+        plugins:{legend:{position:'top'}}}});
+  }
+
+  /* R1 vs R2 Tx Current */
+  dc('tx');
+  if(r1d.length||r2d.length){
+    var ds=mergeDates(r1d,r2d),m1=toMap(r1d),m2=toMap(r2d);
+    charts.tx=new Chart(document.getElementById('txC'),{type:'line',data:{
+      labels:ds.map(sd),
+      datasets:[
+        {label:'R1 Tx Current',data:ds.map(function(d){return m1[d]?m1[d].avgTxCurrent:null}),borderColor:'#3ABBB0',borderWidth:2,pointRadius:3,tension:.4,spanGaps:true},
+        {label:'R2 Tx Current',data:ds.map(function(d){return m2[d]?m2[d].avgTxCurrent:null}),borderColor:'#5CC5E2',borderWidth:2,pointRadius:3,tension:.4,spanGaps:true}
+      ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+        scales:{y:{beginAtZero:true,grid:{color:GC},title:{display:true,text:'Amps',color:'#5A7088'}},x:{grid:{display:false}}},
+        plugins:{legend:{position:'top'}}}});
+  }
+
+  /* Combined RevPwr anomaly */
+  dc('an');
+  if(cd.length){
+    charts.an=new Chart(document.getElementById('anC'),{type:'bar',data:{
+      labels:cd.map(function(d){return sd(d.date)}),
+      datasets:[{label:'Avg RevPwr',data:cd.map(function(d){return d.avgRevPwr}),
+        backgroundColor:cd.map(function(d){return d.avgRevPwr>0.5?'#E84A5FAA':d.avgRevPwr>0.2?'#D4A843AA':'#3ABBB0AA'}),borderRadius:4}]
+    },options:{responsive:true,maintainAspectRatio:false,
+      scales:{y:{beginAtZero:true,grid:{color:GC}},x:{grid:{display:false}}},
+      plugins:{legend:{display:false},title:{display:true,text:'Green < 0.2W · Gold 0.2-0.5W · Red > 0.5W',color:'#5A7088',font:{size:11}}}}});
+  }
+
+  /* GPS Health */
+  dc('gp');
+  if(gd.length){
+    charts.gp=new Chart(document.getElementById('gpC'),{type:'bar',data:{
+      labels:gd.map(function(d){return sd(d.date)}),
+      datasets:[
+        {label:'GPS1 Antenna',data:gd.map(function(d){return d.gps1_ant_issues}),backgroundColor:'#E8724AAA',borderRadius:4,stack:'g1'},
+        {label:'GPS1 Fix',data:gd.map(function(d){return d.gps1_fix_issues}),backgroundColor:'#D4A843AA',borderRadius:4,stack:'g1'},
+        {label:'GPS2 Antenna',data:gd.map(function(d){return d.gps2_ant_issues}),backgroundColor:'#E84A5FAA',borderRadius:4,stack:'g2'},
+        {label:'GPS2 Fix',data:gd.map(function(d){return d.gps2_fix_issues}),backgroundColor:'#C46B8EAA',borderRadius:4,stack:'g2'}
+      ]},options:{responsive:true,maintainAspectRatio:false,
+        scales:{y:{beginAtZero:true,stacked:true,grid:{color:GC}},x:{stacked:true,grid:{display:false}}},
+        plugins:{legend:{position:'top'}}}});
   }
 }
 
-async function fetchRadio(stationId, month) {
-  const url = API_BASE + '/api/radio/' + stationId + (month ? '?month=' + month : '');
-  const r = await fetch(url);
-  return r.json();
-}
+/* Build the full page after data loads */
+function buildPage(){
+  var rd=savedRadio,gd=savedGps;
+  var radio=rd.summary||{},gps=gd.summary||{};
+  var si=stationList.find(function(s){return s.stationId===document.getElementById('selStn').value})||{};
+  var sh=idMap[si.stationId]||{};
+  var nm=sh.name||si.stationCode||si.stationId||'';
+  var mo=document.getElementById('selMo').value;
+  var r1=radio.radio1||{count:0},r2=radio.radio2||{count:0};
+  var h='';
 
-async function fetchGps(stationId, month) {
-  const url = API_BASE + '/api/gps/' + stationId + (month ? '?month=' + month : '');
-  const r = await fetch(url);
-  return r.json();
-}
+  /* Header */
+  h+='<div style="margin-bottom:12px"><div style="font-family:Outfit,sans-serif;font-size:1.4rem;font-weight:800">'+nm+'</div>';
+  h+='<div style="font-size:.8rem;color:var(--text3)">ID: '+(si.stationId||'')+' | Zone: '+(si.zone||'—')+' | Code: '+(si.stationCode||sh.code||'—')+(mo?' | '+mo:'')+'</div></div>';
 
-// ============================================================
-// CHART RENDERING
-// ============================================================
-
-Chart.defaults.font.family = "'DM Sans', sans-serif";
-Chart.defaults.font.size = 11;
-Chart.defaults.color = '#8FA3B8';
-Chart.defaults.plugins.legend.labels.usePointStyle = true;
-Chart.defaults.plugins.legend.labels.pointStyle = 'circle';
-Chart.defaults.animation.duration = 800;
-
-function dc(id) { if (charts[id]) { charts[id].destroy(); delete charts[id]; } }
-
-function renderRadioCharts(summary) {
-  // Daily FwPwr & RevPwr trend
-  dc('radioDaily');
-  const daily = summary.dailySummary || [];
-  charts.radioDaily = new Chart(document.getElementById('radioDailyChart'), {
-    type: 'line',
-    data: {
-      labels: daily.map(d => d.date.split('-').slice(0, 2).join('/')),
-      datasets: [
-        { label: 'Avg FwPwr (W)', data: daily.map(d => d.avgFwPwr), borderColor: '#3ABBB0', backgroundColor: '#3ABBB022', tension: .4, borderWidth: 2, pointRadius: 3, fill: true },
-        { label: 'Max RevPwr (W)', data: daily.map(d => d.maxRevPwr), borderColor: '#E8724A', backgroundColor: '#E8724A22', tension: .4, borderWidth: 2, pointRadius: 3, fill: true }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
-      scales: { y: { beginAtZero: true, grid: { color: '#1E2D3D' } }, x: { grid: { display: false } } },
-      plugins: { legend: { position: 'top' } } }
-  });
-
-  // Hourly FwPwr pattern
-  dc('radioHourly');
-  const hours = Object.keys(summary.hourlyAvgFwPwr || {}).map(Number).sort((a, b) => a - b);
-  charts.radioHourly = new Chart(document.getElementById('radioHourlyChart'), {
-    type: 'bar',
-    data: {
-      labels: hours.map(h => String(h).padStart(2, '0') + ':00'),
-      datasets: [
-        { label: 'Avg FwPwr', data: hours.map(h => summary.hourlyAvgFwPwr[h]), backgroundColor: '#3ABBB0AA', borderRadius: 4 },
-        { label: 'Avg RevPwr', data: hours.map(h => (summary.hourlyAvgRevPwr[h] || 0)), backgroundColor: '#E8724AAA', borderRadius: 4 }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false,
-      scales: { y: { beginAtZero: true, grid: { color: '#1E2D3D' } }, x: { grid: { display: false } } },
-      plugins: { legend: { position: 'top' } } }
-  });
-
-  // Daily RevPwr anomaly bar
-  dc('radioRevPwr');
-  charts.radioRevPwr = new Chart(document.getElementById('radioRevPwrChart'), {
-    type: 'bar',
-    data: {
-      labels: daily.map(d => d.date.split('-').slice(0, 2).join('/')),
-      datasets: [
-        { label: 'Avg RevPwr', data: daily.map(d => d.avgRevPwr), backgroundColor: daily.map(d => d.avgRevPwr > 0.5 ? '#E84A5FAA' : d.avgRevPwr > 0.2 ? '#D4A843AA' : '#3ABBB0AA'), borderRadius: 4 }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false,
-      scales: { y: { beginAtZero: true, grid: { color: '#1E2D3D' } }, x: { grid: { display: false } } },
-      plugins: { legend: { display: false },
-        title: { display: true, text: 'Daily Avg RevPwr — Green < 0.2W, Gold 0.2-0.5W, Red > 0.5W', color: '#5A7088', font: { size: 11 } } } }
-  });
-}
-
-function renderGpsCharts(summary) {
-  dc('gpsHealth');
-  const daily = summary.dailySummary || [];
-  charts.gpsHealth = new Chart(document.getElementById('gpsHealthChart'), {
-    type: 'bar',
-    data: {
-      labels: daily.map(d => d.date.split('-').slice(0, 2).join('/')),
-      datasets: [
-        { label: 'GPS1 Antenna Issues', data: daily.map(d => d.gps1_ant_issues), backgroundColor: '#E8724AAA', borderRadius: 4, stack: 'gps1' },
-        { label: 'GPS1 Fix Issues', data: daily.map(d => d.gps1_fix_issues), backgroundColor: '#D4A843AA', borderRadius: 4, stack: 'gps1' },
-        { label: 'GPS2 Antenna Issues', data: daily.map(d => d.gps2_ant_issues), backgroundColor: '#E84A5FAA', borderRadius: 4, stack: 'gps2' },
-        { label: 'GPS2 Fix Issues', data: daily.map(d => d.gps2_fix_issues), backgroundColor: '#C46B8EAA', borderRadius: 4, stack: 'gps2' }
-      ]
-    },
-    options: { responsive: true, maintainAspectRatio: false,
-      scales: { y: { beginAtZero: true, stacked: true, grid: { color: '#1E2D3D' } }, x: { stacked: true, grid: { display: false } } },
-      plugins: { legend: { position: 'top' } } }
-  });
-}
-
-// ============================================================
-// MAIN LOAD FUNCTION
-// ============================================================
-
-async function loadStationData() {
-  const stationId = document.getElementById('stationSelect').value;
-  const month = document.getElementById('monthSelect').value;
-  if (!stationId) { alert('Please select a station'); return; }
-
-  const main = document.getElementById('mainContent');
-  main.innerHTML = '<div class="state-msg"><div class="spinner"></div><h3>Loading diagnostics for Station ' + stationId + '…</h3><p>Reading from network share via server</p></div>';
-
-  try {
-    const [radioData, gpsData] = await Promise.all([
-      fetchRadio(stationId, month).catch(e => ({ error: e.message })),
-      fetchGps(stationId, month).catch(e => ({ error: e.message }))
-    ]);
-
-    // Debug: log raw responses
-    console.log('Radio response:', JSON.stringify(radioData).slice(0, 500));
-    console.log('GPS response:', JSON.stringify(gpsData).slice(0, 500));
-
-    const radio = radioData.summary || {};
-    const gps = gpsData.summary || {};
-    const stInfo = stationList.find(s => s.stationId === stationId) || {};
-    const sheetInfo = stationIdMap[stationId] || {};
-    const stName = sheetInfo.name || stInfo.stationCode || stationId;
-
-    let html = '';
-
-    // --- STATION HEADER ---
-    html += '<div style="margin-bottom:20px;animation:fadeUp .4s ease forwards">';
-    html += '<div style="font-family:Outfit,sans-serif;font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:4px">' + stName + '</div>';
-    html += '<div style="font-size:.8rem;color:var(--text3)">Station ID: ' + stationId + ' | Zone: ' + (stInfo.zone || '—') + ' | Code: ' + (stInfo.stationCode || sheetInfo.code || '—') + (month ? ' | Month: ' + month : '') + '</div>';
-    // Direct API test links
-    html += '<div style="font-size:.7rem;color:var(--text3);margin-top:6px">API: ';
-    html += '<a href="' + API_BASE + '/api/radio/' + stationId + (month ? '?month=' + month : '') + '" target="_blank" style="color:var(--accent)">Radio</a> · ';
-    html += '<a href="' + API_BASE + '/api/gps/' + stationId + (month ? '?month=' + month : '') + '" target="_blank" style="color:var(--accent)">GPS</a>';
-    html += '</div>';
-    html += '</div>';
-
-    // --- KPIs ---
-    html += '<div class="kpi-row animate-in">';
-    if (radio.count > 0) {
-      html += '<div class="kpi teal"><div class="kpi-label">Radio Samples</div><div class="kpi-value">' + radio.count.toLocaleString() + '</div><div class="kpi-sub">' + (radio.dateRange || '') + '</div></div>';
-      html += '<div class="kpi teal"><div class="kpi-label">Avg FwPwr</div><div class="kpi-value">' + radio.avgFwPwr + ' W</div><div class="kpi-sub">Min: ' + radio.minFwPwr + ' W</div></div>';
-      html += '<div class="kpi ' + (radio.avgRevPwr > 0.5 ? 'red' : radio.avgRevPwr > 0.2 ? 'orange' : 'teal') + '"><div class="kpi-label">Avg RevPwr</div><div class="kpi-value">' + radio.avgRevPwr + ' W</div><div class="kpi-sub">Max: ' + radio.maxRevPwr + ' W</div></div>';
-      html += '<div class="kpi ' + (radio.highRevPwrCount > 0 ? 'orange' : 'teal') + '"><div class="kpi-label">High RevPwr Events</div><div class="kpi-value">' + radio.highRevPwrCount + '</div><div class="kpi-sub">> 1.0 W threshold</div></div>';
-      html += '<div class="kpi blue"><div class="kpi-label">Avg Tx Current</div><div class="kpi-value">' + radio.avgTxCurrent + ' A</div></div>';
-    }
-    if (gps.count > 0) {
-      html += '<div class="kpi ' + (gps.healthScore >= 95 ? 'teal' : gps.healthScore >= 80 ? 'gold' : 'red') + '"><div class="kpi-label">GPS Health</div><div class="kpi-value">' + gps.healthScore + '%</div><div class="kpi-sub">' + gps.count + ' samples</div></div>';
-      html += '<div class="kpi ' + (gps.gps1AntennaIssues > 0 ? 'orange' : 'teal') + '"><div class="kpi-label">GPS1 Ant Issues</div><div class="kpi-value">' + gps.gps1AntennaIssues + '</div></div>';
-      html += '<div class="kpi ' + (gps.gps2AntennaIssues > 0 ? 'orange' : 'teal') + '"><div class="kpi-label">GPS2 Ant Issues</div><div class="kpi-value">' + gps.gps2AntennaIssues + '</div></div>';
-    }
-    if (radio.count === 0 && gps.count === 0) {
-      html += '<div class="kpi orange"><div class="kpi-label">Status</div><div class="kpi-value">No Data</div><div class="kpi-sub">No records parsed from CSV files</div></div>';
-    }
-    html += '</div>';
-
-    // --- SERVER RESPONSE DEBUG (shown when no data) ---
-    if ((!radio.count || radio.count === 0) && (!gps.count || gps.count === 0)) {
-      html += '<div class="card animate-in" style="margin-bottom:16px"><div class="card-head"><div class="card-title"><span class="dot" style="background:var(--gold)"></span>Debug: Raw Server Response</div></div>';
-      html += '<div style="font-size:.75rem;color:var(--text2);font-family:JetBrains Mono,monospace;white-space:pre-wrap;max-height:300px;overflow:auto;background:var(--bg);padding:12px;border-radius:8px">';
-      html += 'Radio: ' + JSON.stringify(radioData, null, 2).replace(/</g, '&lt;') + '\n\n';
-      html += 'GPS: ' + JSON.stringify(gpsData, null, 2).replace(/</g, '&lt;');
-      html += '</div></div>';
-    }
-
-    // --- RADIO CHARTS ---
-    if (radio.count > 0) {
-      html += '<div class="chart-grid g2 animate-in" style="animation-delay:.1s">';
-      html += '<div class="card"><div class="card-head"><div class="card-title"><span class="dot"></span>Daily Radio Power Trend</div></div><div class="chart-wrap"><canvas id="radioDailyChart" height="260"></canvas></div></div>';
-      html += '<div class="card"><div class="card-head"><div class="card-title"><span class="dot" style="background:var(--accent2)"></span>Hourly FwPwr & RevPwr Pattern</div></div><div class="chart-wrap"><canvas id="radioHourlyChart" height="260"></canvas></div></div>';
-      html += '</div>';
-
-      html += '<div class="chart-grid g1 animate-in" style="animation-delay:.2s">';
-      html += '<div class="card"><div class="card-head"><div class="card-title"><span class="dot" style="background:var(--warn)"></span>Daily Reflected Power (RevPwr) — Anomaly Indicator</div></div><div class="chart-wrap"><canvas id="radioRevPwrChart" height="200"></canvas></div></div>';
-      html += '</div>';
-    }
-
-    // --- GPS CHART ---
-    if (gps.count > 0) {
-      html += '<div class="chart-grid g1 animate-in" style="animation-delay:.3s">';
-      html += '<div class="card"><div class="card-head"><div class="card-title"><span class="dot" style="background:var(--gold)"></span>GPS Daily Health — Antenna & Fix Issues</div></div><div class="chart-wrap"><canvas id="gpsHealthChart" height="240"></canvas></div></div>';
-      html += '</div>';
-    }
-
-    // --- NO DATA MESSAGES ---
-    if (radioData.error) {
-      html += '<div class="card animate-in" style="animation-delay:.15s"><div class="state-msg" style="padding:30px"><div class="icon">📻</div><h3>Radio Data</h3><p>' + radioData.error + '</p></div></div>';
-    }
-    if (gpsData.error) {
-      html += '<div class="card animate-in" style="animation-delay:.25s"><div class="state-msg" style="padding:30px"><div class="icon">🛰️</div><h3>GPS Data</h3><p>' + gpsData.error + '</p></div></div>';
-    }
-
-    main.innerHTML = html;
-
-    // Render charts after DOM is ready
-    setTimeout(function() {
-      if (radio.count > 0) renderRadioCharts(radio);
-      if (gps.count > 0) renderGpsCharts(gps);
-    }, 50);
-
-  } catch (err) {
-    main.innerHTML = '<div class="state-msg"><div class="icon">⚠️</div><h3>Connection Error</h3><p>' + err.message + '</p><p style="margin-top:12px">Make sure <code>kavach_diagnostics_server.py</code> is running on <code>localhost:5050</code></p></div>';
+  /* Date slicer */
+  var dates=radio.dates||gps.dates||[];
+  if(dates.length>1){
+    h+='<div class="date-bar">';
+    h+='<label>📅 From</label><select id="dateFrom" onchange="applyDateFilter()"><option value="">Earliest</option>';
+    for(var i=0;i<dates.length;i++){h+='<option value="'+dates[i]+'">'+sd(dates[i])+'</option>'}
+    h+='</select>';
+    h+='<label>📅 To</label><select id="dateTo" onchange="applyDateFilter()"><option value="">Latest</option>';
+    for(var j=0;j<dates.length;j++){h+='<option value="'+dates[j]+'">'+sd(dates[j])+'</option>'}
+    h+='</select>';
+    h+='<button onclick="resetDateFilter()">↻ Reset Dates</button>';
+    h+='<span style="margin-left:auto;font-size:.7rem;color:var(--text3)">'+dates.length+' days loaded</span>';
+    h+='</div>';
   }
-}
 
-// ============================================================
-// OVERVIEW MODE — Load all stations at once
-// ============================================================
-
-async function loadOverview() {
-  const month = document.getElementById('monthSelect').value;
-  const main = document.getElementById('mainContent');
-  main.innerHTML = '<div class="state-msg"><div class="spinner"></div><h3>Loading overview for all stations…</h3></div>';
-
-  try {
-    const r = await fetch(API_BASE + '/api/overview' + (month ? '?month=' + month : ''));
-    const data = await r.json();
-
-    if (!data.stations || data.stations.length === 0) {
-      main.innerHTML = '<div class="state-msg"><div class="icon">📡</div><h3>No station data available</h3></div>';
-      return;
-    }
-
-    let html = '<div style="margin-bottom:16px;font-family:Outfit,sans-serif;font-size:1.1rem;font-weight:700;color:var(--text)">All Stations Overview' + (month ? ' — ' + month : '') + ' <span style="font-size:.8rem;color:var(--text3);font-weight:400">(' + data.stations.length + ' stations)</span></div>';
-
-    html += '<div class="health-table-wrap animate-in"><table class="health-table"><thead><tr>';
-    html += '<th>Station</th><th>Zone</th><th>Radio Samples</th><th>Avg FwPwr</th><th>Avg RevPwr</th><th>Max RevPwr</th><th>High RevPwr</th><th>GPS Health</th><th>GPS Issues</th>';
-    html += '</tr></thead><tbody>';
-
-    data.stations.forEach(function(s) {
-      const r = s.radio || {};
-      const g = s.gps || {};
-      const sheetInfo = stationIdMap[s.stationId] || {};
-      const name = sheetInfo.name || s.stationCode;
-      const revClass = (r.avgRevPwr || 0) > 0.5 ? 'badge-bad' : (r.avgRevPwr || 0) > 0.2 ? 'badge-warn' : 'badge-ok';
-      const gpsClass = (g.healthScore || 0) >= 95 ? 'badge-ok' : (g.healthScore || 0) >= 80 ? 'badge-warn' : 'badge-bad';
-      const gpsIssues = (g.gps1AntennaIssues || 0) + (g.gps2AntennaIssues || 0) + (g.gps1FixIssues || 0) + (g.gps2FixIssues || 0);
-
-      html += '<tr>';
-      html += '<td><strong>' + name + '</strong> <span class="mono" style="color:var(--text3)">' + s.stationId + '</span></td>';
-      html += '<td>' + s.zone + '</td>';
-      html += '<td class="mono">' + (r.count || '—') + '</td>';
-      html += '<td class="mono">' + (r.avgFwPwr != null ? r.avgFwPwr + ' W' : '—') + '</td>';
-      html += '<td class="mono ' + revClass + '">' + (r.avgRevPwr != null ? r.avgRevPwr + ' W' : '—') + '</td>';
-      html += '<td class="mono">' + (r.maxRevPwr != null ? r.maxRevPwr + ' W' : '—') + '</td>';
-      html += '<td class="mono ' + ((r.highRevPwrCount || 0) > 0 ? 'badge-warn' : '') + '">' + (r.highRevPwrCount != null ? r.highRevPwrCount : '—') + '</td>';
-      html += '<td class="mono ' + gpsClass + '">' + (g.healthScore != null ? g.healthScore + '%' : '—') + '</td>';
-      html += '<td class="mono ' + (gpsIssues > 0 ? 'badge-warn' : '') + '">' + (g.count ? gpsIssues : '—') + '</td>';
-      html += '</tr>';
-    });
-    html += '</tbody></table></div>';
-
-    main.innerHTML = html;
-  } catch (err) {
-    main.innerHTML = '<div class="state-msg"><div class="icon">⚠️</div><h3>Could not load overview</h3><p>' + err.message + '</p></div>';
+  /* KPIs */
+  h+='<div class="kpi-row">';
+  if(radio.count>0){h+='<div class="kpi teal"><div class="kpi-label">Total Samples</div><div class="kpi-value">'+radio.count.toLocaleString()+'</div><div class="kpi-sub">'+(radio.dateRange||'')+'</div></div>'}
+  if(r1.count>0){
+    h+='<div class="kpi teal"><div class="kpi-label">R1 FwPwr</div><div class="kpi-value">'+r1.avgFwPwr+' W</div><div class="kpi-sub">'+r1.count+' samples · Min '+r1.minFwPwr+'W</div></div>';
+    h+='<div class="kpi '+(r1.avgRevPwr>0.5?'red':r1.avgRevPwr>0.2?'orange':'teal')+'"><div class="kpi-label">R1 RevPwr</div><div class="kpi-value">'+r1.avgRevPwr+' W</div><div class="kpi-sub">Max '+r1.maxRevPwr+'W · '+r1.highRevPwrCount+' alerts</div></div>';
   }
+  if(r2.count>0){
+    h+='<div class="kpi blue"><div class="kpi-label">R2 FwPwr</div><div class="kpi-value">'+r2.avgFwPwr+' W</div><div class="kpi-sub">'+r2.count+' samples · Min '+r2.minFwPwr+'W</div></div>';
+    h+='<div class="kpi '+(r2.avgRevPwr>0.5?'red':r2.avgRevPwr>0.2?'orange':'blue')+'"><div class="kpi-label">R2 RevPwr</div><div class="kpi-value">'+r2.avgRevPwr+' W</div><div class="kpi-sub">Max '+r2.maxRevPwr+'W · '+r2.highRevPwrCount+' alerts</div></div>';
+  }
+  if(gps.count>0){
+    h+='<div class="kpi '+(gps.healthScore>=95?'teal':gps.healthScore>=80?'gold':'red')+'"><div class="kpi-label">GPS Health</div><div class="kpi-value">'+gps.healthScore+'%</div><div class="kpi-sub">'+gps.count+' samples</div></div>';
+    h+='<div class="kpi '+(gps.gps1AntennaIssues+gps.gps2AntennaIssues>0?'orange':'teal')+'"><div class="kpi-label">Antenna</div><div class="kpi-value">'+(gps.gps1AntennaIssues+gps.gps2AntennaIssues)+'</div><div class="kpi-sub">G1:'+gps.gps1AntennaIssues+' G2:'+gps.gps2AntennaIssues+'</div></div>';
+    h+='<div class="kpi '+(gps.gps1Resets+gps.gps2Resets>0?'orange':'teal')+'"><div class="kpi-label">Resets</div><div class="kpi-value">'+(gps.gps1Resets+gps.gps2Resets)+'</div><div class="kpi-sub">G1:'+gps.gps1Resets+' G2:'+gps.gps2Resets+'</div></div>';
+  }
+  if(!radio.count&&!gps.count){h+='<div class="kpi orange"><div class="kpi-label">Status</div><div class="kpi-value">No Data</div></div>'}
+  h+='</div>';
+
+  /* Radio Charts */
+  if(radio.count>0){
+    h+='<div class="section-label"><div class="bar" style="background:#3ABBB0"></div>Radio Power — Radio 1 vs Radio 2</div>';
+    h+='<div class="g2">';
+    h+='<div class="card"><div class="card-title"><span class="dot"></span>Daily Forward Power (FwPwr)</div><div style="position:relative;height:260px"><canvas id="fwC"></canvas></div></div>';
+    h+='<div class="card"><div class="card-title"><span class="dot" style="background:var(--warn)"></span>Daily Max Reflected Power (RevPwr)</div><div style="position:relative;height:260px"><canvas id="rvC"></canvas></div></div>';
+    h+='</div>';
+    h+='<div class="g2">';
+    h+='<div class="card"><div class="card-title"><span class="dot" style="background:var(--accent2)"></span>Daily Tx Current</div><div style="position:relative;height:240px"><canvas id="txC"></canvas></div></div>';
+    h+='<div class="card"><div class="card-title"><span class="dot" style="background:var(--gold)"></span>Combined RevPwr Anomaly</div><div style="position:relative;height:240px"><canvas id="anC"></canvas></div></div>';
+    h+='</div>';
+  }
+
+  /* GPS Charts */
+  if(gps.count>0){
+    h+='<div class="section-label"><div class="bar" style="background:var(--gold)"></div>GPS Health — Antenna & Fix Status</div>';
+    h+='<div class="g1"><div class="card"><div class="card-title"><span class="dot" style="background:var(--gold)"></span>GPS Daily Health</div><div style="position:relative;height:240px"><canvas id="gpC"></canvas></div></div></div>';
+  }
+
+  /* Debug if empty */
+  if(!radio.count&&!gps.count){
+    h+='<div class="card" style="margin-top:16px"><pre style="font-size:.7rem;color:var(--text2);overflow:auto;max-height:300px">';
+    h+='Radio: '+JSON.stringify(rd,null,2)+'\nGPS: '+JSON.stringify(gd,null,2);
+    h+='</pre></div>';
+  }
+
+  document.getElementById('main').innerHTML=h;
+  setTimeout(function(){renderCharts(radio,gps,null,null)},60);
 }
 
-// ============================================================
-// INIT
-// ============================================================
-
-async function init() {
-  const online = await checkServer();
-
-  // Fetch Station ID sheets from Google Sheets (non-blocking)
+/* Main load */
+function loadData(){
+  var sid=document.getElementById('selStn').value;
+  var mo=document.getElementById('selMo').value;
+  if(!sid){alert('Select a station');return}
+  document.getElementById('main').innerHTML='<div class="state-msg"><div class="spinner"></div><h3>Loading '+sid+'…</h3></div>';
   Promise.all([
-    fetchStationIdSheet('ER'),
-    fetchStationIdSheet('ECR')
-  ]).then(function(results) {
-    results.flat().forEach(function(entry) {
-      stationIdMap[entry.id] = entry;
-    });
-    console.log('Station ID map loaded:', Object.keys(stationIdMap).length, 'entries');
-    // Reload station list with names if server is online
-    if (online) loadStationList();
+    fetch(API+'/api/radio/'+sid+(mo?'?month='+mo:'')).then(function(r){return r.json()}).catch(function(e){return{error:e.message}}),
+    fetch(API+'/api/gps/'+sid+(mo?'?month='+mo:'')).then(function(r){return r.json()}).catch(function(e){return{error:e.message}})
+  ]).then(function(res){
+    savedRadio=res[0];savedGps=res[1];
+    buildPage();
+  }).catch(function(e){
+    document.getElementById('main').innerHTML='<div class="state-msg"><div class="icon">⚠️</div><h3>Error</h3><p>'+e.message+'</p></div>';
   });
-
-  if (online) {
-    await loadStationList();
-  } else {
-    document.getElementById('initialState').innerHTML =
-      '<div class="icon">🔌</div><h3>Server Not Running</h3>' +
-      '<p>Start the diagnostics server first:</p>' +
-      '<p style="margin-top:12px"><code>python kavach_diagnostics_server.py</code></p>' +
-      '<p style="margin-top:8px">or double-click <code>start_diagnostics_server.bat</code></p>' +
-      '<p style="margin-top:16px;color:var(--text3)">The server reads station data from <code>\\\\10.10.28.13</code> and serves it at <code>localhost:5050</code></p>';
-  }
-
-  // Also handle station select change to enable/disable load button
-  document.getElementById('stationSelect').addEventListener('change', function() {
-    document.getElementById('loadBtn').disabled = !this.value;
-  });
-
-  // Re-check server every 30 seconds
-  setInterval(checkServer, 30000);
 }
 
+/* Init */
+function init(){
+  checkServer().then(function(on){
+    Promise.all([fetchIds('ER'),fetchIds('ECR')]).then(function(r){
+      var flat=r[0].concat(r[1]);
+      flat.forEach(function(e){idMap[e.id]=e});
+      if(on)loadStationList();
+    });
+    if(on){loadStationList()}
+    else{document.getElementById('main').innerHTML='<div class="state-msg"><div class="icon">🔌</div><h3>Server Offline</h3><p>Run <code>python kavach_diagnostics_server.py</code></p></div>'}
+  });
+  document.getElementById('selStn').addEventListener('change',function(){document.getElementById('loadBtn').disabled=!this.value});
+  setInterval(checkServer,30000);
+}
 init();
 </script>
 </body>
